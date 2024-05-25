@@ -1,3 +1,4 @@
+Eric Shao
 Richard Kozyak
 Christian
 Brian Chen
