@@ -1,6 +1,6 @@
-Eric Shao
 Richard Kozyak
+Khoa Bui
+Eric Shao
 Christian
 Brian Chen
-eric
 Alex Wang
