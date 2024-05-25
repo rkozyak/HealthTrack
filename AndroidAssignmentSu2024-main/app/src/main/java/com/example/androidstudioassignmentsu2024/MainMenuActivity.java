@@ -15,10 +15,25 @@ public class MainMenuActivity extends AppCompatActivity {
         Button btnCreateFlashcard = findViewById(R.id.btnCreateFlashcard);
         Button btnStartQuiz = findViewById(R.id.btnStartQuiz);
 
-
         // TODO 1: Program the btnCreateFlashcard and btnStartQuiz to trigger intents
         //  Intent should switch the activity on screen to CreateFlashcardActivity when btnCreateFlashcard is clicked
-        //  Intent should switch the activity on screen to QuizActivity when btnStartQuiz is clicked
+        btnCreateFlashcard.setOnClickListener(new View.OnClickListener(){
 
+            public void onClick(View v) {
+                // create an intent to start a second activity
+                Intent intent  = new Intent(MainMenuActivity.this, CreateFlashcardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //  Intent should switch the activity on screen to QuizActivity when btnStartQuiz is clicked
+        btnStartQuiz.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v) {
+                // create an intent to start a second activity
+                Intent intent  = new Intent(MainMenuActivity.this, QuizActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
