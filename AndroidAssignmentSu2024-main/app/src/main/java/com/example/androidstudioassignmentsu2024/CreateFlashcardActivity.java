@@ -22,10 +22,10 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         // TODO 3: Program the btnSaveFlashcard button as a callback for saveFlashcardData
         // After the data is saved, the button should also have the application return to the main screen automatically
 
-        saveFlashcardData(etQuestion, etAnswer);
         btnSaveFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveFlashcardData(etQuestion, etAnswer);
                 Intent intent = new Intent(CreateFlashcardActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
