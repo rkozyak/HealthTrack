@@ -19,7 +19,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         // TODO 6: Retreive flashcard list from singleton implementation
-
+        flashcards = FlashcardManagerSingleton.getInstance().getFlashcards();
 
 
         // DO NOT MODIFY!
