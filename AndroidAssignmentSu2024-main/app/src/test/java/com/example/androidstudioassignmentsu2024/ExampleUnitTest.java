@@ -11,18 +11,19 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
 
+    public void setup() {
+	FlashcardManagerSingleton flashcards = new FlashcardManagerSingleton();
+	Flashcard flashcard1 = new Flashcard("1", "2");
+	Flashcard flashcard2 = new Flashcard("3", "4");
+	Flashcard flashcard3 = new Flashcard("5", "6");
+    } 
     // TODO 7: Write a unit test for ensuring correct behavior of the addFlashcard function you implemented in TODO 2 in FlashcardManagerSingletons
     @Test
     public void add_flashcard_test() {
-	FlashcardManagerSingleton flashcardTest = new FlashcardManagerSingleton();
-	Flashcard flashcard = new Flashcard("1+1","2");
-	Flashcard flashcard2 = new Flashcard("2+2","4");
-	flashcardTest.addFlashcard(flashcard);
-	flashcardTest.addFlashcard(flashcard2);
-	for(int i = 0; i < flashcardTest.getFlashcards(); i++) {
-	    System.out.println("Flashcard #" + (i + 1) + ":");
-	    System.out.println("Question: " + flashcardTest.getFlashcards().get(i).getQuestion());
-	    System.out.println("Answer: " + flashcardTest.getFlashcards().get(i).getAnswer());
-	}
+        flashcards.add(flashcard1);
+	flashcards.add(flashcard2);
+	flashcards.add(flashcard3);
+
+	assertEquals(3, flashcards.size());
     }
 }
