@@ -1,5 +1,12 @@
 # Android Assignment
 
+Brian: 6
+Christian: 3
+Richard: 1, 4, 5
+Alex: 7
+Khoa: 2
+Eric: Video
+
 In this assignment will be completing the implmentation of a basic flashcard app by filling in 7 different TODOs represting missing parts of a fully functionaly app. 
 
 The app will have three Activities, `MainMenuActivity`, `CreateFlashcardActivity`, and `QuizActivity.` These act as a navbar, flashcard configuration, and quiz tool, repsectively.
