@@ -2,6 +2,6 @@
 Richard Kozyak
 Khoa Bui
 Eric Shao
-Christian
+Christian Chin
 Brian Chen
 Alex Wang
