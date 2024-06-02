@@ -4,7 +4,8 @@ Brian: 6
 Christian: 3
 Richard: 1, 4, 5
 Alex: 7
-Khoa:Video
+Khoa: 2
+Eric: Video
 
 In this assignment will be completing the implmentation of a basic flashcard app by filling in 7 different TODOs represting missing parts of a fully functionaly app. 
 
