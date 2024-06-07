@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        //Log.d(TAG, "On Create Call");
+        Log.d(TAG, "On Create Call");
 
         // Main Viewmode
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
