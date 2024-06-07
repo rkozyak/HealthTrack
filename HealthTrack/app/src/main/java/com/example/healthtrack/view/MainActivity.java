@@ -1,17 +1,18 @@
 package com.example.healthtrack.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-//data binding import
+import android.view.View;
 
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healthtrack.R;
+import com.example.healthtrack.databinding.ActivityMainBinding;
+import com.example.healthtrack.viewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +23,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Use data binding to inflate the layout
-        //ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        //Log.d(TAG, "On Create Call");
+
+        // Main Viewmode
+        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        // Bind Videmodel to layout (does not work)
+        //binding.setVariable(BR.viewModel, viewModel);
+        //binding.setLifecycleOwner(this);
+
     }
 }
