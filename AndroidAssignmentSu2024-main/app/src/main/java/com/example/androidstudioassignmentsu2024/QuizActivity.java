@@ -15,7 +15,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO 5: Set content view to activity_quiz.xml file and assign respective TextViews and button to XML bindings
-        // HINT: look at the error messages below to see what you should name the differnt entities
+        // HINT: look at the error messages below to see what you should name the different entities
         setContentView(R.layout.activity_quiz);
         Button btnShowAnswer = findViewById(R.id.btnShowAnswer);
         Button btnNextFlashcard = findViewById(R.id.btnNextFlashcard);
