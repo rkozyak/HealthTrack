@@ -1,4 +1,3 @@
-
-
+We followed the MVVM architecture by packaging our model, viewModel, and view into com.example.healthtrack.model, com.example.healthtrack.viewModel, and com.example.healthtrack.view respectively. Our model package contains User.java, which represents the data layer of our project. Our view package contains various files that are responsible for the UI of the software and how the user interacts with the software. Finally, our viewmodel package contains various files that act as intermediaries for view and model to manage the data from the UI while still maintaining a separation between view and model.
 
 For our project management tool, we used Trello to visualize our workflow and properly assign responsibilities. We created a shared board on Trello with multiple lists representing work to be done in each sprint, tasks that we are currently working on (with users attached to keep track of who is working on what), and work that has already been completed. 
