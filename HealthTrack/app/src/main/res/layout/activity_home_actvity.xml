@@ -7,4 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".view.HomeActvity">
 
+    <Button
+        android:id="@+id/caloriesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:text="Calories"
+        app:layout_constraintEnd_toStartOf="@+id/trackerButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/trackerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:text="Tracker"
+        app:layout_constraintEnd_toStartOf="@+id/workoutsButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/workoutsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:text="Workouts"
+        app:layout_constraintEnd_toStartOf="@+id/communityButton"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/communityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:text="Community"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="301dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
