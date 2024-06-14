@@ -16,7 +16,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home_actvity);
+        setContentView(R.layout.activity_home_activity);
 
         // Calorie Button
         Button openCalorieButton = findViewById(R.id.caloriesButton);
