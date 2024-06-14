@@ -9,7 +9,7 @@ public class AccountCreationViewModel extends ViewModel {
         accountCreationResult = new MutableLiveData<>();
     }
 
-    public void createAccount(String username, String password) {
+    public void createAccount(String username, String password, String confirmPassword) {
         if (username == null || username.contains(" ")) {
             accountCreationResult.setValue("Invalid Username");
             return;
@@ -19,6 +19,13 @@ public class AccountCreationViewModel extends ViewModel {
             accountCreationResult.setValue("Invalid Password");
             return;
         }
+
+        if (confirmPassword == null || confirmPassword.contains(" ") || !confirmPassword.equals(password)) {
+            accountCreationResult.setValue("Password Does Not Match");
+            return;
+        }
+
+        accountCreationResult.setValue("");
     }
 
     public MutableLiveData<String> getAccountCreationResult() {
