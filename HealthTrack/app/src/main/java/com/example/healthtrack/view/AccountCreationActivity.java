@@ -50,7 +50,7 @@ public class AccountCreationActivity extends AppCompatActivity {
             public void onChanged(String result) {
                 if (result.isEmpty()) {
                     // Create an Intent to go back to Login
-                    Intent intent = new Intent(AccountCreationActivity.this, login.class);
+                    Intent intent = new Intent(AccountCreationActivity.this, LoginActivity.class);
                     // Go to Login
                     startActivity(intent);
                 } else {
