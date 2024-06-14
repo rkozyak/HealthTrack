@@ -11,14 +11,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AccountCreationViewModel extends ViewModel {
     private MutableLiveData<String> accountCreationResult;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
+    private DatabaseReference database;
     private FirebaseAuth auth;
 
     public AccountCreationViewModel() {
         accountCreationResult = new MutableLiveData<>();
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
+        database = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
     }
 
@@ -44,17 +42,17 @@ public class AccountCreationViewModel extends ViewModel {
                         FirebaseUser user = auth.getCurrentUser();
                         if (user != null) {
                             User userDetails = new User(username, password);
-                            myRef.child("users").child(user.getUid()).setValue(userDetails)
+                            database.child("users").child(user.getUid()).setValue(userDetails)
                                     .addOnCompleteListener(dbTask -> {
                                         if (dbTask.isSuccessful()) {
                                             accountCreationResult.setValue("");
                                         } else {
-                                            accountCreationResult.setValue("Database Error");
+                                            accountCreationResult.setValue(dbTask.getException().getMessage());
                                         }
                                     });
                         }
                     } else {
-                        accountCreationResult.setValue("Authentication Error");
+                        accountCreationResult.setValue(task.getException().getMessage());
                     }
                 });
     }

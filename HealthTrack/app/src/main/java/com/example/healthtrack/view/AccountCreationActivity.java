@@ -20,9 +20,7 @@ import com.example.healthtrack.viewModel.AccountCreationViewModel;
 
 public class AccountCreationActivity extends AppCompatActivity {
     private AccountCreationViewModel accountCreationViewModel;
-    private EditText editTextUsername;
-    private EditText editTextPassword;
-    private EditText editTextConfirmPassword;
+    private EditText editTextUsername, editTextPassword, editTextConfirmPassword;
     private TextView textResult;
 
     @Override
@@ -70,6 +68,19 @@ public class AccountCreationActivity extends AppCompatActivity {
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
                 accountCreationViewModel.createAccount(username, password, confirmPassword);
+            }
+        });
+
+        // Find the button by its ID
+        Button buttonToLogin = findViewById(R.id.btn_to_login);
+
+        buttonToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to go back to Login
+                Intent intent = new Intent(AccountCreationActivity.this, LoginActivity.class);
+                // Go to Login
+                startActivity(intent);
             }
         });
     }
