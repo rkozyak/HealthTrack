@@ -7,13 +7,10 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthtrack.R;
 
-public class HomeActvity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +22,7 @@ public class HomeActvity extends AppCompatActivity {
         Button openCalorieButton = findViewById(R.id.caloriesButton);
         openCalorieButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent  = new Intent(HomeActvity.this, CalorieTracking.class);
+                Intent intent  = new Intent(HomeActivity.this, CalorieTracking.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +31,7 @@ public class HomeActvity extends AppCompatActivity {
         Button openTrackerButton = findViewById(R.id.trackerButton);
         openTrackerButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent  = new Intent(HomeActvity.this, WorkoutTracker.class);
+                Intent intent  = new Intent(HomeActivity.this, WorkoutTracker.class);
                 startActivity(intent);
             }
             });
@@ -43,7 +40,7 @@ public class HomeActvity extends AppCompatActivity {
         Button openWorkoutsButton = findViewById(R.id.workoutsButton);
         openWorkoutsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent  = new Intent(HomeActvity.this, WorkoutPlans.class);
+                Intent intent  = new Intent(HomeActivity.this, WorkoutPlans.class);
                 startActivity(intent);
             }
             });
@@ -52,7 +49,7 @@ public class HomeActvity extends AppCompatActivity {
         Button openCommunityButton = findViewById(R.id.communityButton);
         openCommunityButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent  = new Intent(HomeActvity.this, CommunityScreen.class);
+                Intent intent  = new Intent(HomeActivity.this, CommunityScreen.class);
                 startActivity(intent);
             }
             });

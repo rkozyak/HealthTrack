@@ -15,12 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.healthtrack.BR;
 import com.example.healthtrack.R;
-import com.example.healthtrack.databinding.ActivityMainBinding;
 import com.example.healthtrack.viewModel.AccountCreationViewModel;
-
-import org.w3c.dom.Text;
 
 public class AccountCreationActivity extends AppCompatActivity {
     private AccountCreationViewModel accountCreationViewModel;
@@ -66,7 +62,7 @@ public class AccountCreationActivity extends AppCompatActivity {
                 accountCreationViewModel.createAccount(username, password);
 
                 // Create an Intent to go back to Login
-                Intent intent = new Intent(AccountCreationActivity.this, login.class);
+                Intent intent = new Intent(AccountCreationActivity.this, LoginActivity.class);
 
                 // Go to Login
                 startActivity(intent);
