@@ -26,6 +26,7 @@ public class AccountCreationActivity extends AppCompatActivity {
     private AccountCreationViewModel accountCreationViewModel;
     private EditText editTextUsername;
     private EditText editTextPassword;
+    private EditText editTextConfirmPassword;
     private TextView textResult;
 
     @Override
@@ -36,6 +37,7 @@ public class AccountCreationActivity extends AppCompatActivity {
 
         editTextUsername = findViewById(R.id.edit_text_username);
         editTextPassword = findViewById(R.id.edit_text_password);
+        editTextConfirmPassword = findViewById(R.id.edit_text_confirm_password);
         textResult = findViewById(R.id.text_result);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -50,7 +52,14 @@ public class AccountCreationActivity extends AppCompatActivity {
         accountCreationViewModel.getAccountCreationResult().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String result) {
-                textResult.setText(result);
+                if (result.isEmpty()) {
+                    // Create an Intent to go back to Login
+                    Intent intent = new Intent(AccountCreationActivity.this, login.class);
+                    // Go to Login
+                    startActivity(intent);
+                } else {
+                    textResult.setText(result);
+                }
             }
         });
 
@@ -62,14 +71,9 @@ public class AccountCreationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = editTextUsername.getText().toString();
                 String password = editTextPassword.getText().toString();
+                String confirmPassword = editTextConfirmPassword.getText().toString();
 
-                accountCreationViewModel.createAccount(username, password);
-
-                // Create an Intent to go back to Login
-                Intent intent = new Intent(AccountCreationActivity.this, login.class);
-
-                // Go to Login
-                startActivity(intent);
+                accountCreationViewModel.createAccount(username, password, confirmPassword);
             }
         });
     }
