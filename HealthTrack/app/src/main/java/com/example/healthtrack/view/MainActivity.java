@@ -1,14 +1,11 @@
 package com.example.healthtrack.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healthtrack.R;
@@ -17,7 +14,7 @@ import com.example.healthtrack.viewModel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

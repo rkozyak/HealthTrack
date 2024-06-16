@@ -2,7 +2,6 @@ package com.example.healthtrack.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,16 +9,13 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthtrack.R;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +52,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                if (username.isEmpty() || username.contains(" ") || username == null) {
-                    Toast.makeText(LoginActivity.this, "Invalid Username", Toast.LENGTH_SHORT).show();
+                if (username.isEmpty() || username.contains(" ")) {
+                    Toast.makeText(LoginActivity.this, "Invalid Username",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (password.isEmpty() || password.contains(" ") || password == null) {
-                    Toast.makeText(LoginActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
+                if (password.isEmpty() || password.contains(" ")) {
+                    Toast.makeText(LoginActivity.this, "Invalid Password",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     } else {
-                        Toast.makeText(LoginActivity.this, "Please Check Your Login Credentials", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,
+                                "Please Check Your Login Credentials", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
