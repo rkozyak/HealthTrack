@@ -54,20 +54,32 @@
         android:id="@+id/btnBrowse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:alpha=".5"
+        android:fontFamily="@font/darker_grotesque_semibold"
         android:padding="14dp"
         android:text="Browse"
         android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slogan"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias=".5" />
+        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintWidth_percent=".7" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:alpha=".5"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:textStyle="bold"
+        android:textSize="19sp"
         android:padding="14dp"
         android:text="Register"
         android:textAllCaps="false"
@@ -75,13 +87,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBrowse"
-        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintWidth_percent=".7"
         app:layout_constraintVertical_bias="0" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:alpha=".5"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:textStyle="bold"
+        android:textSize="19sp"
         android:padding="14dp"
         android:text="Log in"
         android:textAllCaps="false"
@@ -89,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
-        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintWidth_percent=".7"
         app:layout_constraintVertical_bias="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
