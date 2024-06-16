@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "870062238137",
+    "firebase_url": "https://healthtrack-beb1f-default-rtdb.firebaseio.com",
+    "project_id": "healthtrack-beb1f",
+    "storage_bucket": "healthtrack-beb1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870062238137:android:381bbdafb95320a31b6e68",
+        "android_client_info": {
+          "package_name": "com.example.healthtrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870062238137-3gn58kv30rh4h1psnpqitbko8phgkc8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj0SfrLg7m3nh80LCZh9miOzbyfAOs9tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870062238137-3gn58kv30rh4h1psnpqitbko8phgkc8k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
