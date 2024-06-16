@@ -31,8 +31,9 @@ public class AccountCreationViewModel extends ViewModel {
             return;
         }
 
-        if (confirmPassword == null || confirmPassword.isEmpty() || confirmPassword.contains(" ") || !confirmPassword.equals(password)) {
-            accountCreationResult.setValue("Password Does Not Match");
+        if (confirmPassword == null || confirmPassword.isEmpty() || confirmPassword.contains(" ")
+                || !confirmPassword.equals(password)) {
+            accountCreationResult.setValue("Passwords Do Not Match");
             return;
         }
 
@@ -47,7 +48,8 @@ public class AccountCreationViewModel extends ViewModel {
                                         if (dbTask.isSuccessful()) {
                                             accountCreationResult.setValue("");
                                         } else {
-                                            accountCreationResult.setValue(dbTask.getException().getMessage());
+                                            accountCreationResult.setValue(dbTask.getException()
+                                                    .getMessage());
                                         }
                                     });
                         }

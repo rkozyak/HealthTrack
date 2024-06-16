@@ -20,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Calorie Button
         Button openCalorieButton = findViewById(R.id.caloriesButton);
-        openCalorieButton.setOnClickListener(new View.OnClickListener(){
+        openCalorieButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent  = new Intent(HomeActivity.this, CalorieTracking.class);
                 startActivity(intent);
@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Tracker Button
         Button openTrackerButton = findViewById(R.id.trackerButton);
-        openTrackerButton.setOnClickListener(new View.OnClickListener(){
+        openTrackerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent  = new Intent(HomeActivity.this, WorkoutTracker.class);
                 startActivity(intent);
@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Workouts Button
         Button openWorkoutsButton = findViewById(R.id.workoutsButton);
-        openWorkoutsButton.setOnClickListener(new View.OnClickListener(){
+        openWorkoutsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent  = new Intent(HomeActivity.this, WorkoutPlans.class);
                 startActivity(intent);
@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Community Button
         Button openCommunityButton = findViewById(R.id.communityButton);
-        openCommunityButton.setOnClickListener(new View.OnClickListener(){
+        openCommunityButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent  = new Intent(HomeActivity.this, CommunityScreen.class);
                 startActivity(intent);

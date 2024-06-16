@@ -20,7 +20,9 @@ import com.example.healthtrack.viewModel.AccountCreationViewModel;
 
 public class AccountCreationActivity extends AppCompatActivity {
     private AccountCreationViewModel accountCreationViewModel;
-    private EditText editTextUsername, editTextPassword, editTextConfirmPassword;
+    private EditText editTextUsername;
+    private EditText editTextPassword;
+    private EditText editTextConfirmPassword;
     private TextView textResult;
 
     @Override

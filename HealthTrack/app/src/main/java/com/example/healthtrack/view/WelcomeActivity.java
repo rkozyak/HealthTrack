@@ -39,7 +39,8 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        // Intent should switch the activity on screen to AccountCreationActivity when btnRegister is clicked
+        // Intent should switch the activity on screen to AccountCreationActivity when
+        // btnRegister is clicked
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // create an intent to start a second activity
