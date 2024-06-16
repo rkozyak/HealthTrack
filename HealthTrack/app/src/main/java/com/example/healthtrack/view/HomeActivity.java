@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent  = new Intent(HomeActivity.this, WorkoutTracker.class);
                 startActivity(intent);
             }
-            });
+        });
 
         // Workouts Button
         Button openWorkoutsButton = findViewById(R.id.workoutsButton);
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent  = new Intent(HomeActivity.this, WorkoutPlans.class);
                 startActivity(intent);
             }
-            });
+        });
 
         // Community Button
         Button openCommunityButton = findViewById(R.id.communityButton);
@@ -52,6 +52,6 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent  = new Intent(HomeActivity.this, CommunityScreen.class);
                 startActivity(intent);
             }
-            });
+        });
     }
 }
