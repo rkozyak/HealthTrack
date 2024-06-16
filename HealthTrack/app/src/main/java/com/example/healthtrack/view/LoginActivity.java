@@ -56,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = usernameInput.getText().toString();
                 String password = passwordInput.getText().toString();
-                if (username.isEmpty() || username.contains(" ")) {
+                if (username.isEmpty() || username.contains(" ") || username == null) {
                     Toast.makeText(LoginActivity.this, "Invalid Username", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (password.isEmpty() || password.contains(" ")) {
+                if (password.isEmpty() || password.contains(" ") || password == null) {
                     Toast.makeText(LoginActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
