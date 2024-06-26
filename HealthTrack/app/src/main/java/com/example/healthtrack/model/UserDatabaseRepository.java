@@ -15,8 +15,8 @@ public class UserDatabaseRepository {
         db.child(user.getUserId()).setValue(user, completionListener);
     }
 
-    public void updatePersonalInformation(String userId, int height, int weight, String gender,
-                                          DatabaseReference.CompletionListener completionListener) {
+    public void updateUserInformation(String userId, Integer height, Integer weight, String gender,
+                                      DatabaseReference.CompletionListener completionListener) {
         db.child(userId).child("height").setValue(height, completionListener);
         db.child(userId).child("weight").setValue(weight, completionListener);
         db.child(userId).child("gender").setValue(gender, completionListener);
