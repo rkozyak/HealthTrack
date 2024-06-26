@@ -1,12 +1,21 @@
 package com.example.healthtrack.model;
 
 public class User {
+    private String userId;
     private String username;
-    private String password;
+    private Integer height;
+    private Integer weight;
+    private String gender;
 
-    public User(String username, String password) {
+    public User(String userId, String username) {
+        this.userId = userId;
         this.username = username;
-        this.password = password;
+    }
+
+    public void updatePersonalInformation(Integer height, Integer weight, String gender) {
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
     }
 
     public String getUsername() {
@@ -17,11 +26,7 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public String getUserId() {
+        return userId;
     }
 }
