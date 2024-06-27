@@ -9,14 +9,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class AccountCreationViewModel extends ViewModel {
+public class UserViewModel extends ViewModel {
     private MutableLiveData<String> accountCreationResult;
+    private MutableLiveData<String> updateUserInformationResult;
     private UserDatabaseRepository userDatabaseRepository;
     private FirebaseAuth auth;
 
-    public AccountCreationViewModel() {
+    public UserViewModel() {
         accountCreationResult = new MutableLiveData<>();
         userDatabaseRepository = new UserDatabaseRepository();
         auth = FirebaseAuth.getInstance();
@@ -45,19 +45,7 @@ public class AccountCreationViewModel extends ViewModel {
                         FirebaseUser user = auth.getCurrentUser();
                         if (user != null) {
                             User userDetails = new User(user.getUid(), username);
-                            userDatabaseRepository.addUser(userDetails,
-                                    new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(DatabaseError databaseError,
-                                                       DatabaseReference databaseReference) {
-                                        if (databaseError != null) {
-                                            accountCreationResult.setValue("Database Error");
-                                        } else {
-                                            accountCreationResult.
-                                                    setValue("");
-                                        }
-                                    }
-                                });
+                            addUser(userDetails);
                         }
                     } else {
                         accountCreationResult.setValue(task.getException().getMessage());
@@ -65,7 +53,42 @@ public class AccountCreationViewModel extends ViewModel {
                 });
     }
 
+    public void addUser(User user) {
+        userDatabaseRepository.addUser(user, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError,
+                                   DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    accountCreationResult.setValue("Database Error");
+                } else {
+                    accountCreationResult.setValue("User Added Successfully");
+                }
+            }
+        });
+    }
+
+    public void updateUserInformation(String userId, Integer height, Integer weight, String gender,
+                                      DatabaseReference.CompletionListener completionListener) {
+        userDatabaseRepository.updateUserInformation(userId, height, weight, gender,
+                new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError,
+                                       DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        updateUserInformationResult.setValue("Error Updating User Information");
+                    } else {
+                        updateUserInformationResult.
+                                setValue("User Information Updated Successfully");
+                    }
+                }
+            });
+    }
+
     public MutableLiveData<String> getAccountCreationResult() {
         return accountCreationResult;
+    }
+
+    public MutableLiveData<String> getUpdateUserInformationResult() {
+        return updateUserInformationResult;
     }
 }

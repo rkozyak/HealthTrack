@@ -7,6 +7,8 @@ public class User {
     private Integer weight;
     private String gender;
 
+    public User() {
+    }
     public User(String userId, String username) {
         this.userId = userId;
         this.username = username;

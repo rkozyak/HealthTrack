@@ -16,10 +16,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healthtrack.R;
-import com.example.healthtrack.viewModel.AccountCreationViewModel;
+import com.example.healthtrack.viewModel.UserViewModel;
 
 public class AccountCreationActivity extends AppCompatActivity {
-    private AccountCreationViewModel accountCreationViewModel;
+    private UserViewModel userViewModel;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
@@ -43,9 +43,9 @@ public class AccountCreationActivity extends AppCompatActivity {
         });
 
         // Create ViewModel
-        accountCreationViewModel = new ViewModelProvider(this).get(AccountCreationViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        accountCreationViewModel.getAccountCreationResult().observe(this, new Observer<String>() {
+        userViewModel.getAccountCreationResult().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String result) {
                 if (result.isEmpty()) {
@@ -69,7 +69,7 @@ public class AccountCreationActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
-                accountCreationViewModel.createAccount(username, password, confirmPassword);
+                userViewModel.createAccount(username, password, confirmPassword);
             }
         });
 
