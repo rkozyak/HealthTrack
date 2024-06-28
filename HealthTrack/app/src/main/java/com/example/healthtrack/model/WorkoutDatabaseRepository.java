@@ -13,6 +13,11 @@ public class WorkoutDatabaseRepository {
 
     public void addWorkout(User user, Workout workout,
                            DatabaseReference.CompletionListener completionListener) {
-        db.child(user.getUserId()).child(workout.getName()).setValue(workout, completionListener);
+        DatabaseReference userRef = db.child(user.getUserId());
+        String workoutId = userRef.push().getKey();
+
+        if (workoutId != null) {
+            userRef.child(workoutId).setValue(workout, completionListener);
+        }
     }
 }
