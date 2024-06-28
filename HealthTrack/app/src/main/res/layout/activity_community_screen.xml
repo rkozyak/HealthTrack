@@ -68,8 +68,7 @@
         android:text="Workout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/communityButton"
-        app:layout_constraintStart_toEndOf="@+id/trackerButton"
-        />
+        app:layout_constraintStart_toEndOf="@+id/trackerButton"/>
 
     <Button
         android:id="@+id/communityButton"
