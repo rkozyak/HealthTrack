@@ -3,7 +3,6 @@ package com.example.healthtrack.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.healthtrack.model.User;
 import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutDatabaseRepository;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +17,8 @@ public class WorkoutViewModel extends ViewModel {
         addWorkoutResult = new MutableLiveData<>();
     }
 
-    public void addWorkout(User user, Workout workout) {
-        workoutDatabaseRepository.addWorkout(user, workout,
+    public void addWorkout(String userId, Workout workout) {
+        workoutDatabaseRepository.addWorkout(userId, workout,
                 new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError,

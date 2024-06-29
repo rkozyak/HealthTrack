@@ -157,8 +157,8 @@ public class WelcomeActivity extends AppCompatActivity {
                                     USER1_WORKOUT2_CALORIES, USER1_WORKOUT2_SETS,
                                     USER1_WORKOUT2_REPS, USER1_WORKOUT2_NOTES);
 
-                            workoutViewModel.addWorkout(user1, workout1User1);
-                            workoutViewModel.addWorkout(user1, workout2User1);
+                            workoutViewModel.addWorkout(userId1, workout1User1);
+                            workoutViewModel.addWorkout(userId1, workout2User1);
                             Log.d(TAG, "Workouts for User 1 added.");
                         } else {
                             Log.e(TAG, "FirebaseUser1 is null.");
@@ -190,8 +190,8 @@ public class WelcomeActivity extends AppCompatActivity {
                                     USER2_WORKOUT2_CALORIES, USER2_WORKOUT2_SETS,
                                     USER2_WORKOUT2_REPS, USER2_WORKOUT2_NOTES);
 
-                            workoutViewModel.addWorkout(user2, workout1User2);
-                            workoutViewModel.addWorkout(user2, workout2User2);
+                            workoutViewModel.addWorkout(userId2, workout1User2);
+                            workoutViewModel.addWorkout(userId2, workout2User2);
                             Log.d(TAG, "Workouts for User 2 added.");
                         } else {
                             Log.e(TAG, "FirebaseUser2 is null.");
