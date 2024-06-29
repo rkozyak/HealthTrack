@@ -18,6 +18,15 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_activity);
 
+        // Login Button
+        Button loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent  = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Calorie Button
         Button openCalorieButton = findViewById(R.id.caloriesButton);
         openCalorieButton.setOnClickListener(new View.OnClickListener() {

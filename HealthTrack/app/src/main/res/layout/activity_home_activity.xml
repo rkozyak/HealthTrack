@@ -29,13 +29,13 @@
         app:layout_constraintHorizontal_bias="0.5" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_tracker_back"
+        android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@color/black"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/darker_grotesque_semibold"
-        android:text="HOME"
+        android:text="LOGIN"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp"
