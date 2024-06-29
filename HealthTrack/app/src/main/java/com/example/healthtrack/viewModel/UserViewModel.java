@@ -61,15 +61,17 @@ public class UserViewModel extends ViewModel {
                 if (databaseError != null) {
                     accountCreationResult.setValue("Database Error");
                 } else {
-                    accountCreationResult.setValue("User Added Successfully");
+                    // Do not show the result if account creation is successful,
+                    // redirect to login page
+                    accountCreationResult.setValue("");
                 }
             }
         });
     }
 
-    public void updateUserInformation(String userId, Integer height, Integer weight,
+    public void updateUserInformation(String userId, String name, Integer height, Integer weight,
                                       String gender) {
-        userDatabaseRepository.updateUserInformation(userId, height, weight, gender,
+        userDatabaseRepository.updateUserInformation(userId, name, height, weight, gender,
                 new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError,
