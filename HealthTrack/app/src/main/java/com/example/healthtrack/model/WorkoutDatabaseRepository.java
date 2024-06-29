@@ -11,9 +11,9 @@ public class WorkoutDatabaseRepository {
         db = workoutDatabase.getDatabaseReference();
     }
 
-    public void addWorkout(User user, Workout workout,
+    public void addWorkout(String userId, Workout workout,
                            DatabaseReference.CompletionListener completionListener) {
-        DatabaseReference userRef = db.child(user.getUserId());
+        DatabaseReference userRef = db.child(userId);
         String workoutId = userRef.push().getKey();
 
         if (workoutId != null) {

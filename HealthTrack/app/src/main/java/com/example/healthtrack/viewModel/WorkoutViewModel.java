@@ -18,8 +18,8 @@ public class WorkoutViewModel extends ViewModel {
         addWorkoutResult = new MutableLiveData<>();
     }
 
-    public void addWorkout(User user, Workout workout) {
-        workoutDatabaseRepository.addWorkout(user, workout,
+    public void addWorkout(String userId, Workout workout) {
+        workoutDatabaseRepository.addWorkout(userId, workout,
                 new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError,
