@@ -15,7 +15,8 @@ public class User {
         this.username = username;
     }
 
-    public void updatePersonalInformation(String name, Integer height, Integer weight, String gender) {
+    public void updatePersonalInformation(String name, Integer height, Integer weight,
+                                          String gender) {
         this.name = name;
         this.height = height;
         this.weight = weight;

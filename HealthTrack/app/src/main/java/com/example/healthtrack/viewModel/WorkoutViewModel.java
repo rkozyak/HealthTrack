@@ -3,7 +3,6 @@ package com.example.healthtrack.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.healthtrack.model.User;
 import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutDatabaseRepository;
 import com.google.firebase.database.DatabaseError;
