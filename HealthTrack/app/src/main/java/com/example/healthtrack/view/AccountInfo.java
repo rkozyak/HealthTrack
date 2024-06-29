@@ -21,11 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 
 public class AccountInfo extends AppCompatActivity {
 
-    // Varrabiles
+    // Variables
     private EditText editTextName;
     private EditText editTextHeight;
     private EditText editTextWeight;
@@ -89,22 +88,26 @@ public class AccountInfo extends AppCompatActivity {
 
 
         // Save to firebase somehow? i followed a random Youtube tutorial so idk if it works
-        userDatabaseRepository.updateUserInformation(userId, heightInt, weightInt, gender, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    // yes error
-                    Toast.makeText(AccountInfo.this, "Failed to save information", Toast.LENGTH_SHORT).show();
-                } else {
-                    // no error
-                    Toast.makeText(AccountInfo.this, "Information saved successfully", Toast.LENGTH_SHORT).show();
+        userDatabaseRepository.updateUserInformation(userId, heightInt, weightInt, gender,
+                new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError,
+                                       DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        // yes error
+                        Toast.makeText(AccountInfo.this, "Failed to save information",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        // no error
+                        Toast.makeText(AccountInfo.this, "Information saved successfully",
+                                Toast.LENGTH_SHORT).show();
 
-                    // go back to home page
-                    Intent intent = new Intent(AccountInfo.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                        // go back to home page
+                        Intent intent = new Intent(AccountInfo.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
-            }
-        });
+            });
     }
 }
