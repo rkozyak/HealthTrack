@@ -28,6 +28,7 @@ public class AccountInfo extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextHeight;
     private EditText editTextWeight;
+    private EditText editTextOtherGender;
     private RadioGroup radioGroupGender;
     private Button buttonSave;
     private UserDatabaseRepository userDatabaseRepository;
@@ -48,6 +49,17 @@ public class AccountInfo extends AppCompatActivity {
         editTextHeight = findViewById(R.id.editTextHeight);
         editTextWeight = findViewById(R.id.editTextWeight);
         radioGroupGender = findViewById(R.id.radioGroupGender);
+        editTextOtherGender = findViewById(R.id.editTextOtherGender);
+        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioOther) {
+                    editTextOtherGender.setVisibility(View.VISIBLE);
+                } else {
+                    editTextOtherGender.setVisibility(View.GONE);
+                }
+            }
+        });
         buttonSave = findViewById(R.id.buttonSave);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +77,12 @@ public class AccountInfo extends AppCompatActivity {
         String weight = editTextWeight.getText().toString();
         int genderId = radioGroupGender.getCheckedRadioButtonId();
         RadioButton selectedGender = findViewById(genderId);
-        String gender = selectedGender.getText().toString();
+        String gender;
+        if (selectedGender.getText().toString().equals("Other...")) {
+            gender = editTextOtherGender.getText().toString();
+        } else {
+            gender = selectedGender.getText().toString();
+        }
 
         // Check if everything was inputted
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(height) || TextUtils.isEmpty(weight)) {
@@ -84,11 +101,11 @@ public class AccountInfo extends AppCompatActivity {
 
         // Create new user object
         User user = new User(userId, name);
-        user.updatePersonalInformation(heightInt, weightInt, gender);
+        user.updatePersonalInformation(name, heightInt, weightInt, gender);
 
 
         // Save to firebase somehow? i followed a random Youtube tutorial so idk if it works
-        userDatabaseRepository.updateUserInformation(userId, heightInt, weightInt, gender,
+        userDatabaseRepository.updateUserInformation(userId, name, heightInt, weightInt, gender,
                 new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError,

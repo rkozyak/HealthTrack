@@ -31,6 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
     // Constants
     private static final String USER1_EMAIL = "user1@gmail.com";
     private static final String USER1_PASSWORD = "user1password";
+    private static final String USER1_NAME = "User1";
     private static final Integer USER1_HEIGHT = 180;
     private static final Integer USER1_WEIGHT = 70;
     private static final String USER1_GENDER = "Male";
@@ -49,6 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static final String USER2_EMAIL = "user2@gmail.com";
     private static final String USER2_PASSWORD = "user2password";
+    private static final String USER2_NAME = "User2";
     private static final Integer USER2_HEIGHT = 160;
     private static final Integer USER2_WEIGHT = 50;
     private static final String USER2_GENDER = "Female";
@@ -145,8 +147,8 @@ public class WelcomeActivity extends AppCompatActivity {
                             Log.d(TAG, "User 1 created with UID: " + userId1);
 
                             userViewModel.addUser(user1);
-                            userViewModel.updateUserInformation(userId1, USER1_HEIGHT, USER1_WEIGHT,
-                                    USER1_GENDER);
+                            userViewModel.updateUserInformation(userId1, USER1_NAME, USER1_HEIGHT,
+                                    USER1_WEIGHT, USER1_GENDER);
 
                             Workout workout1User1 = new Workout(userId1, USER1_WORKOUT1_NAME,
                                     USER1_WORKOUT1_CALORIES, USER1_WORKOUT1_SETS,
@@ -177,8 +179,8 @@ public class WelcomeActivity extends AppCompatActivity {
                             Log.d(TAG, "User 2 created with UID: " + userId2);
 
                             userViewModel.addUser(user2);
-                            userViewModel.updateUserInformation(userId2, USER2_HEIGHT, USER2_WEIGHT,
-                                    USER2_GENDER);
+                            userViewModel.updateUserInformation(userId2, USER2_NAME, USER2_HEIGHT,
+                                    USER2_WEIGHT, USER2_GENDER);
 
 
                             Workout workout1User2 = new Workout(userId2, USER2_WORKOUT1_NAME,

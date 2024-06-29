@@ -3,6 +3,7 @@ package com.example.healthtrack.model;
 public class User {
     private String userId;
     private String username;
+    private String name;
     private Integer height;
     private Integer weight;
     private String gender;
@@ -14,7 +15,8 @@ public class User {
         this.username = username;
     }
 
-    public void updatePersonalInformation(Integer height, Integer weight, String gender) {
+    public void updatePersonalInformation(String name, Integer height, Integer weight, String gender) {
+        this.name = name;
         this.height = height;
         this.weight = weight;
         this.gender = gender;

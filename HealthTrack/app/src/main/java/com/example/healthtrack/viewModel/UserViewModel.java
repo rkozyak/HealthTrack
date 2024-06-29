@@ -69,9 +69,9 @@ public class UserViewModel extends ViewModel {
         });
     }
 
-    public void updateUserInformation(String userId, Integer height, Integer weight,
+    public void updateUserInformation(String userId, String name, Integer height, Integer weight,
                                       String gender) {
-        userDatabaseRepository.updateUserInformation(userId, height, weight, gender,
+        userDatabaseRepository.updateUserInformation(userId, name, height, weight, gender,
                 new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError,
