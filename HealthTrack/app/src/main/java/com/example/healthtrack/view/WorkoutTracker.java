@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.WorkoutDatabaseRepository;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
-import com.example.healthtrack.model.User;
 import com.example.healthtrack.model.Workout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +35,7 @@ public class WorkoutTracker extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_workout_tracker);
 
+        mAuth = FirebaseAuth.getInstance();
         workoutDatabaseRepository = new WorkoutDatabaseRepository();
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
 
@@ -89,6 +90,8 @@ public class WorkoutTracker extends AppCompatActivity {
                 showPopupWindow();
             }
         });
+
+
     }
 
     private void showPopupWindow() {
@@ -140,21 +143,7 @@ public class WorkoutTracker extends AppCompatActivity {
 
                 Workout workout = new Workout(userId, name, setsInt, repsInt, calsInt, notes);
                 // Save data to Firebase
-                workoutDatabaseRepository.addWorkout(userId, workout, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError,
-                                           DatabaseReference databaseReference) {
-                        if (databaseError != null) {
-                            // yes error
-                            Toast.makeText(WorkoutTracker.this, "Failed to save information",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            // no error
-                            Toast.makeText(WorkoutTracker.this, "Information saved successfully",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                workoutViewModel.addWorkout(userId, workout);
 
                 // Dismiss the popup window
                 popupWindow.dismiss();
