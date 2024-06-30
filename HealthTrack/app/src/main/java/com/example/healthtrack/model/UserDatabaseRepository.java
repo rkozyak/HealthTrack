@@ -23,4 +23,9 @@ public class UserDatabaseRepository {
         db.child(userId).child("weight").setValue(weight, completionListener);
         db.child(userId).child("gender").setValue(gender, completionListener);
     }
+
+    // used to return user reference
+    public DatabaseReference getUserReference(String userId) {
+        return db.child(userId);
+    }
 }

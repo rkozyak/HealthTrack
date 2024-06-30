@@ -34,4 +34,21 @@ public class User {
     public String getUserId() {
         return userId;
     }
+
+    // Returns user's name
+    public String getName() {
+        return name;
+    }
+
+    // Returns user's height
+    public Integer getHeight() {
+        return height;
+    }
+
+    // Returns user's weight
+    public Integer getWeight() {
+        return weight;
+    }
+
+    // Returns user's gender
 }
