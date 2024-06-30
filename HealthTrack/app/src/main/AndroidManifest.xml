@@ -13,8 +13,11 @@
         android:theme="@style/Theme.HealthTrack"
         tools:targetApi="31">
         <activity
+            android:name=".view.AccountInfo"
+            android:exported="false" />
+        <activity
             android:name=".view.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
