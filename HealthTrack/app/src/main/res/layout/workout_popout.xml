@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Workout Name"/>
+
+    <EditText
+        android:id="@+id/editSets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sets Completed"/>
+
+    <EditText
+        android:id="@+id/editSetReps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reps Per Set"/>
+
+    <EditText
+        android:id="@+id/editCaloriesPerRep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Calories Per Rep"/>
+    <EditText
+        android:id="@+id/editNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"/>
+
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+</LinearLayout>
