@@ -34,6 +34,7 @@ public class AccountInfo extends AppCompatActivity {
     private EditText editTextOtherGender;
     private RadioGroup radioGroupGender;
     private Button buttonSave;
+    private Button buttonLogout;
     private UserDatabaseRepository userDatabaseRepository;
     private FirebaseAuth mAuth;
 
@@ -63,8 +64,10 @@ public class AccountInfo extends AppCompatActivity {
                 }
             }
         });
-        buttonSave = findViewById(R.id.buttonSave);
 
+
+        // Save button
+        buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +75,16 @@ public class AccountInfo extends AppCompatActivity {
             }
         });
 
+        // Logout Button
+        buttonLogout = findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+        // Load user info
         loadUserInfo();
     }
 
@@ -115,7 +128,6 @@ public class AccountInfo extends AppCompatActivity {
         });
 
     }
-
 
     // Saves the User Changes
     private void saveUserInfo() {
@@ -174,5 +186,13 @@ public class AccountInfo extends AppCompatActivity {
                     }
                 }
             });
+    }
+
+    // Logs User out of current account
+    public void logout() {
+        mAuth.signOut();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
