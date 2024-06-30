@@ -28,7 +28,7 @@ public class QuizActivity extends AppCompatActivity {
 
         // DO NOT MODIFY!
         updateQuestionAndAnswer(tvQuestion, tvAnswer);
-
+        
         btnShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

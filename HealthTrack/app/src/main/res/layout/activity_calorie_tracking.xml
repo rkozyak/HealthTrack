@@ -23,9 +23,72 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         android:layout_marginBottom="32dp"
         app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/calories_burnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:alpha="0.5"
+        android:fontFamily="@font/federo"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/separator_display"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_calorie_tracking_header" />
+
+    <TextView
+        android:id="@+id/separator_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="195dp"
+        android:layout_marginEnd="195dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/federo"
+        android:text="/"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_calorie_tracking_header" />
+
+    <TextView
+        android:id="@+id/calories_to_burn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/federo"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle=""
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/separator_display"
+        app:layout_constraintTop_toBottomOf="@+id/text_calorie_tracking_header" />
+
+    <TextView
+        android:id="@+id/text_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Goal calculated from saved information"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:alpha="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="0dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_calorie_back"
@@ -43,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_calorie_tracking_header"
+        app:layout_constraintTop_toBottomOf="@+id/calories_burnt"
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -78,8 +141,8 @@
         android:text="TRACKER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintEnd_toStartOf="@+id/workoutsButton"
-        app:layout_constraintStart_toEndOf="@+id/caloriesButton"/>
+        app:layout_constraintStart_toEndOf="@+id/caloriesButton"
+        app:layout_constraintEnd_toStartOf="@+id/workoutsButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/workoutsButton"
