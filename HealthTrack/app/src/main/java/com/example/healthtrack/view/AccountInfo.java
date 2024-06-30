@@ -12,15 +12,18 @@ import android.widget.RadioButton;
 
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.User;
 import com.example.healthtrack.model.UserDatabaseRepository;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class AccountInfo extends AppCompatActivity {
 
@@ -31,6 +34,7 @@ public class AccountInfo extends AppCompatActivity {
     private EditText editTextOtherGender;
     private RadioGroup radioGroupGender;
     private Button buttonSave;
+    private Button buttonLogout;
     private UserDatabaseRepository userDatabaseRepository;
     private FirebaseAuth mAuth;
 
@@ -60,16 +64,83 @@ public class AccountInfo extends AppCompatActivity {
                 }
             }
         });
-        buttonSave = findViewById(R.id.buttonSave);
 
+
+        // Save button
+        buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserInfo();
             }
         });
+
+        // Logout Button
+        buttonLogout = findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+        // Load user info
+        loadUserInfo();
     }
 
+
+    // Loads the Users Current information
+    private void loadUserInfo() {
+        // get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is logged in
+        if (currentUser == null) {
+            // no user
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // get user info
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = userDatabaseRepository.getUserReference(userId);
+
+        // Listen for changes and get user info
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (user != null) {
+                    // set text to user info
+                    editTextName.setText(user.getName());
+                    editTextHeight.setText(user.getHeight() != null ? String.valueOf(user.getHeight()) : "");
+                    editTextWeight.setText(user.getWeight() != null ? String.valueOf(user.getWeight()) : "");
+
+                    // sets user's gender
+                    if (user.getGender() != null) {
+                        if (user.getGender().equals("Male")) {
+                            radioGroupGender.check(R.id.radioMale);
+                        } else if (user.getGender().equals("Female")) {
+                            radioGroupGender.check(R.id.radioFemale);
+                        } else {
+                            radioGroupGender.check(R.id.radioOther);
+                            editTextOtherGender.setText(user.getGender());
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // say error about not getting userData
+                Toast.makeText(AccountInfo.this, "Failed to load user information", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    // Saves the User Changes
     private void saveUserInfo() {
         // save info inside text fields to variables
         String name = editTextName.getText().toString();
@@ -126,5 +197,13 @@ public class AccountInfo extends AppCompatActivity {
                     }
                 }
             });
+    }
+
+    // Logs User out of current account
+    public void logout() {
+        mAuth.signOut();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
