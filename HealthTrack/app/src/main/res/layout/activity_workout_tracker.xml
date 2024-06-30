@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".view.WorkoutTracker">
 
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/text_workout_tracker_header"
+        app:layout_constraintBottom_toTopOf="@+id/addWorkout"/>
     <TextView
         android:id="@+id/text_workout_tracker_header"
         android:layout_width="wrap_content"
@@ -81,5 +88,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/workoutsButton"
         android:textSize="10sp"/>
+
+    <Button
+        android:id="@+id/addWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:background="@color/black"
+        android:text="Add Workout"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_tracker_back"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

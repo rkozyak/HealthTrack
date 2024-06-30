@@ -19,7 +19,7 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     public void addWorkout(User user, Workout workout) {
-        workoutDatabaseRepository.addWorkout(user, workout,
+        workoutDatabaseRepository.addWorkout(user.getUserId(), workout,
                 new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError,
