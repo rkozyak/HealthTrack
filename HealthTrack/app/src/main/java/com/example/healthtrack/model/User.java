@@ -51,4 +51,7 @@ public class User {
     }
 
     // Returns user's gender
+    public String getGender() {
+        return gender;
+    }
 }

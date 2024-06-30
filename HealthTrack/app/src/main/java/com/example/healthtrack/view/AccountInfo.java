@@ -116,7 +116,18 @@ public class AccountInfo extends AppCompatActivity {
                     editTextHeight.setText(user.getHeight() != null ? String.valueOf(user.getHeight()) : "");
                     editTextWeight.setText(user.getWeight() != null ? String.valueOf(user.getWeight()) : "");
 
-                    // implement user's gender
+                    // sets user's gender
+                    if (user.getGender() != null) {
+                        if (user.getGender().equals("Male")) {
+                            radioGroupGender.check(R.id.radioMale);
+                        } else if (user.getGender().equals("Female")) {
+                            radioGroupGender.check(R.id.radioFemale);
+                        } else {
+                            radioGroupGender.check(R.id.radioOther);
+                            editTextOtherGender.setText(user.getGender());
+                        }
+                    }
+
                 }
             }
 
