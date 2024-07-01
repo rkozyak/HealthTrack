@@ -18,9 +18,10 @@
         android:id="@+id/idView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/text_calorie_tracking_header"/>
+        app:layout_constraintTop_toBottomOf="@id/text_workout_log_header"/>
+
     <TextView
-        android:id="@+id/text_calorie_tracking_header"
+        android:id="@+id/text_workout_log_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
@@ -129,13 +130,21 @@
 
     <Button
         android:id="@+id/addWorkout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:background="@color/black"
-        android:text="Add Workout"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="ADD WORKOUT"
+        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_tracker_back"/>
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_tracker_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_workout_log_header"
+        app:layout_constraintVertical_bias="0.95" />/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
