@@ -85,6 +85,11 @@ public class CalorieTracking extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Update Calories
+        mAuth = FirebaseAuth.getInstance();
+        userDatabaseRepository = new UserDatabaseRepository();
+        loadUserInfo();
     }
 
     private void loadUserInfo() {
