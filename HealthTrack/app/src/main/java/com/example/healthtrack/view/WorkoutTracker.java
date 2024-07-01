@@ -64,12 +64,12 @@ public class WorkoutTracker extends AppCompatActivity {
         WorkoutAdapter myArrayAdapter = new WorkoutAdapter(this, workoutArrayList);
         workoutListView = (ListView) findViewById(R.id.listView);
         workoutListView.setAdapter(myArrayAdapter);
-        workoutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showItemWindow(position);
-            }
-        });
+//        workoutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                showItemWindow(position);
+//            }
+//        });
 
         mRef.orderByChild("date").limitToLast(5).addChildEventListener(new ChildEventListener() {
             @Override
@@ -250,33 +250,33 @@ public class WorkoutTracker extends AppCompatActivity {
         });
     }
 
-    private void showItemWindow(int position) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.workout_item_popout, null);
-
-        // Create the PopupWindow
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // Lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        // Show the popup window
-        popupWindow.showAtLocation(getWindow().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
-
-        TextView name = popupView.findViewById(R.id.textName);
-        TextView sets = popupView.findViewById(R.id.textSets);
-        TextView reps = popupView.findViewById(R.id.textReps);
-        TextView cals = popupView.findViewById(R.id.textCaloriesPerSet);
-        TextView notes = popupView.findViewById(R.id.textNotes);
-
-        Workout currentWorkout = workoutArrayList.get(workoutArrayList.size() - 5 + position);
-
-        name.setText(currentWorkout.getName());
-        sets.setText(currentWorkout.getSets());
-        reps.setText(currentWorkout.getRepsPerSet());
-        cals.setText(currentWorkout.getCaloriesPerSet());
-        notes.setText(currentWorkout.getNotes());
-    }
+//    private void showItemWindow(int position) {
+//        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        View popupView = inflater.inflate(R.layout.workout_item_popout, null);
+//
+//        // Create the PopupWindow
+//        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        boolean focusable = true; // Lets taps outside the popup also dismiss it
+//        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+//
+//        // Show the popup window
+//        popupWindow.showAtLocation(getWindow().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
+//
+//        TextView name = popupView.findViewById(R.id.textName);
+//        TextView sets = popupView.findViewById(R.id.textSets);
+//        TextView reps = popupView.findViewById(R.id.textReps);
+//        TextView cals = popupView.findViewById(R.id.textCaloriesPerSet);
+//        TextView notes = popupView.findViewById(R.id.textNotes);
+//
+//        Workout currentWorkout = workoutArrayList.get(workoutArrayList.size() - 5 + position);
+//
+//        name.setText(currentWorkout.getName());
+//        sets.setText(currentWorkout.getSets());
+//        reps.setText(currentWorkout.getRepsPerSet());
+//        cals.setText(currentWorkout.getCaloriesPerSet());
+//        notes.setText(currentWorkout.getNotes());
+//    }
 
 
 
