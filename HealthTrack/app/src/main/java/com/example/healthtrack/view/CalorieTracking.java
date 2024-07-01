@@ -25,7 +25,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 public class CalorieTracking extends AppCompatActivity {
 
@@ -98,6 +105,28 @@ public class CalorieTracking extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userDatabaseRepository = new UserDatabaseRepository();
         loadUserInfo();
+
+        Button showChartBtn = findViewById(R.id.showChartButton);
+        showChartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PieChart pieChart = findViewById(R.id.chart);
+
+                ArrayList<PieEntry> entries = new ArrayList<>();
+                entries.add(new PieEntry(80f, "Calories Burnt"));
+                entries.add(new PieEntry(90f, "Calories to Burn"));
+
+                PieDataSet pieDataSet = new PieDataSet(entries, "Key");
+                pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+                PieData pieData = new PieData(pieDataSet);
+                pieChart.setData(pieData);
+
+                pieChart.getDescription().setEnabled(false);
+                pieChart.animateY(1000);
+                pieChart.invalidate();
+            }
+        });
     }
     
     private void loadUserInfo() {
