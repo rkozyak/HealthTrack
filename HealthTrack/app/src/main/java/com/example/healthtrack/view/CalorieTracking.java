@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,6 +113,7 @@ public class CalorieTracking extends AppCompatActivity {
 
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 entries.add(new PieEntry(totalCaloriesBurnt, "Calories Burnt"));
+
                 entries.add(new PieEntry((int)totalCaloriesGoal - totalCaloriesBurnt, "Calories to Burn"));
 
                 PieDataSet pieDataSet = new PieDataSet(entries, "Key");
@@ -151,14 +151,17 @@ public class CalorieTracking extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
                     if (user.getGender().equals("Male")) {
-                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 100;
+                        totalCaloriesGoal += 10 * user.getWeight()
+                                + (6.25 * user.getHeight()) - 100;
                         textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     } else if (user.getGender().equals("Female")) {
-                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 260;
+                        totalCaloriesGoal += 10 * user.getWeight()
+                                + (6.25 * user.getHeight()) - 260;
                         textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     } else {
                         // this estimated calculation is the average of male and female BMR
-                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 180;
+                        totalCaloriesGoal += 10 * user.getWeight()
+                                + (6.25 * user.getHeight()) - 180;
                         textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     }
                 } else {
@@ -171,15 +174,18 @@ public class CalorieTracking extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // say error about not getting userData
-                Toast.makeText(CalorieTracking.this, "Failed to load user information", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalorieTracking.this, "Failed to load user information",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         workoutDatabaseRepository = new WorkoutDatabaseRepository();
         DatabaseReference workout = workoutDatabaseRepository.getWorkoutsReference(userId);
         workout.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                HashMap<String,  Object> workoutData = (HashMap<String, Object>) snapshot.getValue();
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
+                HashMap<String,  Object> workoutData
+                        = (HashMap<String, Object>) snapshot.getValue();
                 Integer calPerSet = Integer.parseInt(workoutData.get("caloriesPerSet").toString());
                 Integer numSet = Integer.parseInt(workoutData.get("sets").toString());
                 totalCaloriesBurnt += calPerSet * numSet;
@@ -187,7 +193,8 @@ public class CalorieTracking extends AppCompatActivity {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
 
             }
 
@@ -197,7 +204,8 @@ public class CalorieTracking extends AppCompatActivity {
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
 
             }
 

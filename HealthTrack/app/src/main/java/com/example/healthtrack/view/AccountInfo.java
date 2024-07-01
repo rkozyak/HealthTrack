@@ -113,8 +113,10 @@ public class AccountInfo extends AppCompatActivity {
                 if (user != null) {
                     // set text to user info
                     editTextName.setText(user.getName());
-                    editTextHeight.setText(user.getHeight() != null ? String.valueOf(user.getHeight()) : "");
-                    editTextWeight.setText(user.getWeight() != null ? String.valueOf(user.getWeight()) : "");
+                    editTextHeight.setText(user.getHeight() != null
+                            ? String.valueOf(user.getHeight()) : "");
+                    editTextWeight.setText(user.getWeight() != null
+                            ? String.valueOf(user.getWeight()) : "");
 
                     // sets user's gender
                     if (user.getGender() != null) {
@@ -134,7 +136,8 @@ public class AccountInfo extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // say error about not getting userData
-                Toast.makeText(AccountInfo.this, "Failed to load user information", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AccountInfo.this, "Failed to load user information",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

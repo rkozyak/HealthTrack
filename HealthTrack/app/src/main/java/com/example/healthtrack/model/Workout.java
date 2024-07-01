@@ -57,7 +57,9 @@ public class Workout {
         return notes;
     }
 
-    public Date getDate() {return date;}
+    public Date getDate() {
+        return date;
+    }
 
     public String toString() {
         return name;
