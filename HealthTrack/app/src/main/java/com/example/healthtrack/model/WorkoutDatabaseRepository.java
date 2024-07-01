@@ -20,4 +20,9 @@ public class WorkoutDatabaseRepository {
             userRef.child(workoutId).setValue(workout, completionListener);
         }
     }
+
+    //Note: Gets USER SPECIFIC workouts
+    public DatabaseReference getWorkoutsReference(String userId) {
+        return db.child(userId);
+    }
 }

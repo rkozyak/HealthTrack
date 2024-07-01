@@ -6,14 +6,19 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,21 +28,116 @@ import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.example.healthtrack.model.Workout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 public class WorkoutTracker extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private DatabaseReference mRef;
     private WorkoutDatabaseRepository workoutDatabaseRepository;
     private WorkoutViewModel workoutViewModel;
+    private ListView workoutListView;
+    ArrayList<Workout> workoutArrayList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_workout_tracker);
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        String userId = currentUser.getUid();
         workoutDatabaseRepository = new WorkoutDatabaseRepository();
+        mRef = workoutDatabaseRepository.getWorkoutsReference(userId);
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+
+        workoutArrayList = new ArrayList<>();
+        WorkoutAdapter myArrayAdapter = new WorkoutAdapter(this, workoutArrayList);
+        workoutListView = (ListView) findViewById(R.id.listView);
+        workoutListView.setAdapter(myArrayAdapter);
+        workoutListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showItemWindow(position);
+            }
+        });
+
+        mRef.orderByChild("date").limitToLast(5).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (workoutArrayList.size() < 5) {
+                    HashMap<String, Object> workoutData = (HashMap<String, Object>) snapshot.getValue();
+                    HashMap<String, Object> dateMap = (HashMap<String, Object>) workoutData.get("date");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, Integer.parseInt(dateMap.get("year").toString()) + 1900);
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateMap.get("date").toString()));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(dateMap.get("month").toString()));
+
+                    Date date = calendar.getTime();
+                    String UID = (String) workoutData.get("userId");
+                    String name = (String) workoutData.get("name");
+                    String notes = (String) workoutData.get("notes");
+                    Integer calsPerSet = Integer.parseInt(workoutData.get("caloriesPerSet").toString());
+                    Integer repsPerSet = Integer.parseInt(workoutData.get("repsPerSet").toString());
+                    Integer sets = Integer.parseInt(workoutData.get("sets").toString());
+
+                    Workout workout = new Workout(UID, name, calsPerSet,
+                            sets, repsPerSet, notes, date);
+                    workoutArrayList.add(workout);
+                    myArrayAdapter.notifyDataSetChanged();
+                } else {
+                    workoutArrayList.remove(0);
+
+                    HashMap<String, Object> workoutData = (HashMap<String, Object>) snapshot.getValue();
+                    HashMap<String, Object> dateMap = (HashMap<String, Object>) workoutData.get("date");
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, Integer.parseInt(dateMap.get("year").toString()) + 1900);
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateMap.get("date").toString()));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(dateMap.get("month").toString()));
+
+                    Date date = calendar.getTime();
+                    String UID = (String) workoutData.get("userId");
+                    String name = (String) workoutData.get("name");
+                    String notes = (String) workoutData.get("notes");
+                    Integer calsPerSet = Integer.parseInt(workoutData.get("caloriesPerSet").toString());
+                    Integer repsPerSet = Integer.parseInt(workoutData.get("repsPerSet").toString());
+                    Integer sets = Integer.parseInt(workoutData.get("sets").toString());
+
+                    Workout workout = new Workout(UID, name, calsPerSet,
+                            sets, repsPerSet, notes, date);
+                    workoutArrayList.add(workout);
+                    myArrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                myArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                myArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                myArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {  }
+        });
+
 
         Button backButton = findViewById(R.id.btn_tracker_back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +195,6 @@ public class WorkoutTracker extends AppCompatActivity {
     }
 
     private void showPopupWindow() {
-        // Inflate the popup_layout.xml
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.workout_popout, null);
 
@@ -117,7 +216,7 @@ public class WorkoutTracker extends AppCompatActivity {
                 EditText editName = popupView.findViewById(R.id.editName);
                 EditText editSets = popupView.findViewById(R.id.editSets);
                 EditText editReps = popupView.findViewById(R.id.editSetReps);
-                EditText editCals = popupView.findViewById(R.id.editCaloriesPerRep);
+                EditText editCals = popupView.findViewById(R.id.editCaloriesPerSet);
                 EditText editNotes = popupView.findViewById(R.id.editNotes);
 
                 String name = editName.getText().toString();
@@ -149,6 +248,34 @@ public class WorkoutTracker extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+    }
+
+    private void showItemWindow(int position) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.workout_item_popout, null);
+
+        // Create the PopupWindow
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // Lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // Show the popup window
+        popupWindow.showAtLocation(getWindow().findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
+
+        TextView name = popupView.findViewById(R.id.textName);
+        TextView sets = popupView.findViewById(R.id.textSets);
+        TextView reps = popupView.findViewById(R.id.textReps);
+        TextView cals = popupView.findViewById(R.id.textCaloriesPerSet);
+        TextView notes = popupView.findViewById(R.id.textNotes);
+
+        Workout currentWorkout = workoutArrayList.get(workoutArrayList.size() - 5 + position);
+
+        name.setText(currentWorkout.getName());
+        sets.setText(currentWorkout.getSets());
+        reps.setText(currentWorkout.getRepsPerSet());
+        cals.setText(currentWorkout.getCaloriesPerSet());
+        notes.setText(currentWorkout.getNotes());
     }
 
 

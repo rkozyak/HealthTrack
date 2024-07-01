@@ -12,8 +12,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/text_workout_tracker_header"
-        app:layout_constraintBottom_toTopOf="@+id/addWorkout"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_calorie_tracking_header"/>
 
     <TextView
         android:id="@+id/idView"

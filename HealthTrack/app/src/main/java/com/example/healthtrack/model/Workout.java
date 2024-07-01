@@ -1,5 +1,7 @@
 package com.example.healthtrack.model;
 
+import java.util.Date;
+
 public class Workout {
     private String userId;
     private String name;
@@ -7,6 +9,7 @@ public class Workout {
     private Integer sets;
     private Integer repsPerSet;
     private String notes;
+    private Date date;
 
     public Workout(String userId, String name, Integer caloriesPerSet,
                    Integer sets, Integer repsPerSet, String notes) {
@@ -16,6 +19,18 @@ public class Workout {
         this.sets = sets;
         this.repsPerSet = repsPerSet;
         this.notes = notes;
+        date = new Date();
+    }
+
+    public Workout(String userId, String name, Integer caloriesPerSet,
+                   Integer sets, Integer repsPerSet, String notes, Date date) {
+        this.userId = userId;
+        this.name = name;
+        this.caloriesPerSet = caloriesPerSet;
+        this.sets = sets;
+        this.repsPerSet = repsPerSet;
+        this.notes = notes;
+        this.date = date;
     }
 
     public String getUserId() {
@@ -40,5 +55,11 @@ public class Workout {
 
     public String getNotes() {
         return notes;
+    }
+
+    public Date getDate() {return date;}
+
+    public String toString() {
+        return name;
     }
 }
