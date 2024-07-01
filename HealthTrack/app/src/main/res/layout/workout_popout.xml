@@ -24,10 +24,10 @@
         android:hint="Reps Per Set"/>
 
     <EditText
-        android:id="@+id/editCaloriesPerRep"
+        android:id="@+id/editCaloriesPerSet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Calories Per Rep"/>
+        android:hint="Calories Per Set"/>
     <EditText
         android:id="@+id/editNotes"
         android:layout_width="match_parent"
