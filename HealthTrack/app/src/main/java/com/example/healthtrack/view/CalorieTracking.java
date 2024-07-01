@@ -35,6 +35,7 @@ public class CalorieTracking extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private WorkoutDatabaseRepository workoutDatabaseRepository;
     private int totalCaloriesBurnt = 0;
+    private double totalCaloriesGoal = 0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -121,16 +122,20 @@ public class CalorieTracking extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 if (user != null) {
                     if (user.getGender().equals("Male")) {
-                        textViewCaloriesToBurn.setText(String.valueOf((10 * user.getWeight() + (6.25 * user.getHeight()) - 100)));
+                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 100;
+                        textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     } else if (user.getGender().equals("Female")) {
-                        textViewCaloriesToBurn.setText(String.valueOf((10 * user.getWeight() + (6.25 * user.getHeight()) - 260)));
+                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 260;
+                        textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     } else {
                         // this estimated calculation is the average of male and female BMR
-                        textViewCaloriesToBurn.setText(String.valueOf((10 * user.getWeight() + (6.25 * user.getHeight()) - 180)));
+                        totalCaloriesGoal += 10 * user.getWeight() + (6.25 * user.getHeight()) - 180;
+                        textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                     }
                 } else {
-                    textViewBurntCalories.setText("0");
-                    textViewCaloriesToBurn.setText("0");
+                    totalCaloriesGoal = 0;
+                    textViewBurntCalories.setText(String.valueOf(totalCaloriesGoal));
+                    textViewCaloriesToBurn.setText(String.valueOf(totalCaloriesGoal));
                 }
             }
 
