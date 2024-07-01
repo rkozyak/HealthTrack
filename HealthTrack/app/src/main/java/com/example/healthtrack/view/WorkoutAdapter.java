@@ -22,7 +22,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
     private List<Workout> workoutList = new ArrayList<>();
 
     public WorkoutAdapter(@NonNull Context context, ArrayList<Workout> list) {
-        super(context, 0 , list);
+        super(context, 0, list);
         mContext = context;
         workoutList = list;
     }
@@ -31,8 +31,10 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
-        if (listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.workout_list_item, parent, false);
+        if (listItem == null) {
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.workout_list_item, parent,
+                    false);
+        }
 
         Workout currentWorkout = workoutList.get(position);
 
@@ -40,7 +42,8 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
         calendar.setTime(currentWorkout.getDate());
 
         TextView date = (TextView) listItem.findViewById(R.id.date);
-        String dateFormat = calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.YEAR);
+        String dateFormat = calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
+                + "/" + calendar.get(Calendar.YEAR);
 
         date.setText(dateFormat);
 
