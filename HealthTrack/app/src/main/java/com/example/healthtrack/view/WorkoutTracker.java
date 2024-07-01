@@ -269,7 +269,7 @@ public class WorkoutTracker extends AppCompatActivity {
         TextView cals = popupView.findViewById(R.id.textCaloriesPerSet);
         TextView notes = popupView.findViewById(R.id.textNotes);
 
-        Workout currentWorkout = workoutArrayList.get(workoutArrayList.size() - 5 + position);
+        Workout currentWorkout = workoutArrayList.get(position);
 
         name.setText(currentWorkout.getName());
         sets.setText(currentWorkout.getSets());
