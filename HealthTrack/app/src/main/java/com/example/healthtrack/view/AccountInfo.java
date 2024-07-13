@@ -65,7 +65,6 @@ public class AccountInfo extends AppCompatActivity {
             }
         });
 
-
         // Save button
         buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +100,7 @@ public class AccountInfo extends AppCompatActivity {
             return;
         }
 
-        // get user info
+        // Get user info
         String userId = currentUser.getUid();
         DatabaseReference userRef = userDatabaseRepository.getUserReference(userId);
 
@@ -176,7 +175,6 @@ public class AccountInfo extends AppCompatActivity {
         // Create new user object
         User user = new User(userId, name);
         user.updatePersonalInformation(name, heightInt, weightInt, gender);
-
 
         // Save to firebase somehow? i followed a random Youtube tutorial so idk if it works
         userDatabaseRepository.updateUserInformation(userId, name, heightInt, weightInt, gender,
