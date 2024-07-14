@@ -14,12 +14,14 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutPlan;
+import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +40,7 @@ public class WorkoutPlans extends AppCompatActivity {
     DatabaseReference database;
     WorkoutPlanAdapter workoutPlanAdapter;
     ArrayList<WorkoutPlan> planList;
-    private WorkoutViewModel workoutViewModel;
+    private WorkoutPlanViewModel workoutPlanViewModel;
 
     private FirebaseAuth mAuth;
 
@@ -50,6 +52,7 @@ public class WorkoutPlans extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.planList);
         database = FirebaseDatabase.getInstance().getReference("workout plans");
+        workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -116,7 +119,7 @@ public class WorkoutPlans extends AppCompatActivity {
 
                 WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
                 // Save data to Firebase
-                workoutViewModel.addWorkoutPlan(userId, workoutPlan);
+                workoutPlanViewModel.addWorkoutPlan(userId, workoutPlan);
 
                 dialog.dismiss();
             }
