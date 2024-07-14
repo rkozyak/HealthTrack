@@ -115,4 +115,49 @@
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toEndOf="@+id/workoutsButton" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search"
+        app:layout_constraintTop_toBottomOf="@id/text_workout_plans_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"
+        android:id="@+id/planList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"/>
+
+    <Button
+        android:id="@+id/plan_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="Create new public workout plan"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/planList"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent=".7" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

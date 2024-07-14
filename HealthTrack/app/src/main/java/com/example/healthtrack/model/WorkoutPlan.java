@@ -57,5 +57,4 @@ public class WorkoutPlan {
 
     public String toString() {
         return name;
-    }
 }
