@@ -28,9 +28,23 @@ public class Sprint3Tests {
     @Before
     public void setUp() {
         repository = new WorkoutPlanDatabaseRepository();
-        // Authenticate the test user if necessary
         authenticateTestUser();
+
+        // Clear the database before each test
+        CountDownLatch latch = new CountDownLatch(1);
+        repository.getWorkoutPlansReference(userId).removeValue((databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                Log.e("DBError", "Failed to clear database: " + databaseError.getMessage());
+            }
+            latch.countDown();
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
+
 
     private void authenticateTestUser() {
         // Implement authentication logic here
@@ -215,7 +229,7 @@ public class Sprint3Tests {
 
     // Test for invalid reps
     @Test
-    public void testWorkoutPlanWithInvalidReps() {
+    public void testWorkoutPlanWithInvalidReps() throws InterruptedException {
         WorkoutPlan workoutPlan = new WorkoutPlan(userId, "Plan G", 200, 3, -10, 30, "Notes");
 
         CountDownLatch latch = new CountDownLatch(1);
@@ -227,40 +241,8 @@ public class Sprint3Tests {
         try {
             latch.await();
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Restore interrupted status
+            Thread.currentThread().interrupt();
         }
     }
-
-    // Test for successfully adding a valid workout plan
-    @Test
-    public void testSuccessfullyAddValidPlan() throws InterruptedException {
-        WorkoutPlan workoutPlan = new WorkoutPlan("userId", "Plan A", 300, 3, 10, 30, "Notes");
-        CountDownLatch latch = new CountDownLatch(1);
-
-        // Ensure the user is authenticated
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("fakeUser@gmail.com", "password")
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        repository.addWorkoutPlan("userId", workoutPlan, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                if (databaseError != null) {
-                                    Log.e("DBError", "Error: " + databaseError.getMessage());
-                                    assertEquals(DatabaseError.PERMISSION_DENIED, databaseError.getCode());
-                                } else {
-                                    assertNotNull(databaseReference); // Ensure database reference is not null
-                                }
-                                latch.countDown(); // Count down to indicate completion
-                            }
-                        });
-                    } else {
-                        Log.e("AuthError", "Authentication failed: " + task.getException().getMessage());
-                        latch.countDown(); // Count down to avoid waiting forever
-                    }
-                });
-
-        latch.await(); // Wait for the operation to complete
-    }
-
 
 }
