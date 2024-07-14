@@ -10,13 +10,14 @@ public class User {
 
     public User() {
     }
+
     public User(String userId, String username) {
         this.userId = userId;
         this.username = username;
     }
 
-    public void updatePersonalInformation(String name, Integer height, Integer weight,
-                                          String gender) {
+    public void updatePersonalInformation(String name, Integer height,
+                                          Integer weight, String gender) {
         this.name = name;
         this.height = height;
         this.weight = weight;

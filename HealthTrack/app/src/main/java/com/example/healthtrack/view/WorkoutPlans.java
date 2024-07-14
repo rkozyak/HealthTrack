@@ -4,12 +4,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.healthtrack.model.WorkoutPlan;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
-import com.example.healthtrack.model.Workout;
-import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,12 +30,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class WorkoutPlans extends AppCompatActivity {
-    Dialog dialog;
-    Button btnDialogAdd;
-    RecyclerView recyclerView;
-    DatabaseReference database;
-    WorkoutPlanAdapter workoutPlanAdapter;
-    ArrayList<WorkoutPlan> planList;
+    private Dialog dialog;
+    private Button btnDialogAdd;
+    private RecyclerView recyclerView;
+    private DatabaseReference database;
+    private WorkoutPlanAdapter workoutPlanAdapter;
+    private ArrayList<WorkoutPlan> planList;
     private WorkoutViewModel workoutViewModel;
 
     private FirebaseAuth mAuth;
