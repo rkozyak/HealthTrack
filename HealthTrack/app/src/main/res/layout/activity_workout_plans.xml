@@ -1,91 +1,163 @@
-package com.example.healthtrack.view;
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.WorkoutPlans">
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+    <TextView
+        android:id="@+id/text_workout_plans_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/federo"
+        android:textColor="@color/black"
+        android:text="WORKOUT PLANS"
+        android:textAlignment="center"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+        android:layout_marginBottom="32dp"
+        app:layout_constraintHorizontal_bias="0.5" />
 
-import com.example.healthtrack.R;
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_plans_back"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:text="HOME"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/trackerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_workout_plans_header"
+        app:layout_constraintVertical_bias="1.0" />
 
-public class WorkoutPlans extends AppCompatActivity {
-    Dialog dialog;
-    Button btnDialogAdd;
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_workout_plans);
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/caloriesButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="CALORIES"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/trackerButton"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0"/>
 
-        dialog = new Dialog(WorkoutPlans.this);
-        dialog.setContentView(R.layout.workout_plan_popout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
-        dialog.setCancelable(false);
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/trackerButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="TRACKER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/workoutsButton"
+        app:layout_constraintStart_toEndOf="@+id/caloriesButton"/>
 
-        btnDialogAdd = dialog.findViewById(R.id.publishPlan);
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/workoutsButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="WORKOUT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/communityButton"
+        app:layout_constraintStart_toEndOf="@+id/trackerButton"/>
 
-        btnDialogAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/communityButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="COMMUNITY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/workoutsButton" />
 
-        Button backButton = findViewById(R.id.btn_plans_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WorkoutPlans.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search"
+        app:layout_constraintTop_toBottomOf="@id/text_workout_plans_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 
-        // Calorie Button
-        Button openCalorieButton = findViewById(R.id.caloriesButton);
-        openCalorieButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent  = new Intent(WorkoutPlans.this, CalorieTracking.class);
-                startActivity(intent);
-            }
-        });
 
-        // Tracker Button
-        Button openTrackerButton = findViewById(R.id.trackerButton);
-        openTrackerButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent  = new Intent(WorkoutPlans.this, WorkoutTracker.class);
-                startActivity(intent);
-            }
-        });
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView" />
 
-        // Workouts Button
-        Button openWorkoutsButton = findViewById(R.id.workoutsButton);
-        openWorkoutsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent  = new Intent(WorkoutPlans.this, WorkoutPlans.class);
-                startActivity(intent);
-            }
-        });
+    <Button
+        android:id="@+id/plan_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="Create new public workout plan"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/listView"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent=".7" />
 
-        // Community Button
-        Button openCommunityButton = findViewById(R.id.communityButton);
-        openCommunityButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent  = new Intent(WorkoutPlans.this, CommunityScreen.class);
-                startActivity(intent);
-            }
-        });
-
-        Button createPlan = findViewById(R.id.plan_btn);
-        createPlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.show();
-            }
-        });
-    }
-}
+</androidx.constraintlayout.widget.ConstraintLayout>
