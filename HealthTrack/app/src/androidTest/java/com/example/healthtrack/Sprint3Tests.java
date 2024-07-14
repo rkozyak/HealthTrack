@@ -245,4 +245,73 @@ public class Sprint3Tests {
         }
     }
 
+    // test to make sure database is working fine
+    @Test
+    public void testAddAndRetrieveWorkoutPlan() throws InterruptedException {
+        WorkoutPlan workoutPlan = new WorkoutPlan(userId, "Plan H", 200, 3, 10, 30, "Notes");
+
+        CountDownLatch latch = new CountDownLatch(1);
+        repository.addWorkoutPlan(userId, workoutPlan, (databaseError, databaseReference) -> {
+            assertNull("Should not return an error when adding a valid workout plan", databaseError);
+
+            // Retrieve the workout plan to verify it was added correctly
+            repository.getWorkoutPlansReference(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    assertTrue("Workout plan should exist in the database", dataSnapshot.exists());
+                    latch.countDown();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    fail("Database retrieval was cancelled: " + databaseError.getMessage());
+                }
+            });
+        });
+
+        latch.await();
+    }
+
+    // test for invalid user id
+    @Test
+    public void testAddWorkoutPlanWithNullUserId() throws InterruptedException {
+        WorkoutPlan workoutPlan = new WorkoutPlan(null, "Plan L", 200, 3, 10, 30, "Notes");
+
+        CountDownLatch latch = new CountDownLatch(1);
+        repository.addWorkoutPlan(null, workoutPlan, (databaseError, databaseReference) -> {
+            assertNotNull("Should return error for null user ID", databaseError);
+            latch.countDown();
+        });
+
+        latch.await();
+    }
+
+    // test for negative calories but everything else is okay
+    @Test
+    public void testWorkoutPlanWithNegativeCaloriesButValidOthers() throws InterruptedException {
+        WorkoutPlan workoutPlan = new WorkoutPlan(userId, "Plan M", -100, 3, 10, 30, "Notes");
+
+        CountDownLatch latch = new CountDownLatch(1);
+        repository.addWorkoutPlan(userId, workoutPlan, (databaseError, databaseReference) -> {
+            assertNotNull("Should return error for negative calories", databaseError);
+            latch.countDown();
+        });
+
+        latch.await();
+    }
+
+    // test for valid name but invalid calories
+    @Test
+    public void testWorkoutPlanWithZeroCaloriesAndValidName() throws InterruptedException {
+        WorkoutPlan workoutPlan = new WorkoutPlan(userId, "Plan P", 0, 3, 10, 30, "Notes"); // Zero calories
+
+        CountDownLatch latch = new CountDownLatch(1);
+        repository.addWorkoutPlan(userId, workoutPlan, (databaseError, databaseReference) -> {
+            assertNotNull("Should return error for zero calories", databaseError);
+            latch.countDown();
+        });
+
+        latch.await();
+    }
+
 }
