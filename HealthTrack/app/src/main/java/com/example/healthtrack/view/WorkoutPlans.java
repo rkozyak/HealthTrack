@@ -177,7 +177,7 @@ public class WorkoutPlans extends AppCompatActivity {
                 WorkoutPlan workout = new WorkoutPlan(userId, workoutName, notes, setsInt, repsInt, time, calsInt);
                 // Save data to Firebase
                 workoutViewModel.addWorkout(userId, workout);
-                
+
             }
         });
     }
