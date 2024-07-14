@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ExampleInstrumentedTest {
 
     @Test
-    public void addition_isCorrect() {
+    public void additionIsCorrect() {
         assertEquals(4, 2 + 2);
     }
 
