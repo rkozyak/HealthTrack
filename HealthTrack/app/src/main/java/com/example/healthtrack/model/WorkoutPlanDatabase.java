@@ -8,7 +8,7 @@ public class WorkoutPlanDatabase {
     private DatabaseReference db;
 
     private WorkoutPlanDatabase() {
-        db = FirebaseDatabase.getInstance().getReference("workouts");
+        db = FirebaseDatabase.getInstance().getReference("workout plans");
     }
 
     public static WorkoutPlanDatabase getInstance() {
