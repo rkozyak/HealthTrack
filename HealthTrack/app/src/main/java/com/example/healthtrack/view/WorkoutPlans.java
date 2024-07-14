@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutPlan;
+import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,7 @@ public class WorkoutPlans extends AppCompatActivity {
     DatabaseReference database;
     WorkoutPlanAdapter workoutPlanAdapter;
     ArrayList<WorkoutPlan> planList;
+    private WorkoutViewModel workoutViewModel;
 
     private FirebaseAuth mAuth;
 
@@ -174,9 +176,9 @@ public class WorkoutPlans extends AppCompatActivity {
 
                 String userId = currentUser.getUid();
 
-                WorkoutPlan workout = new WorkoutPlan(userId, workoutName, notes, setsInt, repsInt, time, calsInt);
+                WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, notes, setsInt, repsInt, time, calsInt);
                 // Save data to Firebase
-                workoutViewModel.addWorkout(userId, workout);
+                workoutViewModel.addWorkoutPlan(userId, workoutPlan);
 
             }
         });

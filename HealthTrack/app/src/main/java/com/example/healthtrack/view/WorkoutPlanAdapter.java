@@ -17,7 +17,7 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     Context context;
     ArrayList<WorkoutPlan> list;
 
-    public WorkoutPlanAdapter(Context context, ArrayList<WorkoutPlan> list) {
+    public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list) {
         this.context = context;
         this.list = list;
     }
@@ -32,13 +32,13 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     @Override
     public void onBindViewHolder(@NonNull WorkoutPlanAdapter.MyViewHolder holder, int position) {
         WorkoutPlan plan = list.get(position);
-        holder.userID.setText(plan.getUserId());
-        holder.workoutName.setText(plan.getWorkoutName());
-        holder.sets.setText(plan.getSets());
-        holder.reps.setText(plan.getReps());
-        holder.time.setText(plan.getTime());
-        holder.calories.setText(plan.getCalories());
-        holder.notes.setText(plan.getNotes());
+        holder.userID.setText(plan.getUserId() != null ? plan.getUserId() : "");
+        holder.workoutName.setText(plan.getWorkoutName() != null ? plan.getWorkoutName() : "");
+        holder.notes.setText(plan.getNotes() != null ? plan.getNotes() : "");
+        holder.sets.setText(String.valueOf(plan.getSets()));
+        holder.reps.setText(String.valueOf(plan.getReps()));
+        holder.time.setText(String.valueOf(plan.getTime()));
+        holder.calories.setText(String.valueOf(plan.getCalories()));
     }
 
     @Override

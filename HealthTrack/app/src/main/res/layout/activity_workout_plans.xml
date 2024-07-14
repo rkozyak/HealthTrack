@@ -115,7 +115,7 @@
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toEndOf="@+id/workoutsButton" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
