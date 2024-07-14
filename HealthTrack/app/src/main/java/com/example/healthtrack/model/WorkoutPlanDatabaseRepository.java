@@ -3,6 +3,7 @@ package com.example.healthtrack.model;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class WorkoutPlanDatabaseRepository {
@@ -26,14 +27,40 @@ public class WorkoutPlanDatabaseRepository {
 
         // Check for zero or negative calories
         if (workoutPlan.getCaloriesPerSet() == null || workoutPlan.getCaloriesPerSet() <= 0) {
-            completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+            if (completionListener != null) {
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
+            }
+            return;
+        }
+
+        // Check for empty workout plan name
+        if (workoutPlan.getName() == null || workoutPlan.getName().trim().isEmpty()) {
+            if (completionListener != null) {
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+            }
             return;
         }
 
         // Check for empty notes
         if (workoutPlan.getNotes() == null || workoutPlan.getNotes().trim().isEmpty()) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Generic error for empty notes
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
+            }
+            return;
+        }
+
+        // Check for invalid reps
+        if (workoutPlan.getRepsPerSet() < 0) {
+            if (completionListener != null) {
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+            }
+            return;
+        }
+
+        // Check for negative sets
+        if (workoutPlan.getSets() < 0) {
+            if (completionListener != null) {
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
             }
             return;
         }
@@ -47,7 +74,7 @@ public class WorkoutPlanDatabaseRepository {
                 if (dataSnapshot.exists()) {
                     // Duplicate found
                     if (completionListener != null) {
-                        completionListener.onComplete(DatabaseError.fromCode(DatabaseError.EXPIRED_TOKEN), null); // Error for duplicate
+                        completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
                     }
                 } else {
                     String workoutPlanId = userRef.push().getKey();
@@ -70,13 +97,15 @@ public class WorkoutPlanDatabaseRepository {
         });
     }
 
-
-
-
-
-
     //Note: Gets USER SPECIFIC workouts
     public DatabaseReference getWorkoutPlansReference(String userId) {
         return db.child(userId);
     }
+
+    // used for test case
+    public void getWorkoutPlan(String userId, String planName, ValueEventListener listener) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        userRef.child("workoutPlans").orderByChild("name").equalTo(planName).addListenerForSingleValueEvent(listener);
+    }
+
 }
