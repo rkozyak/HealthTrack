@@ -84,6 +84,40 @@ public class WorkoutPlans extends AppCompatActivity {
         btnDialogAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText workoutNameInput = findViewById(R.id.editWorkoutName);
+                EditText notesInput = findViewById(R.id.notes);
+                EditText setsInput = findViewById(R.id.sets);
+                EditText repsInput = findViewById(R.id.reps);
+                EditText timeInput = findViewById(R.id.time);
+                EditText caloriesInput = findViewById(R.id.calories);
+
+                String workoutName = workoutNameInput.getText().toString();
+                String notes = notesInput.getText().toString();
+                String sets = setsInput.getText().toString();
+                String reps = repsInput.getText().toString();
+                String time = timeInput.getText().toString();
+                String calories = caloriesInput.getText().toString();
+
+                if (TextUtils.isEmpty(workoutName) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)
+                        || TextUtils.isEmpty(calories)) {
+                    Toast.makeText(WorkoutPlans.this,
+                            "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int setsInt = Integer.parseInt(sets);
+                int repsInt = Integer.parseInt(reps);
+                int calsInt = Integer.parseInt(calories);
+                int timeInt = Integer.parseInt(time);
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                String userId = currentUser.getUid();
+
+                WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
+                // Save data to Firebase
+                workoutViewModel.addWorkoutPlan(userId, workoutPlan);
+
                 dialog.dismiss();
             }
         });
@@ -138,48 +172,6 @@ public class WorkoutPlans extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.show();
-            }
-        });
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.workout_plan_popout, null);
-        Button publish_btn = popupView.findViewById(R.id.publishPlan);
-        publish_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText workoutNameInput = popupView.findViewById(R.id.editWorkoutName);
-                EditText notesInput = popupView.findViewById(R.id.notes);
-                EditText setsInput = popupView.findViewById(R.id.sets);
-                EditText repsInput = popupView.findViewById(R.id.reps);
-                EditText timeInput = popupView.findViewById(R.id.time);
-                EditText caloriesInput = popupView.findViewById(R.id.calories);
-
-                String workoutName = workoutNameInput.getText().toString();
-                String notes = notesInput.getText().toString();
-                String sets = setsInput.getText().toString();
-                String reps = repsInput.getText().toString();
-                String time = timeInput.getText().toString();
-                String calories = caloriesInput.getText().toString();
-
-                if (TextUtils.isEmpty(workoutName) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)
-                        || TextUtils.isEmpty(calories)) {
-                    Toast.makeText(WorkoutPlans.this,
-                            "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                int setsInt = Integer.parseInt(sets);
-                int repsInt = Integer.parseInt(reps);
-                int calsInt = Integer.parseInt(calories);
-
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-
-                String userId = currentUser.getUid();
-
-                WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, notes, setsInt, repsInt, time, calsInt);
-                // Save data to Firebase
-                workoutViewModel.addWorkoutPlan(userId, workoutPlan);
-
             }
         });
     }

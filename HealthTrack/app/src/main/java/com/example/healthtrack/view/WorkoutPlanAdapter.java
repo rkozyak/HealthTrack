@@ -32,13 +32,13 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     @Override
     public void onBindViewHolder(@NonNull WorkoutPlanAdapter.MyViewHolder holder, int position) {
         WorkoutPlan plan = list.get(position);
-        holder.userID.setText(plan.getUserId() != null ? plan.getUserId() : "");
-        holder.workoutName.setText(plan.getWorkoutName() != null ? plan.getWorkoutName() : "");
-        holder.notes.setText(plan.getNotes() != null ? plan.getNotes() : "");
+        holder.userID.setText(plan.getUserId());
+        holder.workoutName.setText(plan.getName());
+        holder.notes.setText(plan.getNotes());
         holder.sets.setText(String.valueOf(plan.getSets()));
-        holder.reps.setText(String.valueOf(plan.getReps()));
+        holder.reps.setText(String.valueOf(plan.getRepsPerSet()));
         holder.time.setText(String.valueOf(plan.getTime()));
-        holder.calories.setText(String.valueOf(plan.getCalories()));
+        holder.calories.setText(String.valueOf(plan.getCaloriesPerSet()));
     }
 
     @Override

@@ -35,15 +35,19 @@ public class WorkoutPlan {
         return name;
     }
 
-    public int getCaloriesPerSet() {
+    public Integer getCaloriesPerSet() {
         return caloriesPerSet;
     }
 
-    public int getSets() {
+    public Integer getSets() {
         return sets;
     }
 
-    public int getRepsPerSet() {
+    public Integer getTime() {
+        return time;
+    }
+
+    public Integer getRepsPerSet() {
         return repsPerSet;
     }
 
@@ -57,4 +61,5 @@ public class WorkoutPlan {
 
     public String toString() {
         return name;
+    }
 }
