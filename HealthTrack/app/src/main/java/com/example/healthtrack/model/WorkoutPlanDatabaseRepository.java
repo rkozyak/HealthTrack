@@ -11,18 +11,18 @@ public class WorkoutPlanDatabaseRepository {
         db = workoutPlanDatabase.getDatabaseReference();
     }
 
-    public void addWorkout(String userId, WorkoutPlan workoutPlan,
+    public void addWorkoutPlan(String userId, WorkoutPlan workoutPlan,
                            DatabaseReference.CompletionListener completionListener) {
         DatabaseReference userRef = db.child(userId);
-        String workoutId = userRef.push().getKey();
+        String workoutPlanId = userRef.push().getKey();
 
-        if (workoutId != null) {
-            userRef.child(workoutId).setValue(workoutPlan, completionListener);
+        if (workoutPlanId != null) {
+            userRef.child(workoutPlanId).setValue(workoutPlan, completionListener);
         }
     }
 
     //Note: Gets USER SPECIFIC workouts
-    public DatabaseReference getWorkoutsReference(String userId) {
+    public DatabaseReference getWorkoutPlansReference(String userId) {
         return db.child(userId);
     }
 }

@@ -4,54 +4,57 @@ import java.util.Date;
 
 public class WorkoutPlan {
     private String userId;
-
-    private String workoutName;
-    private int sets;
-    private int reps;
-    private String time;
-    private int calories;
-
+    private String name;
+    private Integer caloriesPerSet;
+    private Integer sets;
+    private Integer repsPerSet;
+    private Integer time;
     private String notes;
+    private Date date;
 
     public WorkoutPlan() {
     }
 
-    public WorkoutPlan(String userId, String workoutName, String notes, int sets,
-                   int reps, String time, int calories) {
+    public WorkoutPlan(String userId, String name, Integer caloriesPerSet,
+                       Integer sets, Integer repsPerSet, Integer time, String notes) {
         this.userId = userId;
-        this.workoutName = workoutName;
-        this.calories = calories;
+        this.name = name;
+        this.caloriesPerSet = caloriesPerSet;
         this.sets = sets;
-        this.reps = reps;
-        this.notes = notes;
+        this.repsPerSet = repsPerSet;
         this.time = time;
+        this.notes = notes;
+        date = new Date();
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public String getWorkoutName() {
-        return workoutName;
+    public String getName() {
+        return name;
+    }
+
+    public int getCaloriesPerSet() {
+        return caloriesPerSet;
     }
 
     public int getSets() {
         return sets;
     }
 
-    public int getReps() {
-        return reps;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public int getCalories() {
-        return calories;
+    public int getRepsPerSet() {
+        return repsPerSet;
     }
 
     public String getNotes() {
         return notes;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String toString() {
+        return name;
 }
