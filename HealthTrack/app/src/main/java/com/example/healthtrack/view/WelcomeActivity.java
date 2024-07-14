@@ -15,7 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.User;
 import com.example.healthtrack.model.Workout;
+import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.UserViewModel;
+import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     // Instance Variables
     private UserViewModel userViewModel;
     private WorkoutViewModel workoutViewModel;
+    private WorkoutPlanViewModel workoutPlanViewModel;
     private FirebaseAuth auth;
 
     // Constants
@@ -40,11 +43,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final Integer USER1_WORKOUT1_CALORIES = 11;
     private static final Integer USER1_WORKOUT1_SETS = 110;
     private static final Integer USER1_WORKOUT1_REPS = 1100;
+    private static final Integer USER1_WORKOUT1_TIME = 110;
     private static final String USER1_WORKOUT1_NOTES = "workoutNotes1User1";
     private static final String USER1_WORKOUT2_NAME = "workoutName2User1";
     private static final Integer USER1_WORKOUT2_CALORIES = 12;
     private static final Integer USER1_WORKOUT2_SETS = 120;
     private static final Integer USER1_WORKOUT2_REPS = 1200;
+    private static final Integer USER1_WORKOUT2_TIME = 120;
     private static final String USER1_WORKOUT2_NOTES = "workoutNotes2User1";
 
 
@@ -58,11 +63,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final Integer USER2_WORKOUT1_CALORIES = 21;
     private static final Integer USER2_WORKOUT1_SETS = 210;
     private static final Integer USER2_WORKOUT1_REPS = 2100;
+    private static final Integer USER2_WORKOUT1_TIME = 210;
     private static final String USER2_WORKOUT1_NOTES = "workoutNotes1User2";
     private static final String USER2_WORKOUT2_NAME = "workoutName2User2";
     private static final Integer USER2_WORKOUT2_CALORIES = 22;
     private static final Integer USER2_WORKOUT2_SETS = 220;
     private static final Integer USER2_WORKOUT2_REPS = 2200;
+    private static final Integer USER2_WORKOUT2_TIME = 220;
     private static final String USER2_WORKOUT2_NOTES = "workoutNotes2User2";
 
     @Override
@@ -75,6 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+        workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
         auth = FirebaseAuth.getInstance();
 
         if (!isDataInitialized()) {
@@ -157,9 +165,20 @@ public class WelcomeActivity extends AppCompatActivity {
                                     USER1_WORKOUT2_CALORIES, USER1_WORKOUT2_SETS,
                                     USER1_WORKOUT2_REPS, USER1_WORKOUT2_NOTES);
 
+                            WorkoutPlan workoutPlan1User1 = new WorkoutPlan(userId1, USER1_NAME,
+                                    USER1_WORKOUT1_CALORIES, USER1_WORKOUT1_SETS,
+                                    USER1_WORKOUT1_REPS, USER1_WORKOUT1_TIME, USER1_WORKOUT1_NOTES);
+                            WorkoutPlan workoutPlan2User1 = new WorkoutPlan(userId1, USER1_NAME,
+                                    USER1_WORKOUT2_CALORIES, USER1_WORKOUT2_SETS,
+                                    USER1_WORKOUT2_REPS, USER1_WORKOUT2_TIME, USER1_WORKOUT2_NOTES);
+
                             workoutViewModel.addWorkout(userId1, workout1User1);
                             workoutViewModel.addWorkout(userId1, workout2User1);
                             Log.d(TAG, "Workouts for User 1 added.");
+
+                            workoutPlanViewModel.addWorkoutPlan(userId1, workoutPlan1User1);
+                            workoutPlanViewModel.addWorkoutPlan(userId1, workoutPlan2User1);
+                            Log.d(TAG, "Workout plans for User 1 added.");
                         } else {
                             Log.e(TAG, "FirebaseUser1 is null.");
                         }
@@ -190,9 +209,20 @@ public class WelcomeActivity extends AppCompatActivity {
                                     USER2_WORKOUT2_CALORIES, USER2_WORKOUT2_SETS,
                                     USER2_WORKOUT2_REPS, USER2_WORKOUT2_NOTES);
 
+                            WorkoutPlan workoutPlan1User2 = new WorkoutPlan(userId2, USER2_NAME,
+                                    USER2_WORKOUT1_CALORIES, USER2_WORKOUT1_SETS,
+                                    USER2_WORKOUT1_REPS, USER2_WORKOUT1_TIME, USER2_WORKOUT1_NOTES);
+                            WorkoutPlan workoutPlan2User2 = new WorkoutPlan(userId2, USER2_NAME,
+                                    USER2_WORKOUT2_CALORIES, USER2_WORKOUT2_SETS,
+                                    USER2_WORKOUT2_REPS, USER2_WORKOUT2_TIME, USER2_WORKOUT2_NOTES);
+
                             workoutViewModel.addWorkout(userId2, workout1User2);
                             workoutViewModel.addWorkout(userId2, workout2User2);
                             Log.d(TAG, "Workouts for User 2 added.");
+
+                            workoutPlanViewModel.addWorkoutPlan(userId2, workoutPlan1User2);
+                            workoutPlanViewModel.addWorkoutPlan(userId2, workoutPlan2User2);
+                            Log.d(TAG, "Workout plans for User 2 added.");
                         } else {
                             Log.e(TAG, "FirebaseUser2 is null.");
                         }
