@@ -87,12 +87,12 @@ public class WorkoutPlans extends AppCompatActivity {
         btnDialogAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText workoutNameInput = findViewById(R.id.editWorkoutName);
-                EditText notesInput = findViewById(R.id.notes);
-                EditText setsInput = findViewById(R.id.sets);
-                EditText repsInput = findViewById(R.id.reps);
-                EditText timeInput = findViewById(R.id.time);
-                EditText caloriesInput = findViewById(R.id.calories);
+                EditText workoutNameInput = dialog.findViewById(R.id.editWorkoutName);
+                EditText notesInput = dialog.findViewById(R.id.notes);
+                EditText setsInput = dialog.findViewById(R.id.sets);
+                EditText repsInput = dialog.findViewById(R.id.reps);
+                EditText timeInput = dialog.findViewById(R.id.time);
+                EditText caloriesInput = dialog.findViewById(R.id.calories);
 
                 String workoutName = workoutNameInput.getText().toString();
                 String notes = notesInput.getText().toString();
