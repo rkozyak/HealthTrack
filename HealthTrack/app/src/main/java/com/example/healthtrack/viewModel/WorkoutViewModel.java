@@ -38,7 +38,7 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     public void addWorkoutPlan(String userId, WorkoutPlan workoutPlan) {
-        workoutPlanDatabaseRepository.addWorkout(userId, workoutPlan,
+        workoutPlanDatabaseRepository.addWorkoutPlan(userId, workoutPlan,
                 new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError,
