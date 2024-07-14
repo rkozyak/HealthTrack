@@ -128,16 +128,16 @@
         android:layout_marginBottom="16dp"/>
 
 
-    <ListView
-        android:id="@+id/listView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"
+        android:id="@+id/planList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView" />
+        app:layout_constraintTop_toBottomOf="@id/searchView"/>
 
     <Button
         android:id="@+id/plan_btn"
@@ -156,7 +156,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/listView"
+        app:layout_constraintTop_toBottomOf="@id/planList"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent=".7" />
 
