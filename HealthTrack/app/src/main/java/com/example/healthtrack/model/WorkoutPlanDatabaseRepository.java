@@ -11,13 +11,13 @@ public class WorkoutPlanDatabaseRepository {
         db = workoutPlanDatabase.getDatabaseReference();
     }
 
-    public void addWorkout(String userId, Workout workout,
+    public void addWorkout(String userId, WorkoutPlan workoutPlan,
                            DatabaseReference.CompletionListener completionListener) {
         DatabaseReference userRef = db.child(userId);
         String workoutId = userRef.push().getKey();
 
         if (workoutId != null) {
-            userRef.child(workoutId).setValue(workout, completionListener);
+            userRef.child(workoutId).setValue(workoutPlan, completionListener);
         }
     }
 

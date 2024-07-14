@@ -13,6 +13,9 @@ public class WorkoutPlan {
 
     private String notes;
 
+    public WorkoutPlan() {
+    }
+
     public WorkoutPlan(String userId, String workoutName, String notes, int sets,
                    int reps, String time, int calories) {
         this.userId = userId;
