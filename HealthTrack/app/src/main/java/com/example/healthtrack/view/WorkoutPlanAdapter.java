@@ -14,8 +14,8 @@ import com.example.healthtrack.model.WorkoutPlan;
 import java.util.ArrayList;
 
 public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.MyViewHolder> {
-    Context context;
-    ArrayList<WorkoutPlan> list;
+    private Context context;
+    private ArrayList<WorkoutPlan> list;
 
     public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list) {
         this.context = context;
@@ -47,7 +47,13 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView userID, workoutName, sets, reps, time, calories, notes;
+        private TextView userID;
+        private TextView workoutName;
+        private TextView sets;
+        private TextView reps;
+        private TextView time;
+        private TextView calories;
+        private TextView notes;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
