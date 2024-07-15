@@ -38,27 +38,52 @@
             app:layout_constraintStart_toStartOf="@id/planItemTextView"
             app:layout_constraintTop_toBottomOf="@id/planItemTextView" />
 
-        <TextView
-            android:id="@+id/notesItem"
-            android:fontFamily="@font/federo"
+        <LinearLayout
+            android:id="@+id/notesLin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Notes and instructions"
-            android:textSize="16sp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/editItemWorkoutName"
             app:layout_constraintStart_toStartOf="@id/editItemWorkoutName"
-            app:layout_constraintTop_toBottomOf="@id/editItemWorkoutName" />
-
+            app:layout_constraintTop_toBottomOf="@id/editItemWorkoutName">
+            <TextView
+                android:id="@+id/notesText"
+                android:fontFamily="@font/federo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Notes:"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/notesItem"
+                android:fontFamily="@font/federo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Notes and instructions"
+                android:textSize="16sp"/>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/infoItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/notesItem"
-            app:layout_constraintStart_toStartOf="@id/notesItem"
-            app:layout_constraintTop_toBottomOf="@id/notesItem">
+            app:layout_constraintEnd_toEndOf="@id/notesLin"
+            app:layout_constraintStart_toStartOf="@id/notesLin"
+            app:layout_constraintTop_toBottomOf="@id/notesLin">
+
+            <TextView
+                android:id="@+id/setsText"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Sets:"
+                android:textSize="16sp" />
+
 
             <TextView
                 android:id="@+id/setsItem"
@@ -71,6 +96,16 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/repsText"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Reps:"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/repsItem"
                 android:fontFamily="@font/federo"
                 android:layout_width="match_parent"
@@ -78,6 +113,16 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:hint="Reps"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/timeText"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Time:"
                 android:textSize="16sp" />
 
             <TextView
@@ -92,19 +137,34 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/caloriesItem"
-            android:fontFamily="@font/federo"
+        <LinearLayout
+            android:id="@+id/calLin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Expected calories per set"
-            android:textSize="16sp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/infoItem"
             app:layout_constraintStart_toStartOf="@id/infoItem"
-            app:layout_constraintTop_toBottomOf="@id/infoItem" />
+            app:layout_constraintTop_toBottomOf="@id/infoItem">
 
+            <TextView
+                android:id="@+id/caloriesText"
+                android:fontFamily="@font/federo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Expected calories per set:"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/caloriesItem"
+                android:fontFamily="@font/federo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Expected calories per set"
+                android:textSize="16sp" />
+        </LinearLayout>
         <Button
             android:id="@+id/addPlanItem"
             android:fontFamily="@font/federo"
@@ -114,9 +174,9 @@
             android:text="Add workout plan"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="@id/caloriesItem"
-            app:layout_constraintStart_toStartOf="@id/caloriesItem"
-            app:layout_constraintTop_toBottomOf="@id/caloriesItem"
+            app:layout_constraintEnd_toEndOf="@id/calLin"
+            app:layout_constraintStart_toStartOf="@id/calLin"
+            app:layout_constraintTop_toBottomOf="@id/calLin"
             android:layout_marginBottom="32dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

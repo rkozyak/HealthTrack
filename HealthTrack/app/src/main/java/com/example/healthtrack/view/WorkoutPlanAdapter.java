@@ -58,8 +58,8 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userID = itemView.findViewById(R.id.planItemTextView);
-            workoutName = itemView.findViewById(R.id.editItemWorkoutName);
+            userID = itemView.findViewById(R.id.editItemWorkoutName);
+            workoutName = itemView.findViewById(R.id.planItemTextView);
             sets = itemView.findViewById(R.id.setsItem);
             reps = itemView.findViewById(R.id.repsItem);
             time = itemView.findViewById(R.id.timeItem);
