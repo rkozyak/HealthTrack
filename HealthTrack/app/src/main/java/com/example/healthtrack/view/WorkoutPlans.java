@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.healthtrack.model.RefreshSortStrategy;
+import com.example.healthtrack.model.SortingStrategy;
 import com.example.healthtrack.model.WorkoutPlan;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +29,7 @@ import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WorkoutPlans extends AppCompatActivity {
     private Dialog dialog;
@@ -41,6 +47,7 @@ public class WorkoutPlans extends AppCompatActivity {
     private WorkoutPlanAdapter workoutPlanAdapter;
     private ArrayList<WorkoutPlan> planList;
     private WorkoutPlanViewModel workoutPlanViewModel;
+    private SortingStrategy strategy;
 
     private FirebaseAuth mAuth;
 
@@ -53,6 +60,7 @@ public class WorkoutPlans extends AppCompatActivity {
         recyclerView = findViewById(R.id.planList);
         database = FirebaseDatabase.getInstance().getReference("workout plans");
         workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
+        strategy = new RefreshSortStrategy();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,19 +68,49 @@ public class WorkoutPlans extends AppCompatActivity {
         workoutPlanAdapter = new WorkoutPlanAdapter(this, planList);
         recyclerView.setAdapter(workoutPlanAdapter);
 
-        database.addValueEventListener(new ValueEventListener() {
+        database.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    WorkoutPlan workoutPlan = dataSnapshot.getValue(WorkoutPlan.class);
-                    planList.add(workoutPlan);
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                HashMap<String, HashMap<String, Object>> data =
+                        (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
+                ArrayList<HashMap<String, Object>> dataList = new ArrayList(data.values());
+                for(int i = 0; i < dataList.size(); i++) {
+                    HashMap<String, Object> dataMap = dataList.get(i);
+                    String userId = (String) dataMap.get("userId");
+                    String name = (String) dataMap.get("name");
+                    System.out.println(dataMap.get("time"));
+                    Integer calsPerSet =
+                            Integer.parseInt(dataMap.get("caloriesPerSet").toString());
+                    Integer repsPerSet = Integer.parseInt(dataMap.get("repsPerSet").toString());
+                    Integer sets = Integer.parseInt(dataMap.get("sets").toString());
+                    String notes = (String) dataMap.get("notes");
+                    Integer time = Integer.parseInt(dataMap.get("time").toString());
+
+                    WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
+                            repsPerSet, time, notes);
+                    planList.add(plan);
+                    workoutPlanAdapter.notifyDataSetChanged();
                 }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                workoutPlanAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                workoutPlanAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 workoutPlanAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                workoutPlanAdapter.notifyDataSetChanged();
             }
         });
 
@@ -103,7 +141,7 @@ public class WorkoutPlans extends AppCompatActivity {
                 String calories = caloriesInput.getText().toString();
 
                 if (TextUtils.isEmpty(workoutName) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)
-                        || TextUtils.isEmpty(calories)) {
+                        || TextUtils.isEmpty(calories) || TextUtils.isEmpty(time)) {
                     Toast.makeText(WorkoutPlans.this,
                             "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
                     return;
