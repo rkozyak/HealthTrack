@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/planItemTextView"
+            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -25,6 +26,7 @@
 
         <TextView
             android:id="@+id/editItemWorkoutName"
+            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -38,6 +40,7 @@
 
         <TextView
             android:id="@+id/notesItem"
+            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -59,6 +62,7 @@
 
             <TextView
                 android:id="@+id/setsItem"
+                android:fontFamily="@font/federo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -68,6 +72,7 @@
 
             <TextView
                 android:id="@+id/repsItem"
+                android:fontFamily="@font/federo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -77,6 +82,7 @@
 
             <TextView
                 android:id="@+id/timeItem"
+                android:fontFamily="@font/federo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -88,6 +94,7 @@
 
         <TextView
             android:id="@+id/caloriesItem"
+            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -100,6 +107,7 @@
 
         <Button
             android:id="@+id/addPlanItem"
+            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
