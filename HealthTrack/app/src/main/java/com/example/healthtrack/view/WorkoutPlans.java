@@ -81,6 +81,7 @@ public class WorkoutPlans extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
         dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
 
         btnDialogAdd = dialog.findViewById(R.id.publishPlan);
 
@@ -120,6 +121,13 @@ public class WorkoutPlans extends AppCompatActivity {
                 WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
                 // Save data to Firebase
                 workoutPlanViewModel.addWorkoutPlan(userId, workoutPlan);
+
+                workoutNameInput.setText("");
+                notesInput.setText("");
+                setsInput.setText("");
+                repsInput.setText("");
+                timeInput.setText("");
+                caloriesInput.setText("");
 
                 dialog.dismiss();
             }
