@@ -3,13 +3,17 @@ package com.example.healthtrack.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.healthtrack.model.NameSortStrategy;
 import com.example.healthtrack.model.RefreshSortStrategy;
 import com.example.healthtrack.model.SortingStrategy;
 import com.example.healthtrack.model.WorkoutPlan;
@@ -18,6 +22,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +53,11 @@ public class WorkoutPlans extends AppCompatActivity {
     private ArrayList<WorkoutPlan> planList;
     private WorkoutPlanViewModel workoutPlanViewModel;
     private SortingStrategy strategy;
-
+    private SearchView searchBar;
+    private Handler searchHandler;
+    private Runnable searchRunnable;
+    SortingStrategy search = new NameSortStrategy();
+    private String lastQuery = "";
     private FirebaseAuth mAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,24 @@ public class WorkoutPlans extends AppCompatActivity {
         strategy = new RefreshSortStrategy();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchRunnable = new Runnable() {
+            @Override
+            public void run() {
+                String currentQuery = searchBar.getQuery().toString();
+                if (!currentQuery.equals(lastQuery)) {
+                    lastQuery = currentQuery;
+                    NameSortStrategy newSearch = new NameSortStrategy();
+                    newSearch.setName(currentQuery);
+                    search = newSearch;
+                    planList = searchList(planList);
+                }
+            }
+        };
+        HandlerThread searchThread = new HandlerThread("SearchViewHandlerThread");
+        searchThread.start();
+        searchHandler = new Handler(searchThread.getLooper());
+        searchHandler.post(searchRunnable);
+
 
         planList = new ArrayList<>();
         workoutPlanAdapter = new WorkoutPlanAdapter(this, planList);
@@ -223,5 +250,24 @@ public class WorkoutPlans extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        ImageButton refreshButton = findViewById(R.id.buttonRefresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                planList = refreshList(planList);
+            }
+        });
+    }
+
+
+    // sort methods to call
+    public ArrayList<WorkoutPlan> refreshList(ArrayList<WorkoutPlan> list) {
+        SortingStrategy refresh = new RefreshSortStrategy();
+        return workoutPlanViewModel.filter(refresh, list);
+    }
+
+    public ArrayList<WorkoutPlan> searchList(ArrayList<WorkoutPlan> list) {
+        return workoutPlanViewModel.filter(search, list);
     }
 }
