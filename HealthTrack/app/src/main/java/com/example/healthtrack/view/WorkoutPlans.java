@@ -49,14 +49,12 @@ public class WorkoutPlans extends AppCompatActivity {
     private Button btnDialogAdd;
     private RecyclerView recyclerView;
     private DatabaseReference database;
-    private WorkoutPlanAdapter workoutPlanAdapter;
     private ArrayList<WorkoutPlan> planList;
+    private ArrayList<WorkoutPlan> unfilteredList;
+
     private WorkoutPlanViewModel workoutPlanViewModel;
-    private SortingStrategy strategy;
     private SearchView searchBar;
-    private Handler searchHandler;
-    private Runnable searchRunnable;
-    SortingStrategy search = new NameSortStrategy();
+    private SortingStrategy search = new NameSortStrategy();
     private String lastQuery = "";
     private FirebaseAuth mAuth;
 
@@ -69,31 +67,36 @@ public class WorkoutPlans extends AppCompatActivity {
         recyclerView = findViewById(R.id.planList);
         database = FirebaseDatabase.getInstance().getReference("workout plans");
         workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
-        strategy = new RefreshSortStrategy();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        searchRunnable = new Runnable() {
+        planList = new ArrayList<>();
+        unfilteredList = new ArrayList<>();
+        WorkoutPlanAdapter workoutPlanAdapter = new WorkoutPlanAdapter(this, planList);
+        recyclerView.setAdapter(workoutPlanAdapter);
+        searchBar = findViewById(R.id.searchView);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void run() {
-                String currentQuery = searchBar.getQuery().toString();
-                if (!currentQuery.equals(lastQuery)) {
-                    lastQuery = currentQuery;
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!newText.isEmpty()) {
+                    lastQuery = newText;
                     NameSortStrategy newSearch = new NameSortStrategy();
-                    newSearch.setName(currentQuery);
+                    newSearch.setName(newText);
                     search = newSearch;
-                    planList = searchList(planList);
+                    planList = searchList(unfilteredList);
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    return true;
+                } else {
+                    planList = refreshList(unfilteredList);
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    return true;
                 }
             }
-        };
-        HandlerThread searchThread = new HandlerThread("SearchViewHandlerThread");
-        searchThread.start();
-        searchHandler = new Handler(searchThread.getLooper());
-        searchHandler.post(searchRunnable);
-
-
-        planList = new ArrayList<>();
-        workoutPlanAdapter = new WorkoutPlanAdapter(this, planList);
-        recyclerView.setAdapter(workoutPlanAdapter);
+        });
 
         database.addChildEventListener(new ChildEventListener() {
             @Override
@@ -105,7 +108,6 @@ public class WorkoutPlans extends AppCompatActivity {
                     HashMap<String, Object> dataMap = dataList.get(i);
                     String userId = (String) dataMap.get("userId");
                     String name = (String) dataMap.get("name");
-                    System.out.println(dataMap.get("time"));
                     Integer calsPerSet =
                             Integer.parseInt(dataMap.get("caloriesPerSet").toString());
                     Integer repsPerSet = Integer.parseInt(dataMap.get("repsPerSet").toString());
@@ -116,28 +118,29 @@ public class WorkoutPlans extends AppCompatActivity {
                     WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
                             repsPerSet, time, notes);
                     planList.add(plan);
-                    workoutPlanAdapter.notifyDataSetChanged();
+                    unfilteredList.add(plan);
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                workoutPlanAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                workoutPlanAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                workoutPlanAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                workoutPlanAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
             }
         });
 
@@ -255,7 +258,8 @@ public class WorkoutPlans extends AppCompatActivity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                planList = refreshList(planList);
+                planList = refreshList(unfilteredList);
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
             }
         });
     }
