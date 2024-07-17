@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.healthtrack.model.NameSortStrategy;
 import com.example.healthtrack.model.RefreshSortStrategy;
 import com.example.healthtrack.model.SortingStrategy;
+import com.example.healthtrack.model.WorkoutDatabaseRepository;
 import com.example.healthtrack.model.WorkoutPlan;
 
 import androidx.activity.EdgeToEdge;
@@ -32,6 +33,7 @@ import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -42,6 +44,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class WorkoutPlans extends AppCompatActivity {
@@ -49,8 +53,10 @@ public class WorkoutPlans extends AppCompatActivity {
     private Button btnDialogAdd;
     private RecyclerView recyclerView;
     private DatabaseReference database;
+    private DatabaseReference workoutDatabase;
     private ArrayList<WorkoutPlan> planList;
     private ArrayList<WorkoutPlan> unfilteredList;
+    private ArrayList<String> workoutNameArrayList;
 
     private WorkoutPlanViewModel workoutPlanViewModel;
     private SearchView searchBar;
@@ -63,15 +69,20 @@ public class WorkoutPlans extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_workout_plans);
 
+
         mAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.planList);
         database = FirebaseDatabase.getInstance().getReference("workout plans");
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        workoutDatabase = new WorkoutDatabaseRepository().getWorkoutsReference(userId);
         workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         planList = new ArrayList<>();
         unfilteredList = new ArrayList<>();
-        WorkoutPlanAdapter workoutPlanAdapter = new WorkoutPlanAdapter(this, planList);
+        workoutNameArrayList = new ArrayList<>();
+        WorkoutPlanAdapter workoutPlanAdapter = new WorkoutPlanAdapter(this, planList, workoutNameArrayList);
         recyclerView.setAdapter(workoutPlanAdapter);
         searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -88,13 +99,43 @@ public class WorkoutPlans extends AppCompatActivity {
                     newSearch.setName(newText);
                     search = newSearch;
                     planList = searchList(unfilteredList);
-                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
                     return true;
                 } else {
                     planList = refreshList(unfilteredList);
-                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
                     return true;
                 }
+            }
+        });
+
+        workoutDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                HashMap<String, Object> workoutData =
+                        (HashMap<String, Object>) snapshot.getValue();
+                String name = (String) workoutData.get("name");
+                workoutNameArrayList.add(name);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -120,7 +161,7 @@ public class WorkoutPlans extends AppCompatActivity {
                     planList.add(plan);
                     System.out.println(plan);
                     unfilteredList.add(plan);
-                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
                 }
             }
 
@@ -146,23 +187,23 @@ public class WorkoutPlans extends AppCompatActivity {
                         planList.add(plan);
                         unfilteredList.add(plan);
                     }
-                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
                 }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
             }
         });
 
@@ -288,7 +329,7 @@ public class WorkoutPlans extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 planList = refreshList(unfilteredList);
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
             }
         });
     }
