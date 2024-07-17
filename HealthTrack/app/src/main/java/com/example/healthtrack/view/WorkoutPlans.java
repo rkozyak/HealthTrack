@@ -118,6 +118,7 @@ public class WorkoutPlans extends AppCompatActivity {
                     WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
                             repsPerSet, time, notes);
                     planList.add(plan);
+                    System.out.println(plan);
                     unfilteredList.add(plan);
                     recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
                 }
@@ -125,7 +126,28 @@ public class WorkoutPlans extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                HashMap<String, HashMap<String, Object>> data =
+                        (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
+                ArrayList<HashMap<String, Object>> dataList = new ArrayList(data.values());
+                for(int i = 0; i < dataList.size(); i++) {
+                    HashMap<String, Object> dataMap = dataList.get(i);
+                    String userId = (String) dataMap.get("userId");
+                    String name = (String) dataMap.get("name");
+                    Integer calsPerSet =
+                            Integer.parseInt(dataMap.get("caloriesPerSet").toString());
+                    Integer repsPerSet = Integer.parseInt(dataMap.get("repsPerSet").toString());
+                    Integer sets = Integer.parseInt(dataMap.get("sets").toString());
+                    String notes = (String) dataMap.get("notes");
+                    Integer time = Integer.parseInt(dataMap.get("time").toString());
+
+                    WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
+                            repsPerSet, time, notes);
+                    if (!planList.contains(plan)) {
+                        planList.add(plan);
+                        unfilteredList.add(plan);
+                    }
+                    recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList));
+                }
             }
 
             @Override
@@ -187,6 +209,13 @@ public class WorkoutPlans extends AppCompatActivity {
                 String userId = currentUser.getUid();
 
                 WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
+
+                if (planList.contains(workoutPlan)) {
+                    Toast.makeText(WorkoutPlans.this,
+                            "Duplicate plans not allowed", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // Save data to Firebase
                 workoutPlanViewModel.addWorkoutPlan(userId, workoutPlan);
 

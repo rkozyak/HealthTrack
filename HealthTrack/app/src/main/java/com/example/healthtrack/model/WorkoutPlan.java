@@ -62,4 +62,14 @@ public class WorkoutPlan {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != getClass()) {
+            return false;
+        }
+        WorkoutPlan temp = (WorkoutPlan) o;
+        return name.equals(temp.name) && caloriesPerSet == temp.caloriesPerSet && sets == temp.sets
+                && repsPerSet == temp.repsPerSet && notes.equals(temp.notes) && time == temp.time;
+    }
 }
