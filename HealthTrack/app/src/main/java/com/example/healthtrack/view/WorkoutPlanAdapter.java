@@ -1,9 +1,12 @@
 package com.example.healthtrack.view;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,8 @@ import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,12 +40,42 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     @Override
     public WorkoutPlanAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.workout_plan_item, parent, false);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        WorkoutPlanAdapter.MyViewHolder myViewHolder = new MyViewHolder(v);
+        if (!myViewHolder.logged.getText().toString().equals("Logged")) {
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View popupView = LayoutInflater.from(v.getContext()).inflate(R.layout.workout_plan_item, null);
 
-            }
-        });
+                    // Create the PopupWindow
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // Lets taps outside the popup also dismiss it
+                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                    // Show the popup window
+                    popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+                    TextView userID = popupView.findViewById(R.id.editItemWorkoutName);
+                    TextView workoutName = popupView.findViewById(R.id.planItemTextView);
+                    TextView sets = popupView.findViewById(R.id.setsItem);
+                    TextView reps = popupView.findViewById(R.id.repsItem);
+                    TextView time = popupView.findViewById(R.id.timeItem);
+                    TextView calories = popupView.findViewById(R.id.caloriesItem);
+                    TextView notes = popupView.findViewById(R.id.notesItem);
+                    TextView logged = popupView.findViewById(R.id.logged);
+
+                    userID.setText(myViewHolder.userID.getText().toString());
+                    workoutName.setText(myViewHolder.workoutName.getText().toString());
+                    sets.setText(myViewHolder.sets.getText().toString());
+                    reps.setText(myViewHolder.reps.getText().toString());
+                    time.setText(myViewHolder.time.getText().toString());
+                    calories.setText(myViewHolder.calories.getText().toString());
+                    notes.setText(myViewHolder.notes.getText().toString());
+                    logged.setText(myViewHolder.logged.getText().toString());
+                }
+            });
+        }
         return new MyViewHolder(v);
     }
 
