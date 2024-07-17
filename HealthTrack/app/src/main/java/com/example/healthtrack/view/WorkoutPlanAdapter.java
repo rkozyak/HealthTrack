@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<WorkoutPlan> list;
+    private ArrayList<String> nameList;
 
-    public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list) {
+    public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list, ArrayList<String> nameList) {
         this.context = context;
         this.list = list;
+        this.nameList = nameList;
     }
 
     @NonNull
@@ -38,6 +40,10 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     @Override
     public void onBindViewHolder(@NonNull WorkoutPlanAdapter.MyViewHolder holder, int position) {
         WorkoutPlan plan = list.get(position);
+        String logged = "Not Logged";
+        if (nameList.contains(plan.getName())) {
+            logged = "Logged";
+        }
         holder.userID.setText(plan.getUserId());
         holder.workoutName.setText(plan.getName());
         holder.notes.setText(plan.getNotes());
@@ -45,6 +51,7 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
         holder.reps.setText(String.valueOf(plan.getRepsPerSet()));
         holder.time.setText(String.valueOf(plan.getTime()));
         holder.calories.setText(String.valueOf(plan.getCaloriesPerSet()));
+        holder.logged.setText(logged);
     }
 
     @Override
@@ -60,6 +67,7 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
         private TextView time;
         private TextView calories;
         private TextView notes;
+        private TextView logged;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +79,7 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
             time = itemView.findViewById(R.id.timeItem);
             calories = itemView.findViewById(R.id.caloriesItem);
             notes = itemView.findViewById(R.id.notesItem);
+            logged = itemView.findViewById(R.id.logged);
         }
     }
 }

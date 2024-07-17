@@ -165,6 +165,18 @@
                 android:hint="Expected calories per set"
                 android:textSize="16sp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/logged"
+            android:fontFamily="@font/federo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:hint="Logged"
+            app:layout_constraintEnd_toEndOf="@id/calLin"
+            app:layout_constraintStart_toStartOf="@id/calLin"
+            app:layout_constraintTop_toBottomOf="@id/calLin"/>
         <Button
             android:id="@+id/addPlanItem"
             android:fontFamily="@font/federo"
@@ -174,9 +186,9 @@
             android:text="Add workout plan"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="@id/calLin"
-            app:layout_constraintStart_toStartOf="@id/calLin"
-            app:layout_constraintTop_toBottomOf="@id/calLin"
+            app:layout_constraintEnd_toEndOf="@id/logged"
+            app:layout_constraintStart_toStartOf="@id/logged"
+            app:layout_constraintTop_toBottomOf="@id/logged"
             android:layout_marginBottom="32dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
