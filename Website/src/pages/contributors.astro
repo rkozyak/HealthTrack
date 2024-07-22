@@ -1,25 +1,29 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { buttonVariants } from '@/components/ui/button'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const basePath = '/CS2340A_Team6/';
 
 // Define team members with their details
 const teamMembers = [
-  { name: 'Alex Wang', photo: `${basePath}alex.png` },
-  { name: 'Brian Chen', photo: `${basePath}brian.png` },
-  { name: 'Christian Chin', photo: `${basePath}christian.jpg` },
-  { name: 'Eric Shao', photo: `${basePath}eric.png` },
-  { name: 'Khoa Bui', photo: `${basePath}khoa.jpg` },
-  { name: 'Richard Kozyak', photo: `${basePath}richard.jpg` },
+  { name: 'Alex Wang', photo: `${basePath}alex.png`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/awang652/' },
+  { name: 'Brian Chen', photo: `${basePath}brian.png`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/jvchblade/' },
+  { name: 'Christian Chin', photo: `${basePath}christian.jpg`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/cchin45/' },
+  { name: 'Eric Shao', photo: `${basePath}eric.png`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/sha0xy/' },
+  { name: 'Khoa Bui', photo: `${basePath}khoa.jpg`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/khoakbui/' },
+  { name: 'Richard Kozyak', photo: `${basePath}richard.jpg`, linkedin: 'https://www.linkedin.com/in/', github: 'https://github.com/rkozyak/' },
 ];
+
 ---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <BaseLayout
   title="Contributors"
   description="Meet the team behind this project"
 >
-  <div class="mt-32 px-8">
+  <div class="mt-16 px-8 text-center">
     <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">Meet the Team</h1>
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {teamMembers.map(member => (
@@ -27,10 +31,18 @@ const teamMembers = [
           <img src={member.photo} alt={member.name} class="w-24 h-24 rounded-full mx-auto" />
           <h2 class="text-xl font-semibold mt-4 text-center text-light-900 dark:text-light-100">{member.name}</h2>
           <p class="text-center text-sm text-muted-foreground dark:text-muted-foreground">{member.role}</p>
+          <div class="flex justify-center mt-4 space-x-4">
+            <a href={member.linkedin} target="_blank" rel="noreferrer" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+              <i class="fab fa-linkedin-in w-8 h-8"></i>
+            </a>
+            <a href={member.github} target="_blank" rel="noreferrer" class="text-gray-800 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100">
+              <i class="fab fa-github w-8 h-8"></i>
+            </a>
+          </div>
         </div>
       ))}
     </div>
-    <div class="mt-8 text-center">
+    <div class="mt-8 text-center mb-8"> <!-- Added mb-8 for margin-bottom -->
       <a href="/CS2340A_Team6/" rel="noreferrer" class={buttonVariants()}>Go back home</a>
     </div>
   </div>
