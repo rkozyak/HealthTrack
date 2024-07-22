@@ -10,25 +10,39 @@ const screenshots = [
   { src: '/CS2340A_Team6/workoutPlansPage.png', alt: 'Workout Screen', description: 'This is text describing what is seen on the picture above.' },
   { src: '/CS2340A_Team6/publicWorkout.png', alt: 'Create Public Workout Screen', description: 'This is text describing what is seen on the picture above.' },
   { src: '/CS2340A_Team6/communityPage.png', alt: 'Community Screen', description: 'This is text describing what is seen on the picture above.' },
+  // Add more screenshots as needed
 ];
 ---
 
 <BaseLayout title="User Interface" description="A visual tour of the app showcasing various screens, focusing on the main functionalities and the interaction flow within the app.">
   <div class="mt-8 px-8 text-center">
     <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl mb-8">User Interface Tour</h1>
-    <div class="image-grid">
-      {screenshots.map((screenshot) => (
-        <div
-          key={screenshot.src}
-          class="image-item bg-light-200 dark:bg-dark-800 border border-light-400 dark:border-dark-600 p-4 rounded-lg shadow-lg"
-        >
-          <img src={screenshot.src} alt={screenshot.alt} class="w-full h-auto rounded-lg border-2 border-light-400 dark:border-dark-600 shadow-lg" />
-          <div class="prose lg:prose-xl mt-4 text-center">
-            <h2 class="text-xl font-bold text-light-900 dark:text-light-100">{screenshot.alt}</h2>
-            <p class="text-light-600 dark:text-light-400">{screenshot.description}</p>
+    <div class="relative overflow-hidden">
+      <div class="scrolling-wrapper flex gap-8 animate-scroll">
+        {screenshots.map((screenshot) => (
+          <div
+            key={screenshot.src}
+            class="flex-shrink-0 w-80 bg-light-200 dark:bg-dark-800 border border-light-400 dark:border-dark-600 p-6 rounded-lg shadow-lg"
+          >
+            <img src={screenshot.src} alt={screenshot.alt} class="w-full h-auto rounded-lg border-2 border-light-400 dark:border-dark-600 shadow-lg" />
+            <div class="prose lg:prose-xl mt-4 text-center">
+              <h2 class="text-xl font-bold text-light-900 dark:text-light-100">{screenshot.alt}</h2>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+        {/* Duplicate images for seamless scrolling */}
+        {screenshots.map((screenshot) => (
+          <div
+            key={`${screenshot.src}-duplicate`}
+            class="flex-shrink-0 w-80 bg-light-200 dark:bg-dark-800 border border-light-400 dark:border-dark-600 p-6 rounded-lg shadow-lg"
+          >
+            <img src={screenshot.src} alt={screenshot.alt} class="w-full h-auto rounded-lg border-2 border-light-400 dark:border-dark-600 shadow-lg" />
+            <div class="prose lg:prose-xl mt-4 text-center">
+              <h2 class="text-xl font-bold text-light-900 dark:text-light-100">{screenshot.alt}</h2>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </BaseLayout>
