@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { buttonVariants } from '@/components/ui/button'
+
+// Define team members with their details
+const teamMembers = [
+  { name: 'Alex Wang', photo: '/public/alex.png' },
+  { name: 'Brian Chen', photo: '/public/brian.png' },
+  { name: 'Christian Chin', photo: '/public/christian.jpg' },
+  { name: 'Eric Shao', photo: '/public/eric.png' },
+  { name: 'Khoa Bui', photo: '/public/khoa.jpg' },
+  { name: 'Richard Kozyak', photo: '/public/richard.jpg' },
+];
+---
+
+<BaseLayout
+  title="Contributors"
+  description="Meet the team behind this project"
+>
+  <div class="mt-32 px-8">
+    <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">Meet the Team</h1>
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {teamMembers.map(member => (
+        <div key={member.name} class="bg-light-200 dark:bg-dark-800 border border-light-400 dark:border-dark-600 p-6 rounded-lg shadow-md">
+          <img src={member.photo} alt={member.name} class="w-24 h-24 rounded-full mx-auto" />
+          <h2 class="text-xl font-semibold mt-4 text-center text-light-900 dark:text-light-100">{member.name}</h2>
+          <p class="text-center text-sm text-muted-foreground dark:text-muted-foreground">{member.role}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a href="/CS2340A_Team6/" rel="noreferrer" class={buttonVariants()}>Go back home</a>
+    </div>
+  </div>
+</BaseLayout>
