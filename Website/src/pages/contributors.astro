@@ -2,14 +2,16 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { buttonVariants } from '@/components/ui/button'
 
+const basePath = '/CS2340A_Team6/';
+
 // Define team members with their details
 const teamMembers = [
-  { name: 'Alex Wang', photo: '/public/alex.png' },
-  { name: 'Brian Chen', photo: '/public/brian.png' },
-  { name: 'Christian Chin', photo: '/public/christian.jpg' },
-  { name: 'Eric Shao', photo: '/public/eric.png' },
-  { name: 'Khoa Bui', photo: '/public/khoa.jpg' },
-  { name: 'Richard Kozyak', photo: '/public/richard.jpg' },
+  { name: 'Alex Wang', photo: `${basePath}alex.png` },
+  { name: 'Brian Chen', photo: `${basePath}brian.png` },
+  { name: 'Christian Chin', photo: `${basePath}christian.jpg` },
+  { name: 'Eric Shao', photo: `${basePath}eric.png` },
+  { name: 'Khoa Bui', photo: `${basePath}khoa.jpg` },
+  { name: 'Richard Kozyak', photo: `${basePath}richard.jpg` },
 ];
 ---
 
