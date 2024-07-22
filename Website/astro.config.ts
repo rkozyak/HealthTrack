@@ -4,9 +4,8 @@ import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.CI
-    ? 'http://localhost:4321'
-    : 'http://localhost:4321',
+  site: 'https://rkozyak.github.io/',
+  base: '/CS2340A_Team6/',
   integrations: [
     react(),
     tailwind({
