@@ -38,6 +38,7 @@ google-services.json
 # Astro/Wesbsite Stuff
 .astro/
 node_modules/
+dist/
 
 # Website logs
 npm-debug.log*
