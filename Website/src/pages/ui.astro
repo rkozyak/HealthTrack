@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const screenshots = [
+  { src: '/CS2340A_Team6/loginPage.png', alt: 'Sign In Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/homePage.png', alt: 'Home Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/accountInfo.png', alt: 'Account Info Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/caloriesPage.png', alt: 'Calories Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/workoutTrackerPage.png', alt: 'Tracker Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/workoutPlansPage.png', alt: 'Workout Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/publicWorkout.png', alt: 'Create Public Workout Screen', description: 'This is text describing what is seen on the picture above.' },
+  { src: '/CS2340A_Team6/communityPage.png', alt: 'Community Screen', description: 'This is text describing what is seen on the picture above.' },
+  // Add more screenshots as needed
+];
+---
+
+<BaseLayout
+  title="User Interface"
+  description="A visual tour of the app showcasing various screens, focusing on the main functionalities and the interaction flow within the app."
+>
+  <div class="mt-8 px-8 text-center">
+    <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">User Interface Tour</h1>
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {screenshots.map((screenshot, index) => (
+        <div
+          key={screenshot.src}
+          class={`bg-light-200 dark:bg-dark-800 border border-light-400 dark:border-dark-600 p-6 rounded-lg shadow-md ${index === screenshots.length - 1 ? 'mb-12' : ''}`}
+        >
+          <img src={screenshot.src} alt={screenshot.alt} class="w-full h-auto rounded-lg" />
+          <h2 class="text-xl font-semibold mt-4 text-center text-light-900 dark:text-light-100">{screenshot.alt}</h2>
+          <p class="text-center text-sm text-muted-foreground dark:text-muted-foreground">{screenshot.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
