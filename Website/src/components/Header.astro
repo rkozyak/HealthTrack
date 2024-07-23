@@ -1,0 +1,89 @@
+---
+import { buttonVariants } from '@/components/ui/button'
+import ThemeToggle from '@/components/ThemeToggle.astro'
+---
+
+<header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <div class="container flex h-16 items-center justify-between space-x-4">
+    <!-- Logo and Home Link -->
+    <div class="flex gap-6 md:gap-10 items-center">
+      <a href="/CS2340A_Team6/" class="flex items-center space-x-2">
+        <span class="inline-block font-bold">Home</span>
+      </a>
+    </div>
+    <!-- Centered Navigation Links on Desktop -->
+    <nav class="hidden md:flex flex-1 items-center justify-center space-x-4">
+      <a href="/CS2340A_Team6/design" class={buttonVariants({ variant: 'ghost' })}>
+        Design & Architecture
+      </a>
+      <a href="/CS2340A_Team6/ui" class={buttonVariants({ variant: 'ghost' })}>
+        User Interface
+      </a>
+      <a href="/CS2340A_Team6/functionality" class={buttonVariants({ variant: 'ghost' })}>
+        Functionality
+      </a>
+      <a href="/CS2340A_Team6/conclusions" class={buttonVariants({ variant: 'ghost' })}>
+        Conclusions
+      </a>
+      <a href="/CS2340A_Team6/contributors" class={buttonVariants({ variant: 'ghost' })}>
+        Contributors
+      </a>
+    </nav>
+    <!-- Light/Dark Mode Toggle and Menu Toggle -->
+    <div class="flex items-center space-x-4 md:ml-auto">
+      <nav class="hidden md:flex items-center space-x-1">
+        <a
+          href="https://github.com/rkozyak/CS2340A_Team6"
+          target="_blank"
+          rel="noreferrer"
+          class={buttonVariants({ variant: 'ghost' })}
+        >
+          View Project
+        </a>
+      </nav>
+      <ThemeToggle />
+      <button id="menu-toggle" class="md:hidden p-2">
+        ☰
+      </button>
+    </div>
+  </div>
+  <!-- Side menu for mobile -->
+  <nav id="mobile-menu" class="fixed inset-y-0 left-0 w-full bg-background transform -translate-x-full transition-transform md:hidden z-50">
+    <div class="flex flex-col p-4 space-y-4">
+      <a href="/CS2340A_Team6/design" class={buttonVariants({ variant: 'ghost' })}>
+        Design & Architecture
+      </a>
+      <a href="/CS2340A_Team6/ui" class={buttonVariants({ variant: 'ghost' })}>
+        User Interface
+      </a>
+      <a href="/CS2340A_Team6/functionality" class={buttonVariants({ variant: 'ghost' })}>
+        Functionality
+      </a>
+      <a href="/CS2340A_Team6/conclusions" class={buttonVariants({ variant: 'ghost' })}>
+        Conclusions
+      </a>
+      <a href="/CS2340A_Team6/contributors" class={buttonVariants({ variant: 'ghost' })}>
+        Contributors
+      </a>
+      <a
+        href="https://github.com/rkozyak/CS2340A_Team6"
+        target="_blank"
+        rel="noreferrer"
+        class={buttonVariants({ variant: 'ghost' })}
+      >
+        View Project
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    const menu = document.getElementById('mobile-menu');
+    if (menu.classList.contains('-translate-x-full')) {
+      menu.classList.remove('-translate-x-full');
+    } else {
+      menu.classList.add('-translate-x-full');
+    }
+  });
+</script>

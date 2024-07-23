@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { buttonVariants } from '@/components/ui/button'
+---
+
+<BaseLayout
+  title="HealthTrack"
+  description="Website to showcase the program HealthTrack"
+>
+  <section class="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+    <div class="flex max-w-[980px] flex-col items-start gap-2">
+      <h1
+        class="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl"
+      >
+        Welcom to HealthTrack <br class="hidden sm:inline" />
+        title line 2
+      </h1>
+      <p class="max-w-[700px] text-lg text-muted-foreground">
+        Title caption
+      </p>
+    </div>
+    <div class="flex gap-4">
+      <a
+        href="https://canvas.gatech.edu/"
+        target="_blank"
+        rel="noreferrer"
+        class={buttonVariants()}
+      >
+        Test Button
+      </a>
+      <a
+        href="https://github.com/rkozyak/CS2340A_Team6"
+        target="_blank"
+        rel="noreferrer"
+        class={buttonVariants({ variant: 'outline' })}
+      >
+        GitHub Button
+      </a>
+    </div>
+  </section>
+</BaseLayout>

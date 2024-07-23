@@ -1,0 +1,43 @@
+{
+  "name": "@rkozyak/healthTrackWebsite",
+  "version": "23.12.26",
+  "description": "An website to showcase our program HealthTrack",
+  "author": {
+    "name": "rkozyak"
+  },
+  "scripts": {
+    "build": "astro build",
+    "dev": "astro dev --host --port 8080",
+    "format": "prettier -w . --cache",
+    "preview": "astro preview",
+    "start": "astro dev"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.6.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "astro": "^4.12.2",
+    "astro-embed": "^0.7.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lite-youtube-embed": "^0.3.2",
+    "lucide-react": "^0.412.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.4",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss": "^3.4.6",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "typescript": "^5.5.3"
+  },
+  "packageManager": "pnpm@9.5.0"
+}
