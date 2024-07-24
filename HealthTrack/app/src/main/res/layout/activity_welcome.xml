@@ -55,8 +55,8 @@
         android:id="@+id/btnBrowse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:alpha=".5"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/darker_grotesque_semibold"
         android:padding="14dp"
         android:text="Browse"
@@ -66,9 +66,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slogan"
-        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintVertical_bias="0.447"
         app:layout_constraintWidth_percent=".7" />
 
     <Button
