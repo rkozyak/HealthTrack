@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/foreground_white"
+        android:scaleType="center" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
