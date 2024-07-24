@@ -1,10 +1,12 @@
 package com.example.healthtrack.viewModel;
 
+import androidx.lifecycle.ViewModel;
+
 import com.example.healthtrack.model.CommunityChallenge;
 import com.example.healthtrack.view.CommunityScreen;
 import com.example.healthtrack.view.WorkoutPlans;
 
-public class CommunityViewModel {
+public class CommunityViewModel extends ViewModel {
     private CommunityChallenge communityChallenge;
 
     public CommunityViewModel() {
