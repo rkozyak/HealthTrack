@@ -9,8 +9,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthtrack.R;
+import com.example.healthtrack.model.Observer;
 
-public class CommunityScreen extends AppCompatActivity {
+public class CommunityScreen extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -60,5 +61,11 @@ public class CommunityScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void update(String message) {
+        // Update UI components with the new status
+        System.out.println("CommunityScreen updated with message: " + message);
     }
 }
