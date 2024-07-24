@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".view.WorkoutTracker">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/foreground_white"
+        android:scaleType="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-60dp" />
 
     <ListView
         android:id="@+id/listView"

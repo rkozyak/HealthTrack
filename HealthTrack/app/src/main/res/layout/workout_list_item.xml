@@ -3,6 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/foreground_white"
+        android:scaleType="center" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

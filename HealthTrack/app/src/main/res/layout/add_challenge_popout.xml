@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="10dp"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 
         <EditText
             android:id="@+id/editChallengeName"
-            android:fontFamily="@font/federo"
+            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -39,7 +39,7 @@
 
         <EditText
             android:id="@+id/description"
-            android:fontFamily="@font/federo"
+            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -61,7 +61,7 @@
 
             <EditText
                 android:id="@+id/year"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -71,7 +71,7 @@
 
             <EditText
                 android:id="@+id/month"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -81,7 +81,7 @@
 
             <EditText
                 android:id="@+id/day"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -93,13 +93,14 @@
 
         <Button
             android:id="@+id/publishPlan"
-            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Publish Challenge"
+            android:textSize="15sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:text="PUBLISH CHALLENGE"
             app:layout_constraintEnd_toEndOf="@id/info"
             app:layout_constraintStart_toStartOf="@id/info"
             app:layout_constraintTop_toBottomOf="@id/info"
