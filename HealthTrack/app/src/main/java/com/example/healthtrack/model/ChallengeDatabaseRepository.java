@@ -14,10 +14,10 @@ public class ChallengeDatabaseRepository {
     public void addChallenge(String userId, CommunityChallenge communityChallenge,
                            DatabaseReference.CompletionListener completionListener) {
         DatabaseReference userRef = db.child(userId);
-        String workoutId = userRef.push().getKey();
+        String challengeId = userRef.push().getKey();
 
-        if (workoutId != null) {
-            userRef.child(workoutId).setValue(communityChallenge, completionListener);
+        if (challengeId != null) {
+            userRef.child(challengeId).setValue(communityChallenge, completionListener);
         }
     }
 }
