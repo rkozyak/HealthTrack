@@ -128,7 +128,7 @@
 
     <ImageButton
         android:id="@+id/buttonRefresh"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/refreshbutton"
         app:layout_constraintStart_toEndOf="@id/searchView"
@@ -136,34 +136,32 @@
         app:layout_constraintBottom_toBottomOf="@id/searchView"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/planList"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:dividerHeight="1dp"
         android:divider="@android:color/darker_gray"
-        android:id="@+id/planList"
+        android:dividerHeight="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchView"/>
+        app:layout_constraintTop_toBottomOf="@id/searchView" />
 
     <Button
         android:id="@+id/plan_btn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="1"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/darker_grotesque_semibold"
         android:padding="14dp"
-        android:text="Create new public workout plan"
+        android:text="CREATE WORKOUT PLAN"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/planList"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/planList"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent=".7" />
 

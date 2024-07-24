@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -9,36 +10,73 @@
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Workout Name"/>
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:hint="Workout Name"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle=""/>
 
     <EditText
         android:id="@+id/editSets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sets Completed"/>
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:hint="Sets Completed"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle=""/>
 
     <EditText
         android:id="@+id/editSetReps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Reps Per Set"/>
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:hint="Reps Per Set"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle=""/>
 
     <EditText
         android:id="@+id/editCaloriesPerSet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Calories Per Set"/>
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:hint="Calories Per Set"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle=""/>
     <EditText
         android:id="@+id/editNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notes"/>
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:hint="Notes"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle=""/>
 
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:text="SUBMIT"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"/>
 
 </LinearLayout>
