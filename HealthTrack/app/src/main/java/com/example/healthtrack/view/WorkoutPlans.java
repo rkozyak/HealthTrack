@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.healthtrack.model.NameSortStrategy;
+import com.example.healthtrack.model.Observer;
 import com.example.healthtrack.model.RefreshSortStrategy;
 import com.example.healthtrack.model.SortingStrategy;
 import com.example.healthtrack.model.WorkoutDatabaseRepository;
@@ -48,7 +49,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class WorkoutPlans extends AppCompatActivity {
+public class WorkoutPlans extends AppCompatActivity implements Observer {
     private Dialog dialog;
     private Button btnDialogAdd;
     private RecyclerView recyclerView;
@@ -343,5 +344,11 @@ public class WorkoutPlans extends AppCompatActivity {
 
     public ArrayList<WorkoutPlan> searchList(ArrayList<WorkoutPlan> list) {
         return workoutPlanViewModel.filter(search, list);
+    }
+
+    @Override
+    public void update(String message) {
+        // Update UI components with the new status
+        System.out.println("WorkoutPlans updated with message: " + message);
     }
 }
