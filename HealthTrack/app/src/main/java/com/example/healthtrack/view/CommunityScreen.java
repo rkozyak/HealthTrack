@@ -1,8 +1,10 @@
 package com.example.healthtrack.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -12,10 +14,20 @@ import com.example.healthtrack.R;
 import com.example.healthtrack.model.Observer;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
+    private Dialog dialog;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_community_screen);
+
+
+        dialog = new Dialog(CommunityScreen.this);
+        dialog.setContentView(R.layout.add_challenge_popout);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(true);
 
         Button backButton = findViewById(R.id.btn_community_back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +71,14 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 Intent intent  = new Intent(CommunityScreen.this, CommunityScreen.class);
                 startActivity(intent);
+            }
+        });
+
+        // Add Challenge Button
+        Button addChallengeButton = findViewById(R.id.addChallengeButton);
+        addChallengeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.show();
             }
         });
     }

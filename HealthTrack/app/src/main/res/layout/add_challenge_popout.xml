@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/planTextView"
+            android:fontFamily="@font/federo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="New Challenge"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editChallengeName"
+            android:fontFamily="@font/federo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Challenge name"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/planTextView"
+            app:layout_constraintStart_toStartOf="@id/planTextView"
+            app:layout_constraintTop_toBottomOf="@id/planTextView" />
+
+        <EditText
+            android:id="@+id/description"
+            android:fontFamily="@font/federo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Description"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/editChallengeName"
+            app:layout_constraintStart_toStartOf="@id/editChallengeName"
+            app:layout_constraintTop_toBottomOf="@id/editChallengeName" />
+
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/description"
+            app:layout_constraintStart_toStartOf="@id/description"
+            app:layout_constraintTop_toBottomOf="@id/description">
+
+            <EditText
+                android:id="@+id/year"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="Year"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/month"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="Month"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/day"
+                android:fontFamily="@font/federo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:hint="Day"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/publishPlan"
+            android:fontFamily="@font/federo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Publish Challenge"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="@id/info"
+            app:layout_constraintStart_toStartOf="@id/info"
+            app:layout_constraintTop_toBottomOf="@id/info"
+            android:layout_marginBottom="32dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
