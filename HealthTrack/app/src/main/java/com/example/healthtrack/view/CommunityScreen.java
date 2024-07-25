@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -53,6 +54,10 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
+
+        if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
+            Toast.makeText(CommunityScreen.this, "Workout Plans added to new challenge", Toast.LENGTH_SHORT).show();
+        }
 
         Button backButton = findViewById(R.id.btn_community_back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +109,14 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         addChallengeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.show();
+                TextView workoutPlanDisplay = dialog.findViewById(R.id.workoutPlanDisplay);
+                String workoutPlanString = "Workout Plans: ";
+                if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
+                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
+                        workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
+                    }
+                }
+                workoutPlanDisplay.setText(workoutPlanString);
             }
         });
 
@@ -151,7 +164,7 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     return;
                 }
 
-                if (AddWorkoutCommunity.returnList.isEmpty()) {
+                if (AddWorkoutCommunity.returnList == null || AddWorkoutCommunity.returnList.isEmpty()) {
                     Toast.makeText(CommunityScreen.this, "Please add at least one workout plan", Toast.LENGTH_SHORT).show();
                     return;
                 }
