@@ -7,8 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".view.CommunityScreen">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/foreground_white"
+        android:scaleType="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-60dp" />
+
     <TextView
-        android:id="@+id/text_calorie_tracking_header"
+        android:id="@+id/text_community_screen_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
@@ -114,5 +123,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toEndOf="@+id/workoutsButton" />
+
+    <Button
+        android:id="@+id/addChallengeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="ADD CHALLENGE"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/challengeList"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search"
+        app:layout_constraintTop_toBottomOf="@id/text_community_screen_header"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"
+        android:id="@+id/challengeList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

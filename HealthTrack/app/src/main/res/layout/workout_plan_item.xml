@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardElevation="10dp"
-    app:cardCornerRadius="16dp">
+    app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Workout Plan"
+            android:text="WORKOUT PLAN"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/editItemWorkoutName"
-            android:fontFamily="@font/federo"
+            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@id/editItemWorkoutName">
             <TextView
                 android:id="@+id/notesText"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -57,7 +57,7 @@
                 android:textSize="16sp"/>
             <TextView
                 android:id="@+id/notesItem"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -76,7 +76,7 @@
 
             <TextView
                 android:id="@+id/setsText"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -87,7 +87,7 @@
 
             <TextView
                 android:id="@+id/setsItem"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -97,7 +97,7 @@
 
             <TextView
                 android:id="@+id/repsText"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/repsItem"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -117,7 +117,7 @@
 
             <TextView
                 android:id="@+id/timeText"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -127,7 +127,7 @@
 
             <TextView
                 android:id="@+id/timeItem"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -148,7 +148,7 @@
 
             <TextView
                 android:id="@+id/caloriesText"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -157,7 +157,7 @@
                 android:textSize="16sp" />
             <TextView
                 android:id="@+id/caloriesItem"
-                android:fontFamily="@font/federo"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -168,7 +168,7 @@
 
         <TextView
             android:id="@+id/logged"
-            android:fontFamily="@font/federo"
+            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
@@ -179,17 +179,17 @@
             app:layout_constraintTop_toBottomOf="@id/calLin"/>
         <Button
             android:id="@+id/addPlanItem"
-            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Add workout plan"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:text="PUBLISH WORKOUT PLAN"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/logged"
             app:layout_constraintStart_toStartOf="@id/logged"
-            app:layout_constraintTop_toBottomOf="@id/logged"
-            android:layout_marginBottom="32dp"/>
+            app:layout_constraintTop_toBottomOf="@id/logged"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

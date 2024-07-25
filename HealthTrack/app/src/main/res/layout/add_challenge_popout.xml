@@ -16,107 +16,123 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="NEW WORKOUT PLAN"
+            android:text="New Challenge"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editWorkoutName"
+            android:id="@+id/editChallengeName"
             android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="Workout plan name"
+            android:hint="Challenge name"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/planTextView"
             app:layout_constraintStart_toStartOf="@id/planTextView"
             app:layout_constraintTop_toBottomOf="@id/planTextView" />
 
         <EditText
-            android:id="@+id/notes"
+            android:id="@+id/description"
             android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:hint="Notes and instructions"
+            android:hint="Description"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/editWorkoutName"
-            app:layout_constraintStart_toStartOf="@id/editWorkoutName"
-            app:layout_constraintTop_toBottomOf="@id/editWorkoutName" />
+            app:layout_constraintEnd_toEndOf="@id/editChallengeName"
+            app:layout_constraintStart_toStartOf="@id/editChallengeName"
+            app:layout_constraintTop_toBottomOf="@id/editChallengeName" />
 
         <LinearLayout
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@id/notes"
-            app:layout_constraintStart_toStartOf="@id/notes"
-            app:layout_constraintTop_toBottomOf="@id/notes">
+            app:layout_constraintEnd_toEndOf="@id/description"
+            app:layout_constraintStart_toStartOf="@id/description"
+            app:layout_constraintTop_toBottomOf="@id/description">
 
             <EditText
-                android:id="@+id/sets"
+                android:id="@+id/year"
                 android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:hint="Sets"
+                android:hint="Year"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/reps"
+                android:id="@+id/month"
                 android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:hint="Reps"
+                android:hint="Month"
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/time"
+                android:id="@+id/day"
                 android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:hint="Time"
+                android:hint="Day"
                 android:textSize="16sp" />
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/calories"
-            android:fontFamily="@font/darker_grotesque_semibold"
+        <TextView
+            android:id="@+id/workoutPlanDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:hint="Expected calories per set"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/info"
             app:layout_constraintStart_toStartOf="@id/info"
-            app:layout_constraintTop_toBottomOf="@id/info" />
+            app:layout_constraintTop_toBottomOf="@id/info"/>
 
         <Button
-            android:id="@+id/publishPlan"
+            android:id="@+id/addWorkoutPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/darker_grotesque_semibold"
-            android:text="PUBLISH WORKOUT PLAN"
+            android:text="ADD WORKOUT PLANS"
+            app:layout_constraintEnd_toEndOf="@id/workoutPlanDisplay"
+            app:layout_constraintStart_toStartOf="@id/workoutPlanDisplay"
+            app:layout_constraintTop_toBottomOf="@id/workoutPlanDisplay"
+            android:layout_marginBottom="32dp"/>
+
+        <Button
+            android:id="@+id/publishChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@id/calories"
-            app:layout_constraintStart_toStartOf="@id/calories"
-            app:layout_constraintTop_toBottomOf="@id/calories" />
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:text="PUBLISH CHALLENGE"
+            app:layout_constraintEnd_toEndOf="@id/addWorkoutPlan"
+            app:layout_constraintStart_toStartOf="@id/addWorkoutPlan"
+            app:layout_constraintTop_toBottomOf="@id/addWorkoutPlan"
+            android:layout_marginBottom="32dp"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
