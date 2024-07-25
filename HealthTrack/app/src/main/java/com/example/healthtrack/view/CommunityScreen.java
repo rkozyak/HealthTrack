@@ -11,14 +11,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healthtrack.R;
+import com.example.healthtrack.model.CommunityChallenge;
 import com.example.healthtrack.model.Observer;
 import com.example.healthtrack.model.WorkoutPlan;
+import com.example.healthtrack.viewModel.CommunityViewModel;
+import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,13 +36,17 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
     private Dialog dialog;
     private Dialog dialog2;
     private Button btnDialogAdd;
+    private Button btnDialogWorkout;
+    private FirebaseAuth mAuth;
+    private CommunityViewModel communityViewModel;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_community_screen);
 
-
+        communityViewModel = new ViewModelProvider(this).get(CommunityViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
         dialog = new Dialog(CommunityScreen.this);
         dialog.setContentView(R.layout.add_challenge_popout);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -94,6 +108,14 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         });
 
         btnDialogAdd = dialog.findViewById(R.id.publishChallenge);
+        btnDialogWorkout = dialog.findViewById(R.id.addWorkoutPlan);
+        btnDialogWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CommunityScreen.this, AddWorkoutCommunity.class);
+                startActivity(intent);
+            }
+        });
         btnDialogAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,10 +151,21 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     return;
                 }
 
-                /**
-                 *  REPLACE HERE FOR DATE CODE FOR DEADLINE
-                 *  ALSO ADD CODE TO SAVE TO DATABASE
-                 */
+                if (AddWorkoutCommunity.returnList.isEmpty()) {
+                    Toast.makeText(CommunityScreen.this, "Please add at least one workout plan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                String userId = currentUser.getUid();
+
+                CommunityChallenge challenge = new CommunityChallenge(userId, challengeName,
+                        new ArrayList<WorkoutPlan>(AddWorkoutCommunity.returnList), dayInt, monthInt, yearInt);
+
+                communityViewModel.addChallenge(userId, challenge);
+
+                AddWorkoutCommunity.returnList.clear();
 
                 challengeNameInput.setText("");
                 descriptionInput.setText("");
@@ -144,6 +177,7 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
             }
         });
     }
+
 
     @Override
     public void update(String message) {
