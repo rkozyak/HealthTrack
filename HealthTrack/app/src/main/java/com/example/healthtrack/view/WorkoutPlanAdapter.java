@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
@@ -20,8 +19,6 @@ import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
