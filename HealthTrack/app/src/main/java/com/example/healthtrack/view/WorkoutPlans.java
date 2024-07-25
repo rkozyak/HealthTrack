@@ -340,3 +340,10 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
     public ArrayList<WorkoutPlan> searchList(ArrayList<WorkoutPlan> list) {
         return workoutPlanViewModel.filter(search, list);
     }
+
+    @Override
+    public void update(String message) {
+        // Update UI components with the new status
+        System.out.println("WorkoutPlans updated with message: " + message);
+    }
+}
