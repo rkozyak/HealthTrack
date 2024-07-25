@@ -3,18 +3,29 @@ package com.example.healthtrack.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.Observer;
+import com.example.healthtrack.model.WorkoutPlan;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
     private Dialog dialog;
+    private Dialog dialog2;
+    private Button btnDialogAdd;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +90,57 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         addChallengeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.show();
+            }
+        });
+
+        btnDialogAdd = dialog.findViewById(R.id.publishChallenge);
+        btnDialogAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText challengeNameInput = dialog.findViewById(R.id.editChallengeName);
+                EditText descriptionInput = dialog.findViewById(R.id.description);
+                EditText yearInput = dialog.findViewById(R.id.year);
+                EditText monthInput = dialog.findViewById(R.id.month);
+                EditText dayInput = dialog.findViewById(R.id.day);
+
+                String challengeName = challengeNameInput.getText().toString();
+                String description = descriptionInput.getText().toString();
+                String year = yearInput.getText().toString();
+                String month = monthInput.getText().toString();
+                String day = dayInput.getText().toString();
+
+                if (TextUtils.isEmpty(challengeName) || TextUtils.isEmpty(description) || TextUtils.isEmpty(year)
+                        || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) {
+                    Toast.makeText(CommunityScreen.this,
+                            "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int yearInt;
+                int monthInt;
+                int dayInt;
+                try {
+                    yearInt = Integer.parseInt(year);
+                    monthInt = Integer.parseInt(month);
+                    dayInt = Integer.parseInt(day);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(CommunityScreen.this,
+                            "Please ensure that no non-number characters are in date fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                /**
+                 *  REPLACE HERE FOR DATE CODE FOR DEADLINE
+                 *  ALSO ADD CODE TO SAVE TO DATABASE
+                 */
+
+                challengeNameInput.setText("");
+                descriptionInput.setText("");
+                yearInput.setText("");
+                monthInput.setText("");
+                dayInput.setText("");
+
+                dialog.dismiss();
             }
         });
     }
