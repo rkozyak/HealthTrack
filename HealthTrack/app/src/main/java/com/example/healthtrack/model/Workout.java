@@ -2,7 +2,7 @@ package com.example.healthtrack.model;
 
 import java.util.Date;
 
-public class Workout {
+public class Workout implements WorkoutComponent {
     private String userId;
     private String name;
     private Integer caloriesPerSet;
@@ -31,6 +31,11 @@ public class Workout {
         this.repsPerSet = repsPerSet;
         this.notes = notes;
         this.date = date;
+    }
+
+    @Override
+    public void perform() {
+        System.out.println("Performing workout: " + name);
     }
 
     public String getUserId() {
