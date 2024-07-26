@@ -11,13 +11,12 @@ public class ChallengeDatabaseRepository {
         db = challengeDatabase.getDatabaseReference();
     }
 
-    public void addChallenge(String userId, CommunityChallenge communityChallenge,
+    public void addChallenge(CommunityChallenge communityChallenge,
                            DatabaseReference.CompletionListener completionListener) {
-        DatabaseReference userRef = db.child(userId);
-        String challengeId = userRef.push().getKey();
+        String challengeId = db.push().getKey();
 
         if (challengeId != null) {
-            userRef.child(challengeId).setValue(communityChallenge, completionListener);
+            db.child(challengeId).setValue(communityChallenge, completionListener);
         }
     }
 }

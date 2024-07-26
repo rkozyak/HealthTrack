@@ -24,8 +24,8 @@ public class CommunityViewModel extends ViewModel {
         communityChallenge.addObserver(new WorkoutPlans());
     }
 
-    public void addChallenge(String userId, CommunityChallenge communityChallenge) {
-        challengeDatabaseRepository.addChallenge(userId, communityChallenge,
+    public void addChallenge(CommunityChallenge communityChallenge) {
+        challengeDatabaseRepository.addChallenge(communityChallenge,
                 new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError,
