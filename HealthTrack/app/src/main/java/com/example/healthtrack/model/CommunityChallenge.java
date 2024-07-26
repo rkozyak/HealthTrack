@@ -82,8 +82,4 @@ public class CommunityChallenge {
         this.challengeStatus = status;
         notifyObservers();
     }
-
-    public String getChallengeName() {
-        return name;
-    }
 }

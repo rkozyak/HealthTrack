@@ -74,7 +74,6 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         recyclerView = findViewById(R.id.challengeList);
         challengeList = new ArrayList<>();
         unfilteredList = new ArrayList<>();
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommunityChallengeAdapter adapter = new CommunityChallengeAdapter(this, challengeList);
         recyclerView.setAdapter(adapter);
@@ -129,6 +128,8 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 String workoutId = snapshot.getKey();
                 HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
                 nameList.add(data.get("name").toString());
+                challengeList.clear();
+                unfilteredList.clear();
                 challengeList.add(workoutId);
                 unfilteredList.add(workoutId);
                 recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
@@ -324,15 +325,17 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
 
             for (int i = 0; i < unfilteredList.size(); i++) {
                 if (nameList.get(i).contains(name)) {
+                    System.out.println(nameList.get(i));
+                    System.out.println(unfilteredList.get(i));
                     tempList.add(unfilteredList.get(i));
                 }
             }
 
             challengeList = tempList;
         } else {
-            challengeList = refreshList(unfilteredList);
+            ArrayList<String> tempList = new ArrayList<>(unfilteredList);
+            challengeList = refreshList(tempList);
         }
-        System.out.println(challengeList);
         recyclerView.setAdapter(new CommunityChallengeAdapter(this, challengeList));
     }
 
