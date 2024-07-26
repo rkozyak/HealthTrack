@@ -174,6 +174,10 @@ public class AddWorkoutCommunity extends AppCompatActivity {
             }
         });
 
+        finishOnCreate();
+    }
+
+    public void finishOnCreate() {
         dialog = new Dialog(AddWorkoutCommunity.this);
         dialog.setContentView(R.layout.workout_plan_popout);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
