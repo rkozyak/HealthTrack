@@ -13,9 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,14 +76,15 @@ public class ChallengeDetails extends AppCompatActivity {
         String userId = user.getUid();
 
         challengeId = getIntent().getStringExtra("challengeId");
-        DatabaseReference database = ChallengeDatabase.getInstance().getDatabaseReference().child(challengeId);
+        DatabaseReference database = ChallengeDatabase.getInstance().getDatabaseReference().
+                child(challengeId);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
                 challenger = data.get("userId").toString();
-                deadline = data.get("deadlineMonth").toString() + "/" + data.get("deadlineDay").toString()
-                        + "/" + data.get("deadlineYear").toString();
+                deadline = data.get("deadlineMonth").toString() + "/" + data.get("deadlineDay").
+                        toString() + "/" + data.get("deadlineYear").toString();
                 desc = data.get("notes").toString();
                 name = data.get("name").toString();
                 challengerNameView.setText(challenger);
@@ -102,7 +101,8 @@ public class ChallengeDetails extends AppCompatActivity {
 
         database.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
                 if (snapshot.getKey().equals("workoutPlans")) {
                     ArrayList<HashMap<String, Object>> data =
                             (ArrayList<HashMap<String, Object>>) snapshot.getValue();
@@ -116,12 +116,14 @@ public class ChallengeDetails extends AppCompatActivity {
                         int sets = Integer.parseInt(dataMap.get("sets").toString());
                         String notes = (String) dataMap.get("notes");
                         int time = Integer.parseInt(dataMap.get("time").toString());
-                        WorkoutPlan workoutPlan = new WorkoutPlan(userId, name, calsPerSet, sets, repsPerSet, time, notes);
+                        WorkoutPlan workoutPlan = new WorkoutPlan(userId, name, calsPerSet, sets,
+                                repsPerSet, time, notes);
 
                         workoutPlanArrayList.add(workoutPlan);
                     }
                 } else if (snapshot.getKey().equals("participants")) {
-                    HashMap<String, String> participantData = (HashMap<String, String>) snapshot.getValue();
+                    HashMap<String, String> participantData =
+                            (HashMap<String, String>) snapshot.getValue();
                     ArrayList<String> participantArray = new ArrayList<>(participantData.values());
 
                     for (int i = 0; i < participantArray.size(); i++) {
@@ -130,7 +132,8 @@ public class ChallengeDetails extends AppCompatActivity {
                         }
                     }
                 } else if (snapshot.getKey().equals("completed")) {
-                    HashMap<String, String> completedData = (HashMap<String, String>) snapshot.getValue();
+                    HashMap<String, String> completedData =
+                            (HashMap<String, String>) snapshot.getValue();
                     ArrayList<String> completedArray = new ArrayList<>(completedData.values());
                     for (int i = 0; i < completedArray.size(); i++) {
                         if (!completed.contains(completedArray.get(i))) {
@@ -140,13 +143,16 @@ public class ChallengeDetails extends AppCompatActivity {
                 }
                 participantView.setAdapter(new UserAdapter(ChallengeDetails.this, participants));
                 completedView.setAdapter(new UserAdapter(ChallengeDetails.this, completed));
-                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this, workoutPlanArrayList));
+                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this,
+                        workoutPlanArrayList));
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
                 if (snapshot.getKey().equals("participants")) {
-                    HashMap<String, String> participantData = (HashMap<String, String>) snapshot.getValue();
+                    HashMap<String, String> participantData =
+                            (HashMap<String, String>) snapshot.getValue();
                     ArrayList<String> participantArray = new ArrayList<>(participantData.values());
 
                     for (int i = 0; i < participantArray.size(); i++) {
@@ -155,7 +161,8 @@ public class ChallengeDetails extends AppCompatActivity {
                         }
                     }
                 } else if (snapshot.getKey().equals("completed")) {
-                    HashMap<String, String> completedData = (HashMap<String, String>) snapshot.getValue();
+                    HashMap<String, String> completedData =
+                            (HashMap<String, String>) snapshot.getValue();
                     ArrayList<String> completedArray = new ArrayList<>(completedData.values());
                     for (int i = 0; i < completedArray.size(); i++) {
                         if (!completed.contains(completedArray.get(i))) {
@@ -165,26 +172,33 @@ public class ChallengeDetails extends AppCompatActivity {
                 }
                 participantView.setAdapter(new UserAdapter(ChallengeDetails.this, participants));
                 completedView.setAdapter(new UserAdapter(ChallengeDetails.this, completed));
-                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this, workoutPlanArrayList));
+                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this,
+                        workoutPlanArrayList));
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this, workoutPlanArrayList));
+                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this,
+                        workoutPlanArrayList));
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this, workoutPlanArrayList));
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
+                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this,
+                        workoutPlanArrayList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this, workoutPlanArrayList));
+                workoutView.setAdapter(new WorkoutPlanAdapter(ChallengeDetails.this,
+                        workoutPlanArrayList));
             }
         });
+        finishOnCreate(userId);
+    }
 
-
+    public void finishOnCreate(String userId) {
         Button addChallengeButton = findViewById(R.id.addChallengeButton);
         addChallengeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +282,4 @@ public class ChallengeDetails extends AppCompatActivity {
             }
         });
     }
-
-
 }

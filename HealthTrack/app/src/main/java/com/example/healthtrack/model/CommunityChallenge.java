@@ -62,7 +62,9 @@ public class CommunityChallenge {
         participants.add(userId);
     }
 
-    public String getNotes() { return notes; }
+    public String getNotes() {
+        return notes;
+    }
         
     public void addObserver(Observer observer) {
         observers.add(observer);

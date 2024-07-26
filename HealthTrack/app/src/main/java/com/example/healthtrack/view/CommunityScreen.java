@@ -12,10 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,14 +35,10 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
     // instance variables
@@ -98,7 +90,8 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
 
         db.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
                 String workoutId = snapshot.getKey();
                 HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
                 int year = Integer.parseInt(data.get("deadlineYear").toString());
@@ -121,11 +114,13 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     unfilteredList.add(workoutId);
                 }
                 nameList.add(data.get("name").toString());
-                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
+                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this,
+                        challengeList));
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
                 String workoutId = snapshot.getKey();
                 HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
                 nameList.add(data.get("name").toString());
@@ -133,22 +128,27 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 unfilteredList.clear();
                 challengeList.add(workoutId);
                 unfilteredList.add(workoutId);
-                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
+                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this,
+                        challengeList));
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
+                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this,
+                        challengeList));
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
+                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this,
+                        challengeList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
+                recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this,
+                        challengeList));
             }
         });
 
@@ -197,6 +197,11 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
             }
         });
 
+        finishOnCreate();
+
+    }
+
+    public void finishOnCreate() {
         // Add Challenge Button
         Button addChallengeButton = findViewById(R.id.addChallengeButton);
         addChallengeButton.setOnClickListener(new View.OnClickListener() {
@@ -204,11 +209,14 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 dialog.show();
                 TextView workoutPlanDisplay = dialog.findViewById(R.id.workoutPlanDisplay);
                 String workoutPlanString = "Workout Plans: ";
-//                if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
-//                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
-//                        workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
-//                    }
-//                }
+                /*
+                if (AddWorkoutCommunity.returnList != null
+                && !AddWorkoutCommunity.returnList.isEmpty()) {
+                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
+                        workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
+                    }
+                }
+                */
                 workoutPlanDisplay.setText(workoutPlanString);
             }
         });
@@ -287,10 +295,7 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 dialog.dismiss();
             }
         });
-
     }
-
-
 
 
     @Override

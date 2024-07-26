@@ -1,25 +1,15 @@
 package com.example.healthtrack.view;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
-import com.example.healthtrack.model.Workout;
-import com.example.healthtrack.model.WorkoutPlan;
-import com.example.healthtrack.viewModel.WorkoutViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -35,7 +25,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     @Override
     public UserAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                               int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.challenge_participant_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.challenge_participant_item, parent,
+                false);
         return new MyViewHolder(v);
     }
 

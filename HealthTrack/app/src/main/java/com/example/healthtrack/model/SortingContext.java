@@ -8,7 +8,8 @@ public class SortingContext {
         return strategy.sort(list);
     }
 
-    public static ArrayList<String> challengeFilter(SortingStrategy strategy, ArrayList<String> list) {
+    public static ArrayList<String> challengeFilter(SortingStrategy strategy,
+                                                    ArrayList<String> list) {
         return strategy.challengeSort(list);
     }
 }
