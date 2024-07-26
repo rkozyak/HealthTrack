@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.healthtrack.model.ChallengeDatabaseRepository;
 import com.example.healthtrack.model.CommunityChallenge;
-import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.view.CommunityScreen;
 import com.example.healthtrack.view.WorkoutPlans;
 import com.google.firebase.database.DatabaseError;

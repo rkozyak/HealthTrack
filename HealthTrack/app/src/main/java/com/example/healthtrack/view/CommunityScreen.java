@@ -29,7 +29,6 @@ import com.example.healthtrack.model.CommunityChallenge;
 import com.example.healthtrack.model.Observer;
 import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.CommunityViewModel;
-import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,7 +36,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,13 +68,16 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
         mAuth = FirebaseAuth.getInstance();
         dialog = new Dialog(CommunityScreen.this);
         dialog.setContentView(R.layout.add_challenge_popout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
 
-        if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
-            Toast.makeText(CommunityScreen.this, "Workout Plans added to new challenge", Toast.LENGTH_SHORT).show();
+        if (AddWorkoutCommunity.getReturnList() != null
+                && !AddWorkoutCommunity.getReturnList().isEmpty()) {
+            Toast.makeText(CommunityScreen.this, "Workout Plans added to new challenge",
+                    Toast.LENGTH_SHORT).show();
         }
 
         db.addChildEventListener(new ChildEventListener() {
@@ -162,8 +163,9 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 dialog.show();
                 TextView workoutPlanDisplay = dialog.findViewById(R.id.workoutPlanDisplay);
                 String workoutPlanString = "Workout Plans: ";
-                if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
-                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
+                if (AddWorkoutCommunity.getReturnList() != null && !AddWorkoutCommunity.
+                        getReturnList().isEmpty()) {
+                    for (WorkoutPlan plan : AddWorkoutCommunity.getReturnList()) {
                         workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
                     }
                 }
@@ -195,8 +197,9 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 String month = monthInput.getText().toString();
                 String day = dayInput.getText().toString();
 
-                if (TextUtils.isEmpty(challengeName) || TextUtils.isEmpty(description) || TextUtils.isEmpty(year)
-                        || TextUtils.isEmpty(month) || TextUtils.isEmpty(day)) {
+                if (TextUtils.isEmpty(challengeName) || TextUtils.isEmpty(description)
+                        || TextUtils.isEmpty(year) || TextUtils.isEmpty(month)
+                        || TextUtils.isEmpty(day)) {
                     Toast.makeText(CommunityScreen.this,
                             "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
                     return;
@@ -211,12 +214,15 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     dayInt = Integer.parseInt(day);
                 } catch (NumberFormatException e) {
                     Toast.makeText(CommunityScreen.this,
-                            "Please ensure that no non-number characters are in date fields", Toast.LENGTH_SHORT).show();
+                            "Please ensure that no non-number characters are in date fields",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (AddWorkoutCommunity.returnList == null || AddWorkoutCommunity.returnList.isEmpty()) {
-                    Toast.makeText(CommunityScreen.this, "Please add at least one workout plan", Toast.LENGTH_SHORT).show();
+                if (AddWorkoutCommunity.getReturnList() == null
+                        || AddWorkoutCommunity.getReturnList().isEmpty()) {
+                    Toast.makeText(CommunityScreen.this, "Please add at least one workout plan",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -225,11 +231,12 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 String userId = currentUser.getUid();
 
                 CommunityChallenge challenge = new CommunityChallenge(userId, challengeName,
-                        new ArrayList<WorkoutPlan>(AddWorkoutCommunity.returnList), dayInt, monthInt, yearInt);
+                        new ArrayList<WorkoutPlan>(AddWorkoutCommunity.getReturnList()), dayInt,
+                        monthInt, yearInt);
 
                 communityViewModel.addChallenge(challenge);
 
-                AddWorkoutCommunity.returnList.clear();
+                AddWorkoutCommunity.getReturnList().clear();
 
                 challengeNameInput.setText("");
                 descriptionInput.setText("");
