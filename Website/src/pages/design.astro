@@ -5,9 +5,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 <BaseLayout title="Design & Architecture" description="Video Showcase of the App">
   <div class="mt-8 px-8 text-center">
     <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl mb-8">Design & Architecture</h1>
-    <div class="flex justify-center">
-        Text goes here
-
-      </div>
+  </div>
+  <div class="mt-8 px-8 text-left flex justify-center">
+    <div class="max-w-2xl">
+      <p class="mb-4">
+        Based on the nature of the HealthTrack app, which desires only one instance of each database to exist throughout the application’s life cycle, our group has chosen to follow the Singleton design pattern to implement our existing databases necessary for our application.
+      </p>
+      <p class="mb-4">
+        By abiding to this design pattern, as well as GRASP principles, we ensure that issues that could arise from having multiple instances, such as data inconsistency, race conditions, and unnecessary memory usage will be prevented and maintain data integrity and efficiency of the database operations throughout the application.
+      </p>
+      <p class="mb-4">
+        On top of that, our group also added Strategy Design later on in our development phase in order to abstract the sorting process and allow for the addition of more possible sorting methods using the strategy design pattern. With it, our application now has a refresh sorting strategy and name sorting strategy that allows for a cleaner code and easier update.
+      </p>
+    </div>
   </div>
 </BaseLayout>
