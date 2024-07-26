@@ -20,7 +20,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for null values
         if (userId == null || workoutPlan == null) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null);
             }
             return; // Exit the method early if any parameter is null
         }
@@ -28,7 +29,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for zero or negative calories
         if (workoutPlan.getCaloriesPerSet() == null || workoutPlan.getCaloriesPerSet() <= 0) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null); // Use a relevant error code
             }
             return;
         }
@@ -36,7 +38,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for empty workout plan name
         if (workoutPlan.getName() == null || workoutPlan.getName().trim().isEmpty()) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null);
             }
             return;
         }
@@ -44,7 +47,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for empty notes
         if (workoutPlan.getNotes() == null || workoutPlan.getNotes().trim().isEmpty()) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null); // Use a relevant error code
             }
             return;
         }
@@ -52,7 +56,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for invalid reps
         if (workoutPlan.getRepsPerSet() < 0) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null);
             }
             return;
         }
@@ -60,7 +65,8 @@ public class WorkoutPlanDatabaseRepository {
         // Check for negative sets
         if (workoutPlan.getSets() < 0) {
             if (completionListener != null) {
-                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+                completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR),
+                        null);
             }
             return;
         }
@@ -68,33 +74,37 @@ public class WorkoutPlanDatabaseRepository {
         DatabaseReference userRef = db.child(userId);
 
         // Check for duplicates
-        userRef.orderByChild("name").equalTo(workoutPlan.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Duplicate found
-                    if (completionListener != null) {
-                        completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null); // Use a relevant error code
-                    }
-                } else {
-                    String workoutPlanId = userRef.push().getKey();
-                    if (workoutPlanId != null) {
-                        userRef.child(workoutPlanId).setValue(workoutPlan, completionListener);
-                    } else {
-                        if (completionListener != null) {
-                            completionListener.onComplete(DatabaseError.fromCode(DatabaseError.UNKNOWN_ERROR), null);
+        userRef.orderByChild("name").equalTo(workoutPlan.getName()).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // Duplicate found
+                            if (completionListener != null) {
+                                completionListener.onComplete(DatabaseError.fromCode(
+                                        DatabaseError.UNKNOWN_ERROR), null);
+                            }
+                        } else {
+                            String workoutPlanId = userRef.push().getKey();
+                            if (workoutPlanId != null) {
+                                userRef.child(workoutPlanId).setValue(workoutPlan,
+                                        completionListener);
+                            } else {
+                                if (completionListener != null) {
+                                    completionListener.onComplete(DatabaseError.fromCode(
+                                            DatabaseError.UNKNOWN_ERROR), null);
+                                }
+                            }
                         }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                if (completionListener != null) {
-                    completionListener.onComplete(databaseError, null);
-                }
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        if (completionListener != null) {
+                            completionListener.onComplete(databaseError, null);
+                        }
+                    }
+                });
     }
 
     //Note: Gets USER SPECIFIC workouts
@@ -104,8 +114,10 @@ public class WorkoutPlanDatabaseRepository {
 
     // used for test case
     public void getWorkoutPlan(String userId, String planName, ValueEventListener listener) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-        userRef.child("workoutPlans").orderByChild("name").equalTo(planName).addListenerForSingleValueEvent(listener);
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").
+                child(userId);
+        userRef.child("workoutPlans").orderByChild("name").equalTo(planName).
+                addListenerForSingleValueEvent(listener);
     }
 
 }

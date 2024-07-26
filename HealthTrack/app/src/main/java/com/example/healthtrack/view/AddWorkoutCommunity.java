@@ -3,8 +3,6 @@ package com.example.healthtrack.view;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +12,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.healthtrack.model.NameSortStrategy;
-import com.example.healthtrack.model.Observer;
 import com.example.healthtrack.model.RefreshSortStrategy;
 import com.example.healthtrack.model.SortingStrategy;
-import com.example.healthtrack.model.WorkoutDatabaseRepository;
 import com.example.healthtrack.model.WorkoutPlan;
 
 import androidx.activity.EdgeToEdge;
@@ -30,11 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
-import com.example.healthtrack.model.Workout;
-import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.WorkoutPlanViewModel;
-import com.example.healthtrack.viewModel.WorkoutViewModel;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -42,11 +34,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class AddWorkoutCommunity extends AppCompatActivity {
@@ -56,7 +45,7 @@ public class AddWorkoutCommunity extends AppCompatActivity {
     private DatabaseReference database;
     private ArrayList<WorkoutPlan> planList;
     private ArrayList<WorkoutPlan> unfilteredList;
-    public static ArrayList<WorkoutPlan> returnList;
+    private static ArrayList<WorkoutPlan> returnList;
     private WorkoutPlanViewModel workoutPlanViewModel;
     private SearchView searchBar;
     private SortingStrategy search = new NameSortStrategy();
@@ -80,7 +69,8 @@ public class AddWorkoutCommunity extends AppCompatActivity {
         planList = new ArrayList<>();
         unfilteredList = new ArrayList<>();
         returnList = new ArrayList<>();
-        CommunityWorkoutAdapter communityWorkoutAdapter = new CommunityWorkoutAdapter(this, planList, returnList);
+        CommunityWorkoutAdapter communityWorkoutAdapter = new CommunityWorkoutAdapter(this,
+                planList, returnList);
         recyclerView.setAdapter(communityWorkoutAdapter);
         searchBar = findViewById(R.id.searchView);
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,11 +87,13 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                     newSearch.setName(newText);
                     search = newSearch;
                     planList = searchList(unfilteredList);
-                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                            planList, returnList));
                     return true;
                 } else {
                     planList = refreshList(unfilteredList);
-                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                            planList, returnList));
                     return true;
                 }
             }
@@ -109,11 +101,12 @@ public class AddWorkoutCommunity extends AppCompatActivity {
 
         database.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
                 HashMap<String, HashMap<String, Object>> data =
                         (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
                 ArrayList<HashMap<String, Object>> dataList = new ArrayList(data.values());
-                for(int i = 0; i < dataList.size(); i++) {
+                for (int i = 0; i < dataList.size(); i++) {
                     HashMap<String, Object> dataMap = dataList.get(i);
                     String userId = (String) dataMap.get("userId");
                     String name = (String) dataMap.get("name");
@@ -128,16 +121,18 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                             repsPerSet, time, notes);
                     planList.add(plan);
                     unfilteredList.add(plan);
-                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                            planList, returnList));
                 }
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
                 HashMap<String, HashMap<String, Object>> data =
                         (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
                 ArrayList<HashMap<String, Object>> dataList = new ArrayList(data.values());
-                for(int i = 0; i < dataList.size(); i++) {
+                for (int i = 0; i < dataList.size(); i++) {
                     HashMap<String, Object> dataMap = dataList.get(i);
                     String userId = (String) dataMap.get("userId");
                     String name = (String) dataMap.get("name");
@@ -154,29 +149,35 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                         planList.add(plan);
                         unfilteredList.add(plan);
                     }
-                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                    recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                            planList, returnList));
                 }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                        planList, returnList));
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
+                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                        planList, returnList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                        planList, returnList));
             }
         });
 
         dialog = new Dialog(AddWorkoutCommunity.this);
         dialog.setContentView(R.layout.workout_plan_popout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -200,8 +201,9 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                 String time = timeInput.getText().toString();
                 String calories = caloriesInput.getText().toString();
 
-                if (TextUtils.isEmpty(workoutName) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)
-                        || TextUtils.isEmpty(calories) || TextUtils.isEmpty(time)) {
+                if (TextUtils.isEmpty(workoutName) || TextUtils.isEmpty(sets)
+                        || TextUtils.isEmpty(reps) || TextUtils.isEmpty(calories)
+                        || TextUtils.isEmpty(time)) {
                     Toast.makeText(AddWorkoutCommunity.this,
                             "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
                     return;
@@ -216,7 +218,8 @@ public class AddWorkoutCommunity extends AppCompatActivity {
 
                 String userId = currentUser.getUid();
 
-                WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
+                WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt,
+                        repsInt, timeInt, notes);
 
                 if (planList.contains(workoutPlan)) {
                     Toast.makeText(AddWorkoutCommunity.this,
@@ -228,7 +231,8 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                 workoutPlanViewModel.addWorkoutPlan(userId, workoutPlan);
 
                 Toast.makeText(AddWorkoutCommunity.this,
-                        "Plan created; Click the respective item button to add", Toast.LENGTH_SHORT).show();
+                        "Plan created; Click the respective item button to add",
+                        Toast.LENGTH_SHORT).show();
 
                 workoutNameInput.setText("");
                 notesInput.setText("");
@@ -301,7 +305,8 @@ public class AddWorkoutCommunity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 planList = refreshList(unfilteredList);
-                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
+                recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this,
+                        planList, returnList));
             }
         });
     }
@@ -315,5 +320,9 @@ public class AddWorkoutCommunity extends AppCompatActivity {
 
     public ArrayList<WorkoutPlan> searchList(ArrayList<WorkoutPlan> list) {
         return workoutPlanViewModel.filter(search, list);
+    }
+
+    public static ArrayList<WorkoutPlan> getReturnList() {
+        return returnList;
     }
 }
