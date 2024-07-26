@@ -20,4 +20,8 @@ public class ChallengeDatabaseRepository {
             userRef.child(challengeId).setValue(communityChallenge, completionListener);
         }
     }
+
+    public DatabaseReference getDatabaseReference() {
+        return db;
+    }
 }
