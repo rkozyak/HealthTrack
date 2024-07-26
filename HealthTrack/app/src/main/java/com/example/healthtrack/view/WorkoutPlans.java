@@ -160,7 +160,6 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
                     WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
                             repsPerSet, time, notes);
                     planList.add(plan);
-                    System.out.println(plan);
                     unfilteredList.add(plan);
                     recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
                 }

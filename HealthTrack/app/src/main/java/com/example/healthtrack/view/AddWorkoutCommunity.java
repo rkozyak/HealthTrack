@@ -127,7 +127,6 @@ public class AddWorkoutCommunity extends AppCompatActivity {
                     WorkoutPlan plan = new WorkoutPlan(userId, name, calsPerSet, sets,
                             repsPerSet, time, notes);
                     planList.add(plan);
-                    System.out.println(plan);
                     unfilteredList.add(plan);
                     recyclerView.setAdapter(new CommunityWorkoutAdapter(AddWorkoutCommunity.this, planList, returnList));
                 }

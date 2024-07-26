@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
     private Dialog dialog;
@@ -83,7 +84,27 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String workoutId = snapshot.getKey();
-                challengeList.add(workoutId);
+                HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
+                int year = Integer.parseInt(data.get("deadlineYear").toString());
+                int month = Integer.parseInt(data.get("deadlineMonth").toString());
+                int day = Integer.parseInt(data.get("deadlineDay").toString());
+                Calendar calendar = Calendar.getInstance();
+                int calendarDay = calendar.get(Calendar.DATE);
+                int calendarYear = calendar.get(Calendar.YEAR);
+                if (year < 2000) {
+                    calendarYear -= 2000;
+                }
+                int calendarMonth = calendar.get(Calendar.MONTH) + 1;
+                System.out.println(calendarYear + "vs" + year);
+                System.out.println(calendarMonth + "vs" + month);
+                System.out.println(calendarDay + "vs" + day);
+                if (year < calendarYear || (year == calendarYear && month < calendarMonth)
+                        || (year == calendarYear && month == calendarMonth && day < calendarDay)) {
+                    snapshot.getRef().removeValue();
+                    challengeList.remove(workoutId);
+                } else {
+                    challengeList.add(workoutId);
+                }
                 recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
             }
 
@@ -162,11 +183,11 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 dialog.show();
                 TextView workoutPlanDisplay = dialog.findViewById(R.id.workoutPlanDisplay);
                 String workoutPlanString = "Workout Plans: ";
-                if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
-                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
-                        workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
-                    }
-                }
+//                if (AddWorkoutCommunity.returnList != null && !AddWorkoutCommunity.returnList.isEmpty()) {
+//                    for (WorkoutPlan plan : AddWorkoutCommunity.returnList) {
+//                        workoutPlanString = String.join(", ", workoutPlanString, plan.getName());
+//                    }
+//                }
                 workoutPlanDisplay.setText(workoutPlanString);
             }
         });
