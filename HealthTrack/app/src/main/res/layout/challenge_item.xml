@@ -8,35 +8,35 @@
     app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="410dp"
+        android:layout_height="121dp">
 
-    <TextView
-        android:id="@+id/challengeName"
-        android:fontFamily="@font/federo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="WORKOUT PLAN"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/challengeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/federo"
+            android:text="WORKOUT PLAN"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/challengeUser"
-        android:fontFamily="@font/darker_grotesque_semibold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Author"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/challengeName"
-        app:layout_constraintStart_toStartOf="@id/challengeName"
-        app:layout_constraintTop_toBottomOf="@id/challengeName" />
+        <TextView
+            android:id="@+id/challengeUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:hint="Author"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/challengeName"
+            app:layout_constraintStart_toStartOf="@id/challengeName"
+            app:layout_constraintTop_toBottomOf="@id/challengeName" />
 
         <TextView
             android:id="@+id/challengeId"

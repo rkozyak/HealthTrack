@@ -50,6 +50,7 @@
         android:textSize="15sp"
         android:text="nameView"
         app:layout_constraintTop_toBottomOf="@+id/challenger"
+        android:fontFamily="@font/federo"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -68,6 +69,7 @@
         android:textSize="15sp"
         android:text="deadlineView"
         app:layout_constraintTop_toBottomOf="@id/deadline"
+        android:fontFamily="@font/federo"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -76,7 +78,9 @@
         android:id="@+id/desc_workouts"
         android:textSize="20sp"
         android:text="Description and Workouts"
+
         app:layout_constraintTop_toBottomOf="@id/deadlineView"
+        android:fontFamily="@font/federo"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -105,6 +109,7 @@
         android:id="@+id/Participants"
         android:textSize="20sp"
         android:text="Participants"
+
         app:layout_constraintTop_toBottomOf="@id/planList"
         app:layout_constraintStart_toStartOf="parent"/>
 
