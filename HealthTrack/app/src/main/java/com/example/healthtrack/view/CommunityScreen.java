@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
+    // instance variables
     private Dialog dialog;
     private Dialog dialog2;
     private Button btnDialogAdd;
