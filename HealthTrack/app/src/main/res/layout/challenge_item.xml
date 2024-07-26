@@ -38,6 +38,20 @@
             app:layout_constraintStart_toStartOf="@id/challengeName"
             app:layout_constraintTop_toBottomOf="@id/challengeName" />
 
+        <TextView
+            android:id="@+id/challengeId"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Author"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/challengeUser"
+            app:layout_constraintStart_toStartOf="@id/challengeUser"
+            app:layout_constraintTop_toBottomOf="@id/challengeUser" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

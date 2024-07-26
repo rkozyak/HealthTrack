@@ -12,4 +12,9 @@ public class RefreshSortStrategy implements SortingStrategy {
         Collections.shuffle(list);
         return list;
     }
+
+    public ArrayList<String> challengeSort(ArrayList<String> list) {
+        Collections.shuffle(list);
+        return list;
+    }
 }

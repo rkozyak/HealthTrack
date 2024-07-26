@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CommunityChallenge {
     private List<Observer> observers = new ArrayList<>();
+    private String notes;
     private String challengeStatus;
     private String userId;
     private String name;
@@ -18,13 +19,14 @@ public class CommunityChallenge {
     }
 
     public CommunityChallenge(String userId, String name, ArrayList<WorkoutPlan> workoutPlans,
-                              int deadlineDay, int deadlineMonth, int deadlineYear) {
+                              int deadlineDay, int deadlineMonth, int deadlineYear, String notes) {
         this.userId = userId;
         this.name = name;
         this.workoutPlans = workoutPlans;
         this.deadlineDay = deadlineDay;
         this.deadlineMonth = deadlineMonth;
         this.deadlineYear = deadlineYear;
+        this.notes = notes;
         participants = new ArrayList<String>();
     }
 
@@ -59,6 +61,8 @@ public class CommunityChallenge {
     public void addParticipant(String userId) {
         participants.add(userId);
     }
+
+    public String getNotes() { return notes; }
         
     public void addObserver(Observer observer) {
         observers.add(observer);
@@ -77,9 +81,5 @@ public class CommunityChallenge {
     public void setChallengeStatus(String status) {
         this.challengeStatus = status;
         notifyObservers();
-    }
-
-    public String getChallengeName() {
-        return name;
     }
 }

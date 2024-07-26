@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +27,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthtrack.R;
 import com.example.healthtrack.model.ChallengeDatabase;
 import com.example.healthtrack.model.CommunityChallenge;
+import com.example.healthtrack.model.NameSortStrategy;
 import com.example.healthtrack.model.Observer;
+import com.example.healthtrack.model.RefreshSortStrategy;
+import com.example.healthtrack.model.SortingStrategy;
 import com.example.healthtrack.model.WorkoutPlan;
 import com.example.healthtrack.viewModel.CommunityViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,11 +39,14 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class CommunityScreen extends AppCompatActivity implements Observer {
     private Dialog dialog;
@@ -51,21 +58,29 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
     private DatabaseReference db;
     private RecyclerView recyclerView;
     private ArrayList<String> challengeList;
+    private ArrayList<String> unfilteredList;
+    private SearchView searchBar;
+    private SortingStrategy search = new NameSortStrategy();
+    private String lastQuery = "";
+    private ArrayList<String> nameList;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_community_screen);
 
+        nameList = new ArrayList<>();
         recyclerView = findViewById(R.id.challengeList);
         challengeList = new ArrayList<>();
-        recyclerView.setHasFixedSize(true);
+        unfilteredList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CommunityChallengeAdapter adapter = new CommunityChallengeAdapter(this, challengeList);
         recyclerView.setAdapter(adapter);
         communityViewModel = new ViewModelProvider(this).get(CommunityViewModel.class);
         db = ChallengeDatabase.getInstance().getDatabaseReference();
         mAuth = FirebaseAuth.getInstance();
+        setupSearchBar();
         dialog = new Dialog(CommunityScreen.this);
         dialog.setContentView(R.layout.add_challenge_popout);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -95,23 +110,28 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     calendarYear -= 2000;
                 }
                 int calendarMonth = calendar.get(Calendar.MONTH) + 1;
-                System.out.println(calendarYear + "vs" + year);
-                System.out.println(calendarMonth + "vs" + month);
-                System.out.println(calendarDay + "vs" + day);
                 if (year < calendarYear || (year == calendarYear && month < calendarMonth)
                         || (year == calendarYear && month == calendarMonth && day < calendarDay)) {
                     snapshot.getRef().removeValue();
                     challengeList.remove(workoutId);
+                    unfilteredList.remove(workoutId);
                 } else {
                     challengeList.add(workoutId);
+                    unfilteredList.add(workoutId);
                 }
+                nameList.add(data.get("name").toString());
                 recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String workoutId = snapshot.getKey();
+                HashMap<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
+                nameList.add(data.get("name").toString());
+                challengeList.clear();
+                unfilteredList.clear();
                 challengeList.add(workoutId);
+                unfilteredList.add(workoutId);
                 recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
             }
 
@@ -251,7 +271,7 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
 
                 CommunityChallenge challenge = new CommunityChallenge(userId, challengeName,
                         new ArrayList<WorkoutPlan>(AddWorkoutCommunity.getReturnList()), dayInt,
-                        monthInt, yearInt);
+                        monthInt, yearInt, description);
 
                 communityViewModel.addChallenge(challenge);
 
@@ -266,12 +286,61 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                 dialog.dismiss();
             }
         });
+
     }
+
+
 
 
     @Override
     public void update(String message) {
         // Update UI components with the new status
         System.out.println("CommunityScreen updated with message: " + message);
+    }
+
+    private void setupSearchBar() {
+        searchBar = findViewById(R.id.searchView);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                handleSearchQueryChange(newText);
+                return true;
+            }
+        });
+    }
+
+    private void handleSearchQueryChange(String newText) {
+        if (!newText.isEmpty()) {
+            lastQuery = newText;
+            NameSortStrategy newSearch = new NameSortStrategy();
+            newSearch.setName(newText);
+            search = newSearch;
+            String name = newText;
+            ArrayList<String> tempList = new ArrayList<>();
+
+            for (int i = 0; i < unfilteredList.size(); i++) {
+                if (nameList.get(i).contains(name)) {
+                    System.out.println(nameList.get(i));
+                    System.out.println(unfilteredList.get(i));
+                    tempList.add(unfilteredList.get(i));
+                }
+            }
+
+            challengeList = tempList;
+        } else {
+            ArrayList<String> tempList = new ArrayList<>(unfilteredList);
+            challengeList = refreshList(tempList);
+        }
+        recyclerView.setAdapter(new CommunityChallengeAdapter(this, challengeList));
+    }
+
+    public ArrayList<String> refreshList(ArrayList<String> list) {
+        SortingStrategy refresh = new RefreshSortStrategy();
+        return communityViewModel.filter(refresh, list);
     }
 }

@@ -130,7 +130,7 @@ public class Sprint4Tests {
     public void testAddChallenge() throws InterruptedException {
         ArrayList<WorkoutPlan> workoutPlans = new ArrayList<>();
         workoutPlans.add(new WorkoutPlan("1", "Test Workout Plan", 100, 3, 10, 30, "Test Notes"));
-        CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024);
+        CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024, "notes");
         CountDownLatch latch = new CountDownLatch(1);
         DatabaseReference.CompletionListener listener = (error, ref) -> {
             assertNotNull(ref);
@@ -144,7 +144,7 @@ public class Sprint4Tests {
     public void testAddChallengeInvalidInfo() throws InterruptedException {
         ArrayList<WorkoutPlan> workoutPlans = new ArrayList<>();
         workoutPlans.add(new WorkoutPlan("1", "Test Workout Plan", 100, 3, 10, 30, "Test Notes"));
-        CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024);
+        CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024, "notes");
         CountDownLatch latch = new CountDownLatch(1);
         DatabaseReference.CompletionListener listener = (error, ref) -> {
             assertNotNull(ref);

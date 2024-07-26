@@ -1,5 +1,8 @@
 package com.example.healthtrack.view;
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +48,24 @@ public class CommunityChallengeAdapter extends RecyclerView.Adapter<CommunityCha
     @Override
     public CommunityChallengeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.challenge_item, parent, false);
+
+        CommunityChallengeAdapter.MyViewHolder myViewHolder = new CommunityChallengeAdapter.MyViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChallengeDetails.class);
+                intent.putExtra("challengeId", myViewHolder.challengeId.getText());
+                context.startActivity(intent);
+            }
+        });
+
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CommunityChallengeAdapter.MyViewHolder holder, int position) {
-        String challengeID = list.get(position);
-        DatabaseReference database = ChallengeDatabase.getInstance().getDatabaseReference().child(challengeID);
+        String challengeId = list.get(position);
+        DatabaseReference database = ChallengeDatabase.getInstance().getDatabaseReference().child(challengeId);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -65,6 +79,7 @@ public class CommunityChallengeAdapter extends RecyclerView.Adapter<CommunityCha
 
             }
         });
+        holder.challengeId.setText(challengeId);
     }
 
     @Override
@@ -75,12 +90,14 @@ public class CommunityChallengeAdapter extends RecyclerView.Adapter<CommunityCha
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView userID;
         private TextView challengeName;
+        private TextView challengeId;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             userID = itemView.findViewById(R.id.challengeUser);
             challengeName = itemView.findViewById(R.id.challengeName);
+            challengeId = itemView.findViewById(R.id.challengeId);
         }
     }
 }

@@ -7,4 +7,8 @@ public class SortingContext {
                                                 ArrayList<WorkoutPlan> list) {
         return strategy.sort(list);
     }
+
+    public static ArrayList<String> challengeFilter(SortingStrategy strategy, ArrayList<String> list) {
+        return strategy.challengeSort(list);
+    }
 }

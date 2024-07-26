@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,15 +10,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="@drawable/foreground_white"
-        android:scaleType="center" />
+        android:scaleType="center"
+        tools:layout_editor_absoluteX="-9dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/federo"
+        android:textColor="@color/black"
+        android:text="Challenge Details"
+        android:textAlignment="center"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginBottom="32dp"
+        app:layout_constraintHorizontal_bias="0.5" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/challenger_name"
-        android:textSize="35sp"
+        android:id="@+id/challenger"
+        android:textSize="20sp"
         android:text="Challenger "
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameView"
+        android:textSize="15sp"
+        android:text="nameView"
+        app:layout_constraintTop_toBottomOf="@+id/challenger"
         android:fontFamily="@font/federo"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -25,31 +57,215 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/deadline"
-        android:textSize="35sp"
+        android:textSize="20sp"
         android:text="Deadline "
+        app:layout_constraintTop_toBottomOf="@id/nameView"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deadlineView"
+        android:textSize="15sp"
+        android:text="deadlineView"
+        app:layout_constraintTop_toBottomOf="@id/deadline"
         android:fontFamily="@font/federo"
-        app:layout_constraintTop_toBottomOf="@id/challenger_name"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/desc_workouts"
-        android:textSize="35sp"
+        android:textSize="20sp"
         android:text="Description and Workouts"
+
+        app:layout_constraintTop_toBottomOf="@id/deadlineView"
         android:fontFamily="@font/federo"
-        app:layout_constraintTop_toBottomOf="@id/deadline"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Participants"
-        android:textSize="35sp"
-        android:text="Participants"
-        android:fontFamily="@font/federo"
+        android:id="@+id/descView"
+        android:textSize="15sp"
+        android:text="descView"
         app:layout_constraintTop_toBottomOf="@id/desc_workouts"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/planList"
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Participants"
+        android:textSize="20sp"
+        android:text="Participants"
+
+        app:layout_constraintTop_toBottomOf="@id/planList"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/participantList"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Participants" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Completed"
+        android:textSize="20sp"
+        android:text="Completed"
+        app:layout_constraintTop_toBottomOf="@id/participantList"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/completedList"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Completed" />
+
+    <Button
+        android:id="@+id/addChallengeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="ADD CHALLENGE"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completedList"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/completeChallengeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:padding="14dp"
+        android:text="COMPLETE CHALLENGE"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addChallengeButton"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_community_back"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:text="BACK"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/trackerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/caloriesButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="CALORIES"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/trackerButton"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/trackerButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="TRACKER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/workoutsButton"
+        app:layout_constraintStart_toEndOf="@+id/caloriesButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/workoutsButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="WORKOUT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@+id/communityButton"
+        app:layout_constraintStart_toEndOf="@+id/trackerButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/communityButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/darker_grotesque_semibold"
+        android:background="@color/black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="COMMUNITY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/workoutsButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
