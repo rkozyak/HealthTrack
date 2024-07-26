@@ -114,7 +114,8 @@ public class CalorieTracking extends AppCompatActivity {
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 entries.add(new PieEntry(totalCaloriesBurnt, "Calories Burnt"));
 
-                entries.add(new PieEntry((int) totalCaloriesGoal - totalCaloriesBurnt, "Calories to Burn"));
+                entries.add(new PieEntry((int) totalCaloriesGoal - totalCaloriesBurnt,
+                        "Calories to Burn"));
 
                 PieDataSet pieDataSet = new PieDataSet(entries, "Key");
                 pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);

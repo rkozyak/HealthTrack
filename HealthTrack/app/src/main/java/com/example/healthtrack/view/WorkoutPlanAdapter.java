@@ -27,7 +27,8 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
     private ArrayList<WorkoutPlan> list;
     private ArrayList<String> nameList;
 
-    public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list, ArrayList<String> nameList) {
+    public WorkoutPlanAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list,
+                              ArrayList<String> nameList) {
         this.context = context;
         this.list = list;
         this.nameList = nameList;
@@ -35,20 +36,23 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
 
     @NonNull
     @Override
-    public WorkoutPlanAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkoutPlanAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                              int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.workout_plan_item, parent, false);
         WorkoutPlanAdapter.MyViewHolder myViewHolder = new MyViewHolder(v);
         if (!myViewHolder.logged.getText().toString().equals("Logged")) {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    View popupView = LayoutInflater.from(v.getContext()).inflate(R.layout.workout_plan_item, null);
+                    View popupView = LayoutInflater.from(v.getContext()).
+                            inflate(R.layout.workout_plan_item, null);
 
                     // Create the PopupWindow
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     boolean focusable = true; // Lets taps outside the popup also dismiss it
-                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height,
+                            focusable);
 
                     // Show the popup window
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);

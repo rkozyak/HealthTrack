@@ -83,7 +83,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
         recyclerView = findViewById(R.id.planList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        WorkoutPlanAdapter workoutPlanAdapter = new WorkoutPlanAdapter(this, planList, workoutNameArrayList);
+        WorkoutPlanAdapter workoutPlanAdapter = new WorkoutPlanAdapter(this, planList,
+                workoutNameArrayList);
         recyclerView.setAdapter(workoutPlanAdapter);
     }
 
@@ -113,7 +114,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
         } else {
             planList = refreshList(unfilteredList);
         }
-        recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+        recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                workoutNameArrayList));
     }
 
     private void setupChildEventListeners() {
@@ -124,14 +126,16 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
     private void setupWorkoutDatabaseListener() {
         workoutDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
                 HashMap<String, Object> workoutData = (HashMap<String, Object>) snapshot.getValue();
                 String name = (String) workoutData.get("name");
                 workoutNameArrayList.add(name);
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
 
             }
 
@@ -141,7 +145,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
 
             }
 
@@ -155,34 +160,41 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
     private void setupDatabaseListener() {
         database.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
                 handleDatabaseChildEvent(snapshot);
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot,
+                                       @Nullable String previousChildName) {
                 handleDatabaseChildEvent(snapshot);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                        workoutNameArrayList));
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+            public void onChildMoved(@NonNull DataSnapshot snapshot,
+                                     @Nullable String previousChildName) {
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                        workoutNameArrayList));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                        workoutNameArrayList));
             }
         });
     }
 
     private void handleDatabaseChildEvent(@NonNull DataSnapshot snapshot) {
-        HashMap<String, HashMap<String, Object>> data = (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
+        HashMap<String, HashMap<String, Object>> data =
+                (HashMap<String, HashMap<String, Object>>) snapshot.getValue();
         ArrayList<HashMap<String, Object>> dataList = new ArrayList<>(data.values());
         for (HashMap<String, Object> dataMap : dataList) {
             WorkoutPlan plan = createWorkoutPlanFromDataMap(dataMap);
@@ -190,7 +202,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
                 planList.add(plan);
                 unfilteredList.add(plan);
             }
-            recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+            recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                    workoutNameArrayList));
         }
     }
 
@@ -209,7 +222,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
     private void setupDialog() {
         dialog = new Dialog(WorkoutPlans.this);
         dialog.setContentView(R.layout.workout_plan_popout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_bg));
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(true);
@@ -240,29 +254,36 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
 
         if (areInputsValid(workoutName, sets, reps, calories, time)) {
             createAndSaveWorkoutPlan(workoutName, notes, sets, reps, time, calories);
-            clearDialogInputs(workoutNameInput, notesInput, setsInput, repsInput, timeInput, caloriesInput);
+            clearDialogInputs(workoutNameInput, notesInput, setsInput, repsInput, timeInput,
+                    caloriesInput);
             dialog.dismiss();
         } else {
-            Toast.makeText(WorkoutPlans.this, "Please fill in all necessary fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WorkoutPlans.this, "Please fill in all necessary fields",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
-    private boolean areInputsValid(String workoutName, String sets, String reps, String calories, String time) {
-        return !TextUtils.isEmpty(workoutName) && !TextUtils.isEmpty(sets) && !TextUtils.isEmpty(reps)
-                && !TextUtils.isEmpty(calories) && !TextUtils.isEmpty(time);
+    private boolean areInputsValid(String workoutName, String sets, String reps, String calories,
+                                   String time) {
+        return !TextUtils.isEmpty(workoutName) && !TextUtils.isEmpty(sets)
+                && !TextUtils.isEmpty(reps) && !TextUtils.isEmpty(calories)
+                && !TextUtils.isEmpty(time);
     }
 
-    private void createAndSaveWorkoutPlan(String workoutName, String notes, String sets, String reps, String time, String calories) {
+    private void createAndSaveWorkoutPlan(String workoutName, String notes, String sets,
+                                          String reps, String time, String calories) {
         int setsInt = Integer.parseInt(sets);
         int repsInt = Integer.parseInt(reps);
         int calsInt = Integer.parseInt(calories);
         int timeInt = Integer.parseInt(time);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String userId = currentUser.getUid();
-        WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt, timeInt, notes);
+        WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutName, calsInt, setsInt, repsInt,
+                timeInt, notes);
 
         if (planList.contains(workoutPlan)) {
-            Toast.makeText(WorkoutPlans.this, "Duplicate plans not allowed", Toast.LENGTH_LONG).show();
+            Toast.makeText(WorkoutPlans.this, "Duplicate plans not allowed",
+                    Toast.LENGTH_LONG).show();
         } else {
             workoutPlanViewModel.addWorkoutPlan(userId, workoutPlan);
         }
@@ -327,7 +348,8 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
             @Override
             public void onClick(View v) {
                 planList = refreshList(unfilteredList);
-                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList, workoutNameArrayList));
+                recyclerView.setAdapter(new WorkoutPlanAdapter(WorkoutPlans.this, planList,
+                        workoutNameArrayList));
             }
         });
     }
@@ -340,3 +362,10 @@ public class WorkoutPlans extends AppCompatActivity implements Observer {
     public ArrayList<WorkoutPlan> searchList(ArrayList<WorkoutPlan> list) {
         return workoutPlanViewModel.filter(search, list);
     }
+
+    @Override
+    public void update(String message) {
+        // Update UI components with the new status
+        System.out.println("WorkoutPlans updated with message: " + message);
+    }
+}

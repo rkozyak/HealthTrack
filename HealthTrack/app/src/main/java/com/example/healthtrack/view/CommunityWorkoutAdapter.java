@@ -1,36 +1,30 @@
 package com.example.healthtrack.view;
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthtrack.R;
-import com.example.healthtrack.model.Workout;
 import com.example.healthtrack.model.WorkoutPlan;
-import com.example.healthtrack.viewModel.WorkoutViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class CommunityWorkoutAdapter extends RecyclerView.Adapter<CommunityWorkoutAdapter.MyViewHolder> {
+public class CommunityWorkoutAdapter
+        extends RecyclerView.Adapter<CommunityWorkoutAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<WorkoutPlan> list;
     private ArrayList<WorkoutPlan> returnList;
 
-    public CommunityWorkoutAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list, ArrayList<WorkoutPlan> returnList) {
+    public CommunityWorkoutAdapter(@NonNull Context context, ArrayList<WorkoutPlan> list,
+                                   ArrayList<WorkoutPlan> returnList) {
         this.context = context;
         this.list = list;
         this.returnList = returnList;
@@ -38,13 +32,15 @@ public class CommunityWorkoutAdapter extends RecyclerView.Adapter<CommunityWorko
 
     @NonNull
     @Override
-    public CommunityWorkoutAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommunityWorkoutAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                   int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.workout_plan_item, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommunityWorkoutAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommunityWorkoutAdapter.MyViewHolder holder,
+                                 int position) {
         WorkoutPlan plan = list.get(position);
         String added = "Not Added";
         if (returnList.contains(plan)) {
@@ -107,10 +103,10 @@ public class CommunityWorkoutAdapter extends RecyclerView.Adapter<CommunityWorko
                         int repsItem = Integer.parseInt(reps.getText().toString());
                         int timeItem = Integer.parseInt(time.getText().toString());
                         String notesItem = notes.getText().toString();
-                        WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutNameItem, caloriesItem,
-                                setsItem, repsItem, timeItem, notesItem);
+                        WorkoutPlan workoutPlan = new WorkoutPlan(userId, workoutNameItem,
+                                caloriesItem, setsItem, repsItem, timeItem, notesItem);
 
-                        AddWorkoutCommunity.returnList.add(workoutPlan);
+                        AddWorkoutCommunity.getReturnList().add(workoutPlan);
 
                         added.setText("Added");
                     }
