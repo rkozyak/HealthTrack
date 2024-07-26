@@ -70,6 +70,26 @@ public class Sprint4Tests {
     }
 
     @Test
+    public void testUpdateUserInformationWithIncorrectInfo() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        userDatabaseRepository.updateUserInformation("1", "Test User", 180, 75, "Male", (error, ref) -> {
+            assertNotNull(ref);
+            latch.countDown();
+        });
+        latch.await();
+    }
+
+    @Test
+    public void testUpdateUserInformationWithEmptyInfo() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        userDatabaseRepository.updateUserInformation("1", "Test User", 180, 75, "Male", (error, ref) -> {
+            assertNotNull(ref);
+            latch.countDown();
+        });
+        latch.await();
+    }
+
+    @Test
     public void testAddWorkout() throws InterruptedException {
         Workout workout = new Workout("1", "Test Workout", 100, 3, 10, "Test Notes");
         CountDownLatch latch = new CountDownLatch(1);
@@ -82,19 +102,46 @@ public class Sprint4Tests {
     }
 
     @Test
-    public void testAddWorkoutPlan() throws InterruptedException {
-        WorkoutPlan workoutPlan = new WorkoutPlan("1", "Test Workout Plan", 100, 3, 10, 30, "Test Notes");
+    public void testAddWorkoutEmptyData() throws InterruptedException {
+        Workout workout = new Workout("1", "Test Workout", 100, 3, 10, "Test Notes");
         CountDownLatch latch = new CountDownLatch(1);
         DatabaseReference.CompletionListener listener = (error, ref) -> {
             assertNotNull(ref);
             latch.countDown();
         };
-        workoutPlanDatabaseRepository.addWorkoutPlan("1", workoutPlan, listener);
+        workoutDatabaseRepository.addWorkout("1", workout, listener);
         latch.await();
     }
 
     @Test
+    public void testAddWorkoutInvalidData() throws InterruptedException {
+        Workout workout = new Workout("1", "Test Workout", 100, 3, 10, "Test Notes");
+        CountDownLatch latch = new CountDownLatch(1);
+        DatabaseReference.CompletionListener listener = (error, ref) -> {
+            assertNotNull(ref);
+            latch.countDown();
+        };
+        workoutDatabaseRepository.addWorkout("1", workout, listener);
+        latch.await();
+    }
+
+
+    @Test
     public void testAddChallenge() throws InterruptedException {
+        ArrayList<WorkoutPlan> workoutPlans = new ArrayList<>();
+        workoutPlans.add(new WorkoutPlan("1", "Test Workout Plan", 100, 3, 10, 30, "Test Notes"));
+        CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024);
+        CountDownLatch latch = new CountDownLatch(1);
+        DatabaseReference.CompletionListener listener = (error, ref) -> {
+            assertNotNull(ref);
+            latch.countDown();
+        };
+        challengeDatabaseRepository.addChallenge(challenge, listener);
+        latch.await();
+    }
+
+    @Test
+    public void testAddChallengeInvalidInfo() throws InterruptedException {
         ArrayList<WorkoutPlan> workoutPlans = new ArrayList<>();
         workoutPlans.add(new WorkoutPlan("1", "Test Workout Plan", 100, 3, 10, 30, "Test Notes"));
         CommunityChallenge challenge = new CommunityChallenge("1", "Test Challenge", workoutPlans, 31, 12, 2024);
