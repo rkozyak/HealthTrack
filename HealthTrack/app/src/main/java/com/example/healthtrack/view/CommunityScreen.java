@@ -115,11 +115,12 @@ public class CommunityScreen extends AppCompatActivity implements Observer {
                     snapshot.getRef().removeValue();
                     challengeList.remove(workoutId);
                     unfilteredList.remove(workoutId);
+                    nameList.remove(data.get("name").toString());
                 } else {
                     challengeList.add(workoutId);
                     unfilteredList.add(workoutId);
+                    nameList.add(data.get("name").toString());
                 }
-                nameList.add(data.get("name").toString());
                 recyclerView.setAdapter(new CommunityChallengeAdapter(CommunityScreen.this, challengeList));
             }
 
