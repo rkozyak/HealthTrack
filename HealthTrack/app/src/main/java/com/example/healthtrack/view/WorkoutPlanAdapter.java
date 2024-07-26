@@ -34,6 +34,12 @@ public class WorkoutPlanAdapter extends RecyclerView.Adapter<WorkoutPlanAdapter.
         this.nameList = nameList;
     }
 
+    public WorkoutPlanAdapter(Context context, ArrayList<WorkoutPlan> list) {
+        this.context = context;
+        this.list = list;
+        nameList = new ArrayList<>();
+    }
+
     @NonNull
     @Override
     public WorkoutPlanAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
