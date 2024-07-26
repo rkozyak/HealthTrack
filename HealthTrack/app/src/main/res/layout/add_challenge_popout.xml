@@ -12,11 +12,11 @@
 
         <TextView
             android:id="@+id/planTextView"
-            android:fontFamily="@font/federo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="New Challenge"
+            android:fontFamily="@font/federo"
+            android:text="NEW CHALLENGE"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +25,13 @@
 
         <EditText
             android:id="@+id/editChallengeName"
-            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:hint="Challenge name"
+            android:fontFamily="@font/darker_grotesque_semibold"
+            android:hint="Challenge Name"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/planTextView"
             app:layout_constraintStart_toStartOf="@id/planTextView"
@@ -39,11 +39,11 @@
 
         <EditText
             android:id="@+id/description"
-            android:fontFamily="@font/darker_grotesque_semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="@font/darker_grotesque_semibold"
             android:hint="Description"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/editChallengeName"
@@ -61,31 +61,31 @@
 
             <EditText
                 android:id="@+id/year"
-                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:hint="Year"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/month"
-                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:hint="Month"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/day"
-                android:fontFamily="@font/darker_grotesque_semibold"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/darker_grotesque_semibold"
                 android:hint="Day"
                 android:textSize="16sp" />
 
@@ -95,43 +95,42 @@
             android:id="@+id/workoutPlanDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/info"
             app:layout_constraintStart_toStartOf="@id/info"
-            app:layout_constraintTop_toBottomOf="@id/info"/>
+            app:layout_constraintTop_toBottomOf="@id/info" />
 
         <Button
             android:id="@+id/addWorkoutPlan"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/darker_grotesque_semibold"
             android:text="ADD WORKOUT PLANS"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/workoutPlanDisplay"
             app:layout_constraintStart_toStartOf="@id/workoutPlanDisplay"
             app:layout_constraintTop_toBottomOf="@id/workoutPlanDisplay"
-            android:layout_marginBottom="32dp"/>
+            app:layout_constraintWidth_percent="0.75" />
 
         <Button
             android:id="@+id/publishChallenge"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/darker_grotesque_semibold"
             android:text="PUBLISH CHALLENGE"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/addWorkoutPlan"
             app:layout_constraintStart_toStartOf="@id/addWorkoutPlan"
             app:layout_constraintTop_toBottomOf="@id/addWorkoutPlan"
-            android:layout_marginBottom="32dp"/>
-
+            app:layout_constraintWidth_percent="0.75"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
