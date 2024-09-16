@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://rkozyak.github.io/',
-  base: '/CS2340A_Team6/',
+  base: '/HealthTrack/',
   integrations: [
     react(),
     tailwind({
